@@ -57,6 +57,9 @@ Version: 1.0
 	<link rel="stylesheet" href="<?php echo esc_url( get_template_directory_uri() ); ?>/css/owl.carousel.min.css">
 	<link rel="stylesheet" href="<?php echo esc_url( get_template_directory_uri() ); ?>/css/owl.theme.default.min.css">
 	
+	<!-- SWEETALERT -->
+	<link rel="stylesheet" href="<?php echo esc_url( get_template_directory_uri() ); ?>/css/sweetalert.css">
+	<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/sweetalert.min.js"></script>
 	
 	<!-- FANCYBOX -->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css" />
@@ -219,7 +222,7 @@ Version: 1.0
 				<div class="row">
 				  <div class="col-md-12">
 					<div class="title-header-block">
-						<p class="title"><?php echo titlepage(); ?></p>
+						<p class="title"><?php get_title(); ?></p>
 						<?php if($action_image){ ?>
 							<a href="<?php echo $link_action; ?>"><img class="sale-banner" src="<?php echo $action_image; ?>" alt=""></a>
 						<?php } ?>
