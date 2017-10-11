@@ -71,12 +71,17 @@ textarea:focus:-ms-input-placeholder { color:transparent; } /* IE 10+ */
 /*-------------------- start templates -------------------*/
 /*--------------------------------------------------------*/
 
+
 p {
-	margin-bottom: 40px;
+	margin-bottom: 25px;
 	@include fontText ("LoraRegular", 16px, 400, 31px, #292929);
 	
 	&.p-italic {
 		@include fontText ("LoraItalic", 16px, 400, 31px, #690907);
+	}
+
+	&.text-indent {
+		text-indent: 30px;
 	}
 
 	strong {
@@ -124,17 +129,23 @@ p {
 }
 
 .description-h1 {
+	margin-bottom: 0; 
 	padding-bottom: 23px;
 	text-transform: uppercase;
 	letter-spacing: 5px;
 	text-align: center;
 	@include fontText ("MyriadPro-Regular", 12px, 400, 16px, #323232);
+	
+	a {
+		position: relative;
+		@include fontText ("MyriadPro-Regular", 12px, 400, 16px, #323232);
+	}
 }
 
 .h2-title,
 .h3-title {
 	position: relative;
-	padding-bottom: 50px;
+	margin-bottom: 45px;
 	text-transform: uppercase;
 	text-align: center;
 	letter-spacing: 5px;
@@ -143,7 +154,7 @@ p {
 	&::after {
 		content: "";
 		position: absolute;
-		bottom: 32px;
+		bottom: -17px;
 		left: 50%;
 		margin-left: -15px;
 		display: block;
@@ -154,21 +165,20 @@ p {
 }
 
 .title-page {
-	margin-bottom: 30px;
+	margin-bottom: 25px;
 	text-transform: uppercase;
 	@include fontText ("LoraRegular", 30px, 700, 36px, #690907);
 }
 
 .title-italic {
 	position: relative;
-	padding-bottom: 40px;
-	margin-bottom: 0;
+	margin-bottom: 40px;
 	@include fontText ("LoraItalic", 24px, 700, 28px, #690907);
 	
 	&::after {
 		content: "";
 		position: absolute;
-		bottom: 25px;
+		bottom: -13px;
 		left: 0;
 		display: block;
 		height: 1px;
@@ -178,13 +188,13 @@ p {
 }
 
 .title-italic-small {
-	margin-bottom: 15px;
+	margin-bottom: 15px !important;
 	@include fontText ("LoraItalic", 18px, 700, 22px, #690907);
 }
 
 .white-title-underline {
 	position: relative;
-	padding-bottom: 40px;
+	margin-bottom: 40px;
 	text-transform: uppercase;
 	@include fontText ("MyriadPro-Regular", 30px, 400, 40px, #fff);
 	
@@ -200,8 +210,36 @@ p {
 	}
 }
 
+.title-price-room-form {
+	position: relative;
+	padding-bottom: 30px;
+	margin-bottom: 40px;
+	text-transform: uppercase;
+	@include fontText ("MyriadPro-Regular", 30px, 700, 40px, #fff);
+	
+	span {
+		@include fontText ("MyriadPro-Regular", 14px, 400, 18px, #fff);
+		
+		&:first-child {
+			display: block;
+			padding-bottom: 10px;
+		}
+	}
+
+	&::after {
+		content: "";
+		position: absolute;
+		bottom: 1px;
+		left: 0;
+		display: block;
+		height: 1px;
+		width: 99px;
+		background-color: #892422;
+	}
+}
+
 .paragraph-like-title-h2-h3 {
-	padding-bottom: 24px;
+	margin-bottom: 25px;  
 	letter-spacing: 5px;
 	text-transform: uppercase;
 	text-align: center;
@@ -209,7 +247,7 @@ p {
 }
 
 .white-title-first {
-	padding-bottom: 10px;
+	margin-bottom: 6px;
 	letter-spacing: 7px;
 	text-transform: uppercase;
 	text-align: center;
@@ -217,6 +255,7 @@ p {
 }
 
 .white-title-second {
+	margin-bottom: 10px;
 	letter-spacing: 5px;
 	text-transform: uppercase;
 	text-align: center;
@@ -224,7 +263,6 @@ p {
 }
 
 .paragraph-bigger {
-	padding-bottom: 0;
 	margin-bottom: 20px;
 	@include fontText ("LoraRegular", 21px, 400, 31px, #292929);
 }
@@ -235,7 +273,7 @@ p {
 }
 
 .white-paragraph-first {
-	padding-bottom: 15px;
+	margin-bottom: 15px;
 	letter-spacing: 3px;
 	text-transform: uppercase;
 	text-align: center;
@@ -249,20 +287,25 @@ p {
 }
 
 .paragraph-italic {
+	margin-bottom: 25px;
 	text-align: center;
 	@include fontText ("LoraItalic", 20px, 400, 30px, #2c2c2c);
+	
+	&.text-left {
+		text-align: left;
+	}
 }
 
 .paragraph-italic-left-border {
 	position: relative;
 	margin-left: 24px;
-	padding-left: 31px;
+	padding-left: 28px;
 	@include fontText ("LoraItalic", 16px, 400, 20px, #690907);
 	
 	&::before {
 		content: "";
 		position: absolute;
-		left: 0px;
+		left: 6px;
 		top: 2px;
 		display: block;
 		width: 1px;
@@ -291,7 +334,7 @@ p {
 
 .button-yellow {
 	display: inline-block;
-	padding: 13px 15px;
+	padding: 10px 15px;
 	border: none;
 	background-color: #f9ad40;
 	text-transform: uppercase;
@@ -317,7 +360,7 @@ p {
 .button-transparent {
 	position: relative;
 	display: inline-block;
-	padding: 13px 15px;
+	padding: 11px 20px;
 	border: 2px solid white;
 	background-color: transparent;
 	text-transform: uppercase;
@@ -358,7 +401,7 @@ p {
 	
 	&:hover {
 		background: #690907;
-		color: #fff;
+		color: #fff !important;
 	}
 
 	&:visited {
@@ -411,7 +454,7 @@ p {
 		float: left;
 
 		&:first-child {
-			margin-right: 30%;
+			margin-right: 28%;
 
 			&::before {
 				content: "\f177";
@@ -425,6 +468,27 @@ p {
 				&:hover {
 					font-size: 16px;
 					font-weight: 400;
+					text-decoration: underline;
+				}
+			}
+		}
+
+		&:last-child {
+			float: right;
+
+			&::after {
+			    content: "\f178";
+			    font-family: FontAwesome;
+			    padding-left: 5px;
+			}
+
+			a {
+				width: auto;
+
+				&:hover {
+					font-size: 16px;
+					font-weight: 400;
+					text-decoration: underline;
 				}
 			}
 		}
@@ -440,6 +504,7 @@ p {
 			&:hover:not(span) {
 				font-size: 24px;
 				font-weight: 700;
+				text-decoration: none;
 			}
 		}
 	}
@@ -448,7 +513,6 @@ p {
 .insta-block {
 	position: relative;
 	min-height: 162px;
-	background: url("../images/insta-bg.jpg");
 	background-size: cover;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -459,13 +523,20 @@ p {
 		margin-left: -236px;
 		top: 50%;
 		margin-top: -25px;
+		z-index: 1;
+		
+		&:hover {
+			color: #FFF !important;
+		}
 	}
 }
 
 .sidebar {
 
 	.title-sidebar {
+		margin-bottom: 30px;
 		text-transform: uppercase;
+		letter-spacing: 1.5px;
 		@include fontText ("LoraRegular", 18px, 700, 22px, #323232);
 	}
 
@@ -487,6 +558,7 @@ p {
 				padding-left: 50px;
 				text-transform: uppercase;
 				text-decoration: none;
+				letter-spacing: 0.5px;
 				@include fontText ("MyriadPro-Regular", 16px, 700, 20px, #323232);
 				-webkit-transition: 0.5s;
 				-moz-transition: 0.5s;
@@ -513,13 +585,95 @@ p {
 					transform: translateX(10px);
 				}
 			}
+
+			ul {
+				padding-top: 17px;
+				
+				li {
+
+					&:last-child {
+						padding-bottom: 0;
+					}
+					
+					a::before {
+						width: 10px;
+						left: 30px;
+					}
+				}
+			}
 		}
 	}
 
 	.form-block {
 		margin-bottom: 25px;
-		padding: 40px;
+		padding: 30px 42px;
 		background-color: #690907;
+		
+		.white-title-underline {
+			margin-bottom: 65px;
+			
+			&::after {
+				bottom: -24px;
+			}
+		}
+
+		&.no-textarea {
+			input[type="tel"] {
+				margin-bottom: 20px;
+			}
+
+			.info {
+		    	margin-bottom: 14px;
+		    }
+		}
+		
+		&.form-block-room {
+			background-repeat: no-repeat;
+			background-size: cover;  
+			background: url("../images/form-block-room-bg.jpg");
+			
+			input[type="text"] {
+				display: block;
+				width: 100%;
+				height: 61px;
+				padding: 10px 25px;
+				margin-bottom: 30px;
+				border: none;
+				background-color: #892422;
+				@include fontText ("MyriadPro-Regular", 18px, 400, 22px, #fff);
+				-webkit-transition: 0.3s;
+				-moz-transition: 0.3s;
+				-ms-transition: 0.3s;
+				-o-transition: 0.3s;
+				transition: 0.3s;
+				
+				&:focus {
+					background-color: #892422;
+				}
+			}
+
+			input[type="submit"] {
+				display: block;
+				width: 160px;
+				height: 40px;
+				border: none;
+				margin-top: 30px;
+				background-color: #f9ad40;
+				text-align: center;
+				text-transform: uppercase;
+				@include fontText ("MyriadPro-Regular", 18px, 400, 41px, #690907);
+				-webkit-transition: 0.3s;
+				-moz-transition: 0.3s;
+				-ms-transition: 0.3s;
+				-o-transition: 0.3s;
+				transition: 0.3s;
+				
+				&:hover {
+					background: #690907;
+					color: #f9ad40;
+				}
+			}
+		}
 		
 		input[type="text"],
 		input[type="mailto"],
@@ -546,8 +700,8 @@ p {
 		textarea {
 			height: 145px;
 			width: 100%;
-			padding: 10px 25px;
-			margin-bottom: 30px;
+			padding: 22px 25px;
+			margin-bottom: 18px;
 			resize: none;
 			border: none;
 			background-color: rgba(255, 255, 255, 0.7);
@@ -559,9 +713,8 @@ p {
 		}
 
 		.info {
-			padding-bottom: 20px;
+			margin-bottom: 25px;
 			@include fontText ("MyriadPro-Regular", 18px, 400, 22px, #fff);
-			margin-bottom: 0;
 		}
 
 		input[type="submit"] {
@@ -569,6 +722,7 @@ p {
 			width: 176px;
 			height: 63px;
 			border: 1px solid white;
+			margin-top: 30px;
 			background: transparent;
 			text-align: center;
 			text-transform: uppercase;
@@ -639,6 +793,131 @@ p {
 	}
 }
 
+.photo-text {
+	overflow: hidden;
+	margin-bottom: 15px;
+
+	img {
+		float: left;
+		margin-right: 30px;
+		margin-bottom: 15px;
+	}
+
+	p:last-child {
+		margin-bottom: 0;
+	}
+}
+
+.text-photo {
+	overflow: hidden;
+	margin-bottom: 15px;
+
+	img {
+		float: right;
+		margin-left: 30px;
+		margin-bottom: 15px;
+	}
+
+	p:last-child {
+		margin-bottom: 0;
+	}
+}
+
+.galery {
+	overflow: hidden;
+	padding-left: 0;
+	padding-bottom: 40px;
+	
+	li {
+		width: 24%;
+		padding-left: 0;
+		float: left;
+		margin-right: 10px;
+		margin-bottom: 10px;
+		padding-bottom: 0;
+		
+		&:nth-child(4n + 4) {
+			margin-right: 0;
+		}
+
+		&::before {
+			display: none;
+		}
+		
+		a {
+			display: block;
+			
+			img {
+				display: block;
+				width: 100%;
+				height: auto;
+			}
+		}
+	}
+}
+
+.list-reviews {
+	padding-bottom: 26px;
+
+	li {
+		overflow: hidden;
+		padding: 20px 0;
+		border-bottom: 1px solid #e7e7e7;
+		
+		&:first-child {
+			padding-top: 0 !important;
+		}
+
+		.photo-block {
+			float: left;
+			width: 160px;
+		}
+
+		.description-block {
+			overflow: hidden;
+
+			.title {
+				padding: 25px 0 20px;
+				margin-bottom: 0px;
+				text-transform: uppercase;
+				@include fontText ("LoraRegular", 20px, 700, 24px, #323232);
+
+				a {
+					float: right;
+					text-transform: none;
+					text-decoration: underline;
+					@include fontText ("LoraRegular", 16px, 400, 24px, #690907);
+
+					&:hover {
+						text-decoration: none;
+					}
+				}
+			}
+
+			p {
+				margin-bottom: 10px;
+				@include fontText ("LoraItalic", 20px, 400, 30px, #2c2c2c);
+			}
+
+			.autor {
+				margin-bottom: 0;
+				@include fontText ("MyriadPro-Regular", 18px, 700, 22px, #323232);
+
+				span {
+					padding-left: 10px;
+					font-style: italic;
+					@include fontText ("MyriadPro-Regular", 18px, 400, 22px, #323232);
+				}
+
+				time {
+					float: right;
+					@include fontText ("MyriadPro-Regular", 18px, 400, 22px, #323232);
+				}
+			}
+		}
+	}
+}
+
 /*----------------------------*/
 /*----- start order-line -----*/
 /*----------------------------*/
@@ -653,7 +932,7 @@ p {
 
 .block-order-line {
 	width: 1140px;
-	margin: 15px auto;
+	margin: 25px auto;
 	overflow: hidden;
 }
 
@@ -913,7 +1192,7 @@ p {
 		.weather {
 			margin-bottom: 0;
 			padding-top: 8px;
-			padding-bottom: 8px;
+			padding-bottom: 5px;
 			letter-spacing: 4.5px;
 			text-transform: uppercase;
 			@include fontText ("MyriadPro-Regular", 14px, 400, 18px, #fff);
@@ -983,7 +1262,7 @@ p {
 
 		.button-yellow {
 			float: right;
-			margin-top: 22px;
+			margin-top: 21px;
 		}
 	}
 
@@ -1350,14 +1629,14 @@ p {
 		text-align: center;
 		
 		p {
-			padding-bottom: 20px;
+			margin-bottom: 20px;
 			letter-spacing: 3px;
 			text-transform: uppercase;
 			@include fontText ("LoraRegular", 16px, 400, 20px, #fff);
 		}
 		
 		.title-slider {
-			padding-bottom: 7px;
+			margin-bottom: 7px;
 			letter-spacing: 7px;
 			text-transform: uppercase;
 			@include fontText ("LoraRegular", 36px, 400, 40px, #fff);
@@ -1403,6 +1682,22 @@ p {
 	&.header-review-2 {
 		background-image: url(../images/bg-reviews-2-header.jpg);
 	}
+
+	&.header-rooms {
+		background-image: url(../images/bg-rooms-header.jpg);
+	}
+
+	&.header-services {
+		background-image: url(../images/bg-services-header.jpg);
+	}
+
+	&.header-standart {
+		background-image: url(../images/bg-standart-header.jpg);
+	}
+
+	&.header-paradiz {
+		background-image: url(../images/bg-paradiz-header.jpg);
+	}
 	
 	.title-header-block {
 		position: relative;
@@ -1413,6 +1708,7 @@ p {
 		.title {
 			margin: auto;
 			text-transform: uppercase;
+			letter-spacing: 7px;
 			@include fontText ("LoraRegular", 36px, 400, 40px, #fff);
 		}
 
@@ -1434,7 +1730,20 @@ p {
 /*-------------------- start main-index ------------------*/
 /*--------------------------------------------------------*/
 
-.main-index {
+.main-paradiz .galery-block {
+	padding-bottom: 0 !important;
+}
+
+.main-index,
+.main-paradiz {
+
+	.main-menu {
+		
+		img {
+			width: 100%;
+			height: auto;
+		}
+	}
 
 	/* welcome-apartments-hersones-block */
 	
@@ -1443,7 +1752,7 @@ p {
 		text-align: center;
 		
 		.paragraph-italic {
-			padding: 0px 70px 23px;
+			padding: 0px 70px 0px;
 		}
 	}
 
@@ -1482,11 +1791,16 @@ p {
 		text-align: center;
 		
 		.paragraph-italic {
-			padding: 0px 70px 50px;
+			padding: 0px 70px;
 		}
 
 		.big-block-number,
 		.small-block-number {
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+			align-content: center;
+			justify-content: center;
 			position: relative;
 			width: 100%;
 			height: 620px;
@@ -1529,12 +1843,11 @@ p {
 				}
 			}
 
-			.pattern {
-				padding-top: 70px;
-				padding-bottom: 10px;
+			p {
+				width: 100%;
 			}
 
-			.white-paragraph-second {
+			.pattern {
 				padding-bottom: 10px;
 			}
 
@@ -1553,24 +1866,21 @@ p {
 
 		.small-block-number {
 			height: 295px;
-			
-			.pattern {
-				padding-top: 30px;
-			}
 		}
 
 		.button-white {
-			margin-top: 60px;
+			margin-top: 25px;
 		}
 	}
 
 	/* services-block */
 	
 	.services-block {
-		padding: 102px 0 45px;
+		padding: 80px 0 45px;
 
 		.paragraph-italic {
-			padding: 0px 50px 50px;
+			padding: 0px 50px;
+			margin-bottom: 50px;
 		}
 
 		.service-part {
@@ -1603,6 +1913,7 @@ p {
 
 			.title-service {
 				position: absolute;
+				margin-bottom: 0;
 				bottom: 30px;
 				left: 30px;
 				right: 30px;
@@ -1731,7 +2042,7 @@ p {
 		p {
 			text-align: left;
 			padding-right: 110px;
-			padding-bottom: 20px;
+			margin-bottom: 22px;
 		}
 
 		.list-photos-restoraunt {
@@ -1752,14 +2063,14 @@ p {
 	/* why-choose-block */
 	
 	.why-choose-title-block {
-		padding-top: 80px;
+		padding-top: 75px;
 		
 		.h2-title {
-			padding-bottom: 40px;
+			margin-bottom: 40px;
 			font-weight: 700;
 			
 			&::after {
-				bottom: 23px;
+				bottom: -17px;
 			}
 		}
 	}
@@ -1846,7 +2157,7 @@ p {
 	/* galery-block */
 	
 	.galery-block {
-		padding: 80px 0 60px;
+		padding: 87px 0 60px;
 		
 		p {
 			text-align: center;
@@ -2019,7 +2330,7 @@ p {
 		padding: 90px 0 40px;
 		
 		.h2-title {
-			padding-bottom: 50px;
+			margin-bottom: 50px;
 		}
 		
 		.block-photo {
@@ -2031,13 +2342,13 @@ p {
 		}
 		
 		.title-news {
-			padding-bottom: 12px;
+			margin-bottom: 9px;
 			@include fontText ("LoraRegular", 20px, 400, 24px, #690907);
 			text-transform: uppercase;
 		}
 
 		p:not([class]) {
-			padding-bottom: 15px;
+			padding-bottom: 19px;
 			@include fontText ("LoraItalic", 20px, 400, 30px, #2c2c2c);
 			
 			a {
@@ -2078,7 +2389,7 @@ p {
 		.autographed {
 			overflow: hidden;
 			width: 850px;
-			padding: 30px 20px 20px 20px;
+			padding: 25px 37px 20px 37px;
 			background-color: white;
 			margin: 0 auto;
 			
@@ -2090,7 +2401,7 @@ p {
 			
 			.title {
 				padding-top: 30px;
-				padding-bottom: 25px;
+				margin-bottom: 20px;
 				text-transform: uppercase;
 				@include fontText ("LoraRegular", 20px, 400, 24px, #323232);
 			}
@@ -2118,7 +2429,8 @@ p {
 		padding: 80px 0 50px;
 		
 		.h2-title {
-			padding-bottom: 40px;
+			font-size: 23px;
+			margin-bottom: 35px;
 			font-family: "LoraRegular";
 			
 			&::after {
@@ -2160,14 +2472,90 @@ p {
 		.menu {
 			display: block;
 			
+			& > ul {
+				border-top: 1px solid rgba(255, 255, 255, 0.2);
+				border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+				
+				> .sub-menu:nth-child(2) > ul::before {
+					left: 170px;
+				}
+
+				> .sub-menu:nth-child(3) > ul::before {
+					left: 255px;
+				}
+
+				> .sub-menu:nth-child(5) > ul::before {
+					left: 413px;
+				}
+
+				> .sub-menu:nth-child(6) > ul::before {
+					left: 542px;
+				}
+
+				> .sub-menu:nth-child(7) > ul::before {
+					left: 688px;
+				}
+
+				> .sub-menu:nth-child(8) > ul::before {
+					left: 799px;
+				}
+
+				> .sub-menu:nth-child(9) > ul::before {
+					left: 899px;
+				}
+
+				> .sub-menu:nth-child(10) > ul::before {
+					left: 991px;
+				}
+
+				> .sub-menu:nth-child(2) > a::before {
+					right: 11px;
+				}
+
+				> .sub-menu:nth-child(3) > a::before {
+					right: 12px;
+				}
+
+				> .sub-menu:nth-child(5) > a::before {
+					right: 11px;
+				}
+
+				> li:nth-child(6) {
+					width: 175px;
+				}
+
+				> .sub-menu:nth-child(6) > a::before {
+					right: 5px;
+				}
+
+				> .sub-menu:nth-child(7) > a::before {
+					right: 13px;
+				}
+
+				> .sub-menu:nth-child(8) > a::before {
+					right: 11px;
+				}
+
+				> .sub-menu:nth-child(9) > a::before {
+					right: 12px;
+				}
+
+				> .sub-menu:nth-child(10) > a::before {
+					right: 11px;
+				}
+			}
+			
 			ul {
 				position: relative;
 				z-index: 1000;
 				display: table;
 				width: 100%;
 				
+				li:not([class]) a {
+					padding: 12px 0px 10px 0px;
+				}
+				
 				li {
-					position: relative;
 					display: table-cell;
 					
 					&:last-child {
@@ -2181,73 +2569,168 @@ p {
 						text-transform: uppercase;
 						text-decoration: none;
 						text-align: center;
-						@include fontText ("LoraRegular", 12px, 400, 18px, #fff);
+						@include fontText ("LoraRegular", 14px, 700, 18px, #fff);
 						-webkit-transition: 0.3s;
 						-moz-transition: 0.3s;
 						-ms-transition: 0.3s;
 						-o-transition: 0.3s;
 						transition: 0.3s;
 						
-						&:hover {
-							background-color: rgba(105, 9, 7, 0.7);
-						}
-					}
-
-					&.sub-menu > ul li {
-
-						&:first-child a {
-							padding-top: 10px;
-						}
-
-						&:last-child a {
-							padding-bottom: 10px;
+						&.drop-link::before {
+							position: absolute;
+							top: 50%;
+							margin-top: -9px;
+							right: 5px;
+							display: block;
+							width: 10px;
+							height: 18px;
+							content: "\f106";
+		  					font-family: "FontAwesome";
+		  					color: #fff;
 						}
 					}
 				}
 
 				.sub-menu > ul {
+					display: flex;
+					-webkit-flex-wrap: wrap;
+					-ms-flex-wrap: wrap;
+					flex-wrap: wrap;
+					-webkit-flex-direction: row;
+					-ms-flex-direction: row;
+					flex-direction: row;
 					visibility: hidden;
 					opacity: 0; 
 					position: absolute;
 					left: 0;
-					bottom: 40px;
-					width: 250px;
+					bottom: 42px;
+					width: 1140px;
+					height: auto;
+					padding: 24px 20px;
+					z-index: 10;
 					transform: translateY(-10px);
-					-webkit-transition: 0.5s;
-					-moz-transition: 0.5s;
-					-ms-transition: 0.5s;
-					-o-transition: 0.5s;
-					transition: 0.5s;
-					background-color: rgba(105, 9, 7, 0.7);
+					-webkit-transition: 0.3s;
+					-moz-transition: 0.3s;
+					-ms-transition: 0.3s;
+					-o-transition: 0.3s;
+					transition: 0.3s;
+					background-color: rgba(255, 255, 255, 0.9);
+					
+					&::before {
+						position: absolute;
+						bottom: 0;
+						z-index: 1;
+						display: block;
+						width: 10px;
+						height: 18px;
+						content: "\f0d7";
+						font-family: "FontAwesome";
+						color: rgba(255, 255, 255, 0.9);
+						font-size: 26px;
+					}
+					
+					&::after {
+						content: "";
+						position: absolute;
+						top: 6px;
+						left: 6px;
+						display: block;
+						width: 1128px;
+						height: calc(100% - 12px);
+						border: 1px solid #d3bab9;
+					}
+					
+					> ul {
+						float: left;
+						width: 33.3%;
+					}
 					
 					li {
+						position: relative;
 						display: block;
+						float: left;
+						width: 33.3%;
+						padding: 0 30px;
+						border-right: 1px solid #cfb4b3;
+						
+						&:last-child {
+							border-right: none;
+						}
 						
 						a {
+							position: relative;
+							z-index: 1;
+							padding: 5px;
 							text-align: left;
+							text-transform: uppercase;
+							letter-spacing: 5px;
+							@include fontText ("MyriadPro-Regular", 14px, 700, 20px, #690907);
+
+							&::before {
+								content: "\f105";
+								font-family: FontAwesome;
+								position: absolute;
+								left: -15px;
+								top: 50%;
+								margin-top: -9px;
+								color: #690907;
+								opacity: 0;
+								-webkit-transition: 0.3s;
+								-moz-transition: 0.3s;
+								-ms-transition: 0.3s;
+								-o-transition: 0.3s;
+								transition: 0.3s;
+							}
+
+							&:hover::before {
+								opacity: 1;
+								left: -5px; 
+							}
 						}
 						
 						a:hover {
-							background-color: rgba(105, 9, 7, 0.8);
+							text-decoration: underline;
+						}
+
+						ul {
+							width: 100%;
+							height: auto;
+							padding: 0;
+							padding-top: 10px;
+							bottom: 0;
+							position: relative;
+							background: transparent;
+							transform: translateY(0px);
+							
+							&::before,
+							&::after {
+								display: none;
+							}
+							
+							li {
+								width: 100%;
+								padding: 0;
+								border-right: none;
+							}
+							
+							a {
+								padding: 5px;
+								text-transform: none;
+								letter-spacing: 1px;
+								@include fontText ("MyriadPro-Regular", 14px, 400, 18px, #854443);
+								
+								&::before {
+									color: #854443;
+								}
+							}
 						}
 					}
 				}
 
-				.sub-menu:hover > ul {
+				.sub-menu:hover ul {
 					opacity: 1;
 					visibility: visible;
 					transform: translateY(0px);
-				}
-
-				.sub-menu > ul > .sub-menu > ul {
-					bottom: 0;
-					left: calc(100%);
-					left: -webkit-calc(100%);
-					background-color: rgba(105, 9, 7, 0.85);
-					
-					a:hover {
-						background-color: rgba(105, 9, 7, 0.9);
-					}
 				}
 			}
 		}
@@ -2263,12 +2746,14 @@ p {
 
 		dd {
 			overflow: hidden;
+			letter-spacing: 0.5px;
 		}
 
 		dt,
 		dd,
 		dd a {
 			text-align: left;
+			letter-spacing: 1px;
 			@include fontText ("LoraRegular", 14px, 400, 18px, #fff);
 		}
 
@@ -2290,6 +2775,7 @@ p {
 		.info {
 			padding: 10px 0;
 			margin-top: 15px;
+			margin-bottom: 0;
 			border-top: 1px solid rgba(255, 255, 255, 0.3);
 			text-align: left;
 			@include fontText ("MyriadPro-Regular", 12px, 400, 16px, #965352);
@@ -2304,7 +2790,9 @@ p {
 		
 		p,
 		a {
+			margin-bottom: 0;
 			text-align: left;
+			letter-spacing: 0.5px;
 			@include fontText ("LoraRegular", 12px, 400, 16px, #fff);
 			text-transform: uppercase;
 		}
@@ -2350,7 +2838,7 @@ p {
 	.list-phones {
 		
 		li {
-			margin-bottom: 15px;
+			margin-bottom: 11px;
 			@include fontText ("LoraRegular", 16px, 400, 20px, #292929);
 		}
 	}
@@ -2399,7 +2887,7 @@ p {
 		&.horizontal-list-phones-social {
 			
 			li {
-				width: 20%;
+				width: 19%;
 				
 				a::before {
 					@include sprite (url(../images/sprite.png), no-repeat, 19px, 19px, -225px -189px);
@@ -2537,7 +3025,8 @@ p {
 			left: 30px;
 			right: 30px;
 			z-index: 1;
-			padding-bottom: 0; 
+			padding-bottom: 0;
+			margin-bottom: 0;
 			letter-spacing: 6px;
 			text-transform: uppercase;
 			@include fontText ("LoraRegular", 30px, 400, 36px, #fff);
@@ -2581,13 +3070,17 @@ p {
 		
 		li {
 			position: relative;
+			width: 31.3%;
+			height: 338px;
 			overflow: hidden;
 			margin-bottom: 20px;
 			background-size: cover;
 			background-repeat: no-repeat;
 			background-position: top left;
 			background-size: 110% auto;
-			border: 1px solid #fff; 
+			border: 1px solid #fff;
+			background-size: cover;
+			background-position: center;  
 			-webkit-transition: 0.3s;
 			-moz-transition: 0.3s;
 			-ms-transition: 0.3s;
@@ -2672,17 +3165,97 @@ p {
 				}
 			}
 
-			&.small-block {
-				width: 31.3%;
-				height: 338px;
-			}
-
-			&.average-block {
+			&:nth-child(4),
+			&:nth-child(5),
+			&:nth-child(11),
+			&:nth-child(12),
+			&:nth-child(18),
+			&:nth-child(19),
+			&:nth-child(25),
+			&:nth-child(26),
+			&:nth-child(32),
+			&:nth-child(33),
+			&:nth-child(39),
+			&:nth-child(40),
+			&:nth-child(46),
+			&:nth-child(47),
+			&:nth-child(53),
+			&:nth-child(54),
+			&:nth-child(60),
+			&:nth-child(61),
+			&:nth-child(67),
+			&:nth-child(68),
+			&:nth-child(74),
+			&:nth-child(75),
+			&:nth-child(81),
+			&:nth-child(82),
+			&:nth-child(88),
+			&:nth-child(89),
+			&:nth-child(95),
+			&:nth-child(96),
+			&:nth-child(102),
+			&:nth-child(103),
+			&:nth-child(108),
+			&:nth-child(109),
+			&:nth-child(115),
+			&:nth-child(116),
+			&:nth-child(122),
+			&:nth-child(123),
+			&:nth-child(129),
+			&:nth-child(130),
+			&:nth-child(136),
+			&:nth-child(137),
+			&:nth-child(144),
+			&:nth-child(145),
+			&:nth-child(151),
+			&:nth-child(152),
+			&:nth-child(158),
+			&:nth-child(159),
+			&:nth-child(165),
+			&:nth-child(166),
+			&:nth-child(172),
+			&:nth-child(173),
+			&:nth-child(179),
+			&:nth-child(180),
+			&:nth-child(186),
+			&:nth-child(187),
+			&:nth-child(193),
+			&:nth-child(194),
+			&:nth-child(200),
+			&:nth-child(201), {
 				width: 48.5%;
 				height: 308px;
 			}
 
-			&.big-block {
+			&:nth-child(7),
+			&:nth-child(14),
+			&:nth-child(21),
+			&:nth-child(28),
+			&:nth-child(35),
+			&:nth-child(42),
+			&:nth-child(49),
+			&:nth-child(56),
+			&:nth-child(63),
+			&:nth-child(70),
+			&:nth-child(77),
+			&:nth-child(84),
+			&:nth-child(91),
+			&:nth-child(98),
+			&:nth-child(105),
+			&:nth-child(112),
+			&:nth-child(119),
+			&:nth-child(126),
+			&:nth-child(133),
+			&:nth-child(140),
+			&:nth-child(147),
+			&:nth-child(154),
+			&:nth-child(161),
+			&:nth-child(168),
+			&:nth-child(175),
+			&:nth-child(182),
+			&:nth-child(189),
+			&:nth-child(196),
+			&:nth-child(203) {
 				width: 65.5%;
 				height: 338px;
 			}
@@ -2709,15 +3282,17 @@ p {
 	padding: 45px 0 40px;
 	
 	.button-white {
-		margin-right: 20px;
-	}
-
-	.title-page {
-
+		margin-right: 30px;
+		letter-spacing: 1px;
+		@include fontText ("LoraRegular", 18px, 700, 20px, #690907);
 	}
 
 	.title-italic {
-		margin-bottom: 0;
+		margin-bottom: 40px;
+	}
+
+	.reservation-form {
+		margin-top: 40px;
 	}
 
 	p {
@@ -2733,17 +3308,13 @@ p {
 		}
 	}
 
-	.paragraph-indent {
-		text-indent: 25px;
-	}
-
 	ul {
-		margin-left: 20px;
+		margin-left: 24px;
 		padding-bottom: 30px;
 
 		li {
 			position: relative;
-			padding-bottom: 10px;
+			padding-bottom: 8px;
 			padding-left: 25px;
 			@include fontText ("LoraRegular", 16px, 400, 22px, #292929);
 			
@@ -2753,8 +3324,8 @@ p {
 				top: 10px;
 				left: 0;
 				display: block;
-				width: 6px;
-				height: 6px;
+				width: 5px;
+				height: 5px;
 				-webkit-border-radius: 50%;
 				border-radius: 50%;
 				background: #690907;
@@ -2765,15 +3336,15 @@ p {
 	ol {
 		list-style-type: decimal;
 		list-style-position: inside;
-		margin-left: 20px;
-		padding-bottom: 30px;
+		margin-left: 27px;
+		padding-bottom: 12px;
 
 		li {
-			padding-bottom: 10px;
+			padding-bottom: 9px;
 			@include fontText ("LoraRegular", 16px, 400, 22px, #292929);
 			
 			span {
-				padding-left: 20px;
+				padding-left: 9px;
 			}
 		}
 	}
@@ -2793,7 +3364,7 @@ p {
 	padding: 45px 0 40px;
 
 	.list-reviews {
-		padding-bottom: 20px;
+		padding-bottom: 26px;
 		
 		li {
 			overflow: hidden;
@@ -2869,7 +3440,7 @@ p {
 		
 		li {
 			overflow: hidden;
-			padding: 0 0 20px;
+			padding: 0 0 35px;
 			border-bottom: 1px solid #e7e7e7;
 			
 			&:first-child .title {
@@ -2881,14 +3452,14 @@ p {
 			}
 			
 			.title {
-				padding: 25px 0 20px;
+				padding: 33px 0 20px;
 				margin-bottom: 0px;
 				text-transform: uppercase;
 				@include fontText ("LoraRegular", 20px, 700, 24px, #323232);
 			}
 
 			p {
-				margin-bottom: 20px;
+				margin-bottom: 28px;
 				@include fontText ("LoraItalic", 20px, 400, 30px, #2c2c2c);
 			}
 
@@ -2907,4 +3478,611 @@ p {
 
 /*--------------------------------------------------------*/
 /*------------------ end main-reviews-2 ------------------*/
+/*--------------------------------------------------------*/
+
+
+
+/*--------------------------------------------------------*/
+/*------------------- start main-rooms -------------------*/
+/*--------------------------------------------------------*/
+
+.main-rooms {
+	padding: 45px 0 40px;
+	
+	.title-italic {
+		margin-bottom: 50px;
+	}
+
+	.list-two-rooms li:nth-last-child(1),
+	.list-two-rooms li:nth-last-child(2) {
+		margin-bottom: 0;
+	}
+
+	.list-vip-rooms,
+	.list-two-rooms,
+	.list-all-rooms {
+		display: flex;
+		flex-wrap: wrap;
+		flex-direction: row;
+		-webkit-justify-content: space-between;
+		justify-content: space-between;
+		
+		.big-block-number {
+			height: 570px;
+			width: 100%;
+		}
+
+		.half-block-number {
+			height: 570px;
+			width: 49%;
+		}
+
+		.small-block-number {
+			height: 275px;
+			width: 49%;
+		}
+		
+		li {
+			display: flex;
+			flex-wrap: wrap;
+			flex-direction: row;
+			align-content: center;
+			justify-content: center;
+			position: relative;
+			height: 570px;
+			width: 100%;
+			overflow: hidden;
+			margin-bottom: 30px;
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: top left;
+			background-size: 110% auto;
+			border: 1px solid #fff;
+			-webkit-transition: 0.3s;
+			-moz-transition: 0.3s;
+			-ms-transition: 0.3s;
+			-o-transition: 0.3s;
+			transition: 0.3s;
+			text-align: center;
+			
+			&:last-child {
+				margin-bottom: 0;
+			}
+			
+			&::before {
+				content: "";
+				position: absolute;
+				top: 0;
+				right: 0;
+				bottom: 0;
+				left: 0;
+				display: block;
+				border: 0px solid #fff;
+				-webkit-transition: 0.3s;
+				-moz-transition: 0.3s;
+				-ms-transition: 0.3s;
+				-o-transition: 0.3s;
+				transition: 0.3s;
+			} 
+
+			&:hover {
+				border: 1px solid #d7d7d7;
+				background-position: top right;
+				
+				&::before {
+					border: 20px solid #fff;
+				}
+			}
+
+			p {
+				width: 100%;
+			}
+
+			.room-status {
+				position: absolute;
+				top: 30px;
+				right: 0;
+				width: auto;
+				padding-right: 30px;
+				text-align: right;
+				text-transform: uppercase;
+				@include fontText ("LoraRegular", 14px, 700, 18px, #fff);
+			}
+
+			.limited-opportunities {
+				position: absolute;
+				top: 30px;
+				left: 30px;
+				width: auto;
+				margin-bottom: 0;
+				padding-top: 1px;
+				padding-left: 40px;
+				text-align: left;
+				text-transform: uppercase;
+				@include fontText ("MyriadPro-Regular", 10px, 400, 14px, #fff);
+				
+				&::before {
+					content: "";
+					position: absolute;
+					left: 0;
+					top: 0;
+					display: block;
+					@include sprite (url(../images/sprite.png), no-repeat, 36px, 46px, -131px -227px);
+				}
+			}
+
+			.pattern {
+				padding-bottom: 10px;
+			}
+
+			.button-transparent {
+				position: absolute;
+				bottom: 25px;
+				left: 25px;
+			}
+
+			.button-yellow {
+				position: absolute;
+				bottom: 25px;
+				right: 25px;
+			}
+		}
+	}
+}
+
+/*--------------------------------------------------------*/
+/*-------------------- end main-rooms --------------------*/
+/*--------------------------------------------------------*/
+
+
+
+/*--------------------------------------------------------*/
+/*------------------ start main-services -----------------*/
+/*--------------------------------------------------------*/
+
+.main-services {
+	padding: 45px 0 40px;
+	
+	.list-gallerys {
+		padding-bottom: 20px;
+
+		li {
+			overflow: hidden;
+			padding-bottom: 15px;
+			border-bottom: 1px solid #e7e7e7;
+			margin-bottom: 15px;
+			
+			&:last-child {
+				border-bottom: none; 
+			}
+			
+			.photo-block {
+				float: left;
+				width: 375px;
+				height: 270px;
+				overflow: hidden;
+				
+				img {
+					width: 100%;
+					height: auto;
+				}
+			}
+
+			.description-block {
+				position: relative;
+				min-height: 262px;
+				margin-left: 395px;
+				
+				.title-italic {
+					margin-top: 8px;
+					
+					&::after {
+						bottom: -20px;
+					}
+				}
+				
+				p:not([class]) {
+					margin-bottom: 0;
+					padding-bottom: 60px;
+					@include fontText ("LoraRegular", 16px, 400, 31px, #292929);
+				}
+
+				.button-white {
+					position: absolute;
+					bottom: 0;
+					left: 0;
+				}
+			}
+		}
+	}
+}
+
+/*--------------------------------------------------------*/
+/*------------------- end main-services ------------------*/
+/*--------------------------------------------------------*/
+
+
+
+/*--------------------------------------------------------*/
+/*------------------ start main-standart -----------------*/
+/*--------------------------------------------------------*/
+
+.main-standart {
+	padding: 45px 0 40px;
+	
+	p {
+		margin-bottom: 25px;
+	}
+
+	.title-italic {
+		margin-bottom: 33px;
+	}
+	
+	.block-photo-description {
+		position: relative;
+		margin-bottom: 25px;
+		
+		img {
+			width: 100%;
+			height: auto;
+		}
+
+		.descitpion {
+			position: absolute;
+			left: 10px;
+			bottom: 15px;
+			margin-right: 15px;
+			padding: 10px 15px;
+			margin-bottom: 0px; 
+			letter-spacing: 0.5px;
+			background-color: rgba(105, 9 , 7, 0.9);
+			@include fontText ("LoraRegular", 18px, 700, 22px, #fff);
+		}
+	}
+
+	ul {
+		padding-bottom: 23px;
+		padding-left: 20px;
+		
+		li {
+			position: relative;
+			padding-left: 15px;
+			padding-bottom: 0px;
+			@include fontText ("LoraRegular", 16px, 400, 31px, #292929);
+			
+			&::before {
+				content: "";
+				position: absolute;
+				top: 14px;
+				left: 0;
+				display: block;
+				width: 5px;
+				height: 5px;
+				-webkit-border-radius: 50%;
+				border-radius: 50%;
+				background-color: #690907;
+			}
+		}
+	}
+
+	.border-cursive {
+		margin-left: 25px;
+		padding-left: 20px;
+		border-left: 1px solid #690907;
+		@include fontText ("LoraItalic", 16px, 400, 31px, #690907);
+	}
+
+	.galery {
+		overflow: hidden;
+		padding-left: 0;
+		padding-bottom: 40px;
+		margin-top: 57px;
+		
+		li {
+			width: 24%;
+			padding-left: 0;
+			float: left;
+			margin-right: 10px;
+			margin-bottom: 10px;
+			padding-bottom: 0;
+			
+			&:nth-child(4n + 4) {
+				margin-right: 0;
+			}
+
+			&::before {
+				display: none;
+			}
+			
+			a {
+				display: block;
+				
+				img {
+					display: block;
+					width: 100%;
+					height: auto;
+				}
+			}
+		}
+	}
+}
+
+/*--------------------------------------------------------*/
+/*------------------- end main-standart ------------------*/
+/*--------------------------------------------------------*/
+
+
+
+/*--------------------------------------------------------*/
+/*------------------ start main-paradize -----------------*/
+/*--------------------------------------------------------*/
+
+.main-paradiz {
+
+	.button-block {
+		padding-top: 20px;
+		text-align: center;
+	}
+
+	.galery-block {
+		padding: 35px 0 60px;
+		
+		.h2-title {
+			margin-top: 53px;
+		}
+
+		p:last-child {
+			margin-bottom: 50px;
+		}
+	}
+
+	.wedding-block-description .button-block {
+		padding-top: 40px;
+		margin-bottom: 0px;
+	}
+
+	.services-block {
+	    padding: 44px 0 40px;
+	}
+
+	.news-block {
+	    padding: 90px 0 0px;
+	}
+	
+	.main-menu {
+
+		.button-block {
+			padding-bottom: 30px;
+		}
+		
+		.paragraph-italic {
+			
+			&.pad-right {
+				padding-right: 25%;
+			}
+
+			&.pad-left {
+				padding-left: 25%;
+			}
+		}
+	}
+
+	.wedding-block-description {
+		background: #FFF;
+		padding-top: 30px;
+		
+		.col-md-12 .paragraph-italic {
+			padding-bottom: 40px;
+		}
+
+		img {
+			width: 100%;
+		}
+	}
+}
+
+/*--------------------------------------------------------*/
+/*------------------- end main-paradize ------------------*/
+/*--------------------------------------------------------*/
+
+
+
+/*--------------------------------------------------------*/
+/*-------------------- start main-room -------------------*/
+/*--------------------------------------------------------*/
+
+.main-room {
+	padding: 5px 0 40px;
+	
+	.logo-block {
+		display: flex;
+		-webkit-flex-wrap: wrap;
+		-ms-flex-wrap: wrap;
+		flex-wrap: wrap;
+		-webkit-flex-direction: row;
+		-ms-flex-direction: row;
+		flex-direction: row;
+		-webkit-align-content: center;
+		 align-content: center;
+		    
+		.col-md-4,
+		.col-md-8 {
+			display: flex;
+			-webkit-flex-wrap: wrap;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			-webkit-align-content: center;
+			align-content: center;
+			    
+			p {
+				width: 100%;
+				margin-bottom: 0;
+				@include fontText ("LoraRegular", 16px, 700, 31px, #292929);
+			}
+
+			.what-have {
+				width: 100%;
+				padding-bottom: 15px;
+				
+				li {
+					display: inline-block;
+					position: relative;
+					padding-right: 10px;
+					
+					&::before {
+						content: "\f005";
+						font-family: FontAwesome;
+						position: relative;
+						color: #818181;
+						font-size: 14px;
+						padding-right: 7px;
+					}
+				}
+			}
+		}
+	}
+
+	.room-slider {
+		margin-top: 10px;
+		margin-bottom: 20px;
+		padding: 15px;
+		border: 1px solid #d7d7d7;
+		
+		.owl-stage-outer {
+			z-index: 1;
+		}
+		
+		.owl-nav {
+			position: absolute;
+			top: 50%;
+			margin-top: -75px;
+			left: -1px;
+			right: -1px;
+			
+			.owl-prev,
+			.owl-next {
+				position: relative;
+				z-index: 1;
+				float: left;
+				width: 40px;
+				height: 150px;
+				background-color: white;
+				border: 1px solid #d7d7d7;
+				
+				&::before {
+					content: "\f053";
+					font-family: FontAwesome;
+					position: absolute;
+					top: 50%;
+					margin-top: -9px;
+					left: 50%;
+					margin-left: -6px;
+					font-size: 18px;
+					color: #292929;
+				}
+			}
+
+			.owl-next {
+				float: right;
+				
+				&::before {
+					content: "\f054";
+				}
+			}
+		}
+	}
+
+	.appliances {
+		overflow: hidden;
+		padding-bottom: 20px;
+		
+		li {
+			float: left;
+			width: 130px;
+			margin-right: 25px;
+			text-align: center;
+			text-transform: uppercase;
+			@include fontText ("LoraRegular", 15px, 400, 18px, #323232);
+			
+			&:nth-child(5n + 5) {
+				margin-right: 0;
+			}
+			
+			img {
+				display: block;
+				margin: 0 auto; 
+				padding-bottom: 15px;
+			}
+		}
+	}
+
+	.prev-next-room {
+		overflow: hidden;
+		margin-bottom: 30px;
+		
+		li {
+
+			&:first-child {
+				float: left;
+				
+				&::before {
+					content: "\f177";
+					font-family: FontAwesome;
+					padding-right: 5px;
+				}
+			}
+
+			&:last-child {
+				float: right;
+				
+				&::after {
+					content: "\f178";
+					font-family: FontAwesome;
+					padding-left: 5px;
+				}
+			}
+
+			a {
+				display: inline-block;
+				text-align: center;
+				@include fontText ("MyriadPro-Regular", 16px, 400, 20px, #690907);
+
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+		}
+	}
+
+	.virtual-tour {
+		overflow: hidden;
+		padding-bottom: 25px;
+		
+		li {
+			width: 160px;
+			float: left;
+			margin-right: 36px;
+			
+			&:nth-child(4n + 4) {
+				margin-right: 0;
+			}
+			
+			a {
+				display: bloc;
+				width: 160px;
+				height: 160px;
+				-webkit-border-radius: 50%;
+				border-radius: 50%;
+				
+				img {
+					width: 100%;
+					height: auto;
+				}
+			}
+		}
+	}
+}
+
+/*--------------------------------------------------------*/
+/*--------------------- end main-room --------------------*/
 /*--------------------------------------------------------*/

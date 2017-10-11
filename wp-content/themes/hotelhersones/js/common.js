@@ -28,6 +28,19 @@ $(document).ready(function() {
         autoplayTimeout:5000
     })
 
+    $('.room-slider').owlCarousel({
+        loop:true,
+        margin:0,
+        nav:true,
+        navText:false,
+        items:1,
+        mouseDrag:true,
+        touchDrag:true,
+        dots:true,
+        autoplay:false,
+        autoplayTimeout:5000
+    })
+
     // MMENU
     $(function() {
         $('nav#menu').mmenu({

@@ -19,9 +19,7 @@ get_header();
             <div class="row">
                 <div class="col-md-8">
                     
-                    <?php if (have_posts()): while (have_posts()): the_post(); ?>
-                        <?php the_content(); ?>
-                    <?php endwhile; endif; ?>
+					<?php echo get_post_meta( get_the_ID(), 'content_contacts_page', $single = true ); ?> 
                 
                     <div class="map-block">
                             <?php $sevastopol = get_post_meta( get_the_ID(), 'address_contact_page', $single = true ); ?> 
@@ -67,16 +65,7 @@ get_header();
                     </aside>
                 </div>
             </div>
-        </div>
-        
-        <!-- start insta-block -->
-        
-        <div class="insta-block">
-            <a class="button-white" href="#">Подписывайтесь на инстаграм отеля</a>
-        </div>
-        
-        <!-- end insta-block -->
-    
+        </div>  
     </div>
     
     <!-- end main-contacts -->

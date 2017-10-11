@@ -212,12 +212,12 @@ Version: 1.0
 			<!-- start header-banner-block -->
 			
 			<?php
-				$header_image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'full');;
+				$header_image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'full');
 				$action_image = getImageLink('action_image_main_page');
 				$link_action = getMeta('link_action_main_page');
 			?>
 			
-			<div class="header-banner-block" style="background-image: url( '<?php echo $header_image ? $header_image[0] : esc_url( get_template_directory_uri() ) . '/images/bg-contacts-header.jpg'; ?>')" data-speed="2" data-type="background">
+			<div class="header-banner-block" style="background-image: url( '<?php echo $header_image ? $header_image[0] : esc_url( get_template_directory_uri() ) . '/images/bg-contacts-header.jpg'; ?>' )" data-speed="2" data-type="background">
 			  <div class="container">
 				<div class="row">
 				  <div class="col-md-12">

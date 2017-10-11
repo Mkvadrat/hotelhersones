@@ -12,7 +12,19 @@ Version: 1.0
     <!-- start footer -->
     
     <footer class="footer">
-    
+        <!-- start insta-block -->
+        
+        <div class="insta-block">
+			<?php
+				if ( function_exists('dynamic_sidebar') )
+					dynamic_sidebar('instagram-sidebar');
+			?>
+			
+			<?php echo getMeta('instagram_link_main_page');?>
+        </div>
+        
+        <!-- end insta-block -->
+		
         <!-- start footer-menu-line -->
         
         <div class="container-fluid footer-menu-line">
@@ -54,16 +66,16 @@ Version: 1.0
             <div class="container">
                 <div class="row">
                     <div class="col-md-4">
-                        <?php echo getMeta('contact_information_block_a_main_page');?>
+                        <?php echo getMeta('contact_information_block_a_main_page'); ?>
                     </div>
                     <div class="col-md-4">
-                        <?php echo getMeta('contact_information_block_b_main_page');?>
+                        <?php echo getMeta('contact_information_block_b_main_page'); ?>
                     </div>
                     <div class="col-md-4">
-                        <?php echo getMeta('contact_information_block_c_main_page');?>
+                        <?php echo getMeta('contact_information_block_c_main_page'); ?>
                     </div>
                     <div class="col-md-12">
-                        <?php echo getMeta('user_information_a_main_page');?>
+                        <?php echo getMeta('user_information_a_main_page'); ?>
                     </div>
                 </div>
             </div>
@@ -77,10 +89,10 @@ Version: 1.0
             <div class="container">
                 <div class="row">
                     <div class="col-md-6">
-                        <?php echo getMeta('user_information_b_main_page');?>
+                        <?php echo getMeta('user_information_b_main_page'); ?>
                     </div>
                     <div class="col-md-6">
-                        <?php echo getMeta('user_information_c_main_page');?>
+                        <?php echo getMeta('user_information_c_main_page'); ?>
                     </div>
                 </div>
             </div>
