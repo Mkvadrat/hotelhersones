@@ -78,6 +78,29 @@ function register_instagram_widgets(){
 }
 add_action( 'widgets_init', 'register_instagram_widgets' );
 
+//Вывод id категории
+function getCurrentCatID(){
+	global $wp_query;
+	if(is_category()){
+		$cat_ID = get_query_var('cat');
+	}
+	return $cat_ID;
+}
+
+//Вывод id новостей
+function getCurrentNewsID(){
+	global $wpdb;
+	global $wp_query;
+	if(is_taxonomy('news-list')){
+		$slug = get_query_var('news-list');
+		$cat_ID = $wpdb->get_var( $wpdb->prepare("SELECT term_id FROM $wpdb->terms WHERE slug = %s" , $slug));
+	}else{
+		$cat_ID = 0;
+	}
+	
+	return $cat_ID;
+}
+
 /**********************************************************************************************************************************************************
 ***********************************************************************************************************************************************************
 ****************************************************************************МЕНЮ САЙТА*********************************************************************
@@ -301,6 +324,19 @@ function getMeta($meta_key){
 	return $value;
 }
 
+//Получить данные из произвольных полей для таксономии
+function getDataCategory($taxonomy, $meta_key){
+	global $wpdb;
+	
+	$term = get_queried_object();
+	
+	$cat_id = $term->term_id;
+	
+	$cat_data = get_option($taxonomy . '_' . $cat_id . '_' . $meta_key);
+			
+	return $cat_data;
+}
+
 function getNextGallery($post_id, $meta_key){
 	global $wpdb;
 	
@@ -319,6 +355,32 @@ function getImageLink($meta_key){
 	
 	$link = $wpdb->get_var( $wpdb->prepare("SELECT guid FROM $wpdb->postmeta JOIN $wpdb->posts ON %s = ID AND meta_key = %d ORDER BY meta_id DESC LIMIT 1", $value, $meta_key));
 			
+	return $link;
+}
+
+//Получить урл изображения из произвольных полей для таксономии рубрики
+function getImageLinkCategory($taxonomy, $meta_key){
+	global $wpdb;
+	
+	$term = get_queried_object();
+	
+	$cat_id = $term->term_id;
+	
+	$cat_data = get_option($taxonomy . '_' . $cat_id . '_' . $meta_key);
+		
+	$link = $wpdb->get_var( $wpdb->prepare("SELECT guid FROM $wpdb->posts WHERE ID = %s", $cat_data));
+	
+	return $link;
+}
+
+//Получить урл изображения из произвольных полей для таксономии single
+function getImageLinkSingle($post_id, $meta_key){
+	global $wpdb;
+	
+	$value = $wpdb->get_var( $wpdb->prepare("SELECT meta_value FROM $wpdb->postmeta WHERE meta_key = %s AND post_id = %d" , $meta_key, $post_id));
+	
+	$link = $wpdb->get_var( $wpdb->prepare("SELECT guid FROM $wpdb->posts WHERE ID = %s", $value));
+	
 	return $link;
 }
 
@@ -366,8 +428,7 @@ function get_title($display = true) {
     if ( is_tax() ) {
         $term = get_queried_object();
         if ( $term ) {
-            $tax   = get_taxonomy( $term->taxonomy );
-            $title = single_term_title( $tax->labels->name . $t_sep, false );
+            $title = single_term_title( $t_sep, false );
         }
     }
  
@@ -419,13 +480,6 @@ function get_title($display = true) {
         $prefix = " $sep ";
     }
  
-    /**
-     * Filters the parts of the page title.
-     *
-     * @since 4.0.0
-     *
-     * @param array $title_array Parts of the page title.
-     */
     $title_array = apply_filters( 'wp_title_parts', explode( $t_sep, $title ) );
  
     // Determines position of the separator and direction of the breadcrumb
@@ -789,5 +843,173 @@ function SendForm(){
 add_action('wp_ajax_SendForm', 'SendForm');
 add_action('wp_ajax_nopriv_SendForm', 'SendForm');
 
+/**********************************************************************************************************************************************************
+***********************************************************************************************************************************************************
+**********************************************************************"РАЗДЕЛ НОВОСТИ"*********************************************************************
+***********************************************************************************************************************************************************
+***********************************************************************************************************************************************************/
+//Вывод в админке раздела новости
+function register_post_type_news() {
+	$labels = array(
+	 'name' => 'News',
+	 'singular_name' => 'News',
+	 'add_new' => 'Добавить новость',
+	 'add_new_item' => 'Добавить новую новость',
+	 'edit_item' => 'Редактировать новость',
+	 'new_item' => 'Новая новость',
+	 'all_items' => 'Все новости',
+	 'view_item' => 'Просмотр новостей на сайте',
+	 'search_items' => 'Искать новость',
+	 'not_found' => 'Новость не найден.',
+	 'not_found_in_trash' => 'В корзине нет статьи.',
+	 'menu_name' => 'Новости'
+	 );
+	 $args = array(
+		 'labels' => $labels,
+		 'public' => true,
+		 'exclude_from_search' => false,
+		 'show_ui' => true,
+		 'has_archive' => false,
+		 'menu_icon' => 'dashicons-id-alt', // иконка в меню
+		 'menu_position' => 20,
+		 'supports' =>  array('title','editor', 'thumbnail'),
+	 );
+ 	register_post_type('news', $args);
+}
+add_action( 'init', 'register_post_type_news' );
 
+function true_post_type_news( $news ) {
+	global $post, $post_ID;
+
+	$news['news'] = array(
+			0 => '',
+			1 => sprintf( 'Новости обновлены. <a href="%s">Просмотр</a>', esc_url( get_permalink($post_ID) ) ),
+			2 => 'Новость обновлёна.',
+			3 => 'Новость удалёна.',
+			4 => 'Новость обновлена.',
+			5 => isset($_GET['revision']) ? sprintf( 'Статья восстановлена из редакции: %s', wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			6 => sprintf( 'Новость опубликована на сайте. <a href="%s">Просмотр</a>', esc_url( get_permalink($post_ID) ) ),
+			7 => 'Новость сохранена.',
+			8 => sprintf( 'Отправлена на проверку. <a target="_blank" href="%s">Просмотр</a>', esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+			9 => sprintf( 'Запланирована на публикацию: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Просмотр</a>', date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+			10 => sprintf( 'Черновик обновлён. <a target="_blank" href="%s">Просмотр</a>', esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+	);
+	return $news;
+}
+add_filter( 'post_updated_messages', 'true_post_type_news' );
+	
+//Категории для пользовательских записей "Новости"
+function create_taxonomies_news()
+{
+    // Cats Categories
+    register_taxonomy('news-list',array('news'),array(
+        'hierarchical' => true,
+        'label' => 'Рубрики',
+        'singular_name' => 'Рубрика',
+        'show_ui' => true,
+        'query_var' => true,
+        'rewrite' => array('slug' => 'news-list' )
+    ));
+}
+add_action( 'init', 'create_taxonomies_news', 0 );
+
+/**********************************************************************************************************************************************************
+***********************************************************************************************************************************************************
+*****************************************************************REMOVE CATEGORY_TYPE SLUG*********************************************************************
+***********************************************************************************************************************************************************
+***********************************************************************************************************************************************************/
+//Удаление  из url таксономии
+function true_remove_slug_from_category_news( $url, $term, $taxonomy ){
+
+	$taxonomia_name = 'news-list';
+	$taxonomia_slug = 'news-list';
+
+	if ( strpos($url, $taxonomia_slug) === FALSE || $taxonomy != $taxonomia_name ) return $url;
+
+	$url = str_replace('/' . $taxonomia_slug, '', $url);
+
+	return $url;
+}
+add_filter( 'term_link', 'true_remove_slug_from_category_news', 10, 3 );
+
+//Перенаправление url в случае удаления news-list
+function parse_request_url_category_news( $query ){
+
+	$taxonomia_name = 'news-list';
+
+	if( $query['attachment'] ) :
+		$condition = true;
+		$main_url = $query['attachment'];
+	else:
+		$condition = false;
+		$main_url = $query['name'];
+	endif;
+
+	$termin = get_term_by('slug', $main_url, $taxonomia_name);
+
+	if ( isset( $main_url ) && $termin && !is_wp_error( $termin )):
+
+		if( $condition ) {
+			unset( $query['attachment'] );
+			$parent = $termin->parent;
+			while( $parent ) {
+				$parent_term = get_term( $parent, $taxonomia_name);
+				$main_url = $parent_term->slug . '/' . $main_url;
+				$parent = $parent_term->parent;
+			}
+		} else {
+			unset($query['name']);
+		}
+
+		switch( $taxonomia_name ):
+			case 'category':{
+				$query['category_name'] = $main_url;
+				break;
+			}
+			case 'post_tag':{
+				$query['tag'] = $main_url;
+				break;
+			}
+			default:{
+				$query[$taxonomia_name] = $main_url;
+				break;
+			}
+		endswitch;
+
+	endif;
+
+	return $query;
+
+}
+add_filter('request', 'parse_request_url_category_news', 1, 1 );
+
+
+/**********************************************************************************************************************************************************
+***********************************************************************************************************************************************************
+*****************************************************************REMOVE POST_TYPE SLUG*********************************************************************
+***********************************************************************************************************************************************************
+***********************************************************************************************************************************************************/
+//Удаление sluga из url таксономии 
+function remove_slug_from_post( $post_link, $post, $leavename ) {
+	if ( 'news' != $post->post_type || 'publish' != $post->post_status ) {
+		return $post_link;
+	}
+		$post_link = str_replace( '/' . $post->post_type . '/', '/', $post_link );
+	return $post_link;
+}
+add_filter( 'post_type_link', 'remove_slug_from_post', 10, 3 );
+
+function parse_request_url_post( $query ) {
+	if ( ! $query->is_main_query() )
+		return;
+
+	if ( 2 != count( $query->query ) || ! isset( $query->query['page'] ) ) {
+		return;
+	}
+
+	if ( ! empty( $query->query['name'] ) ) {
+		$query->set( 'post_type', array( 'post', 'news', 'page' ) );
+	}
+}
+add_action( 'pre_get_posts', 'parse_request_url_post' );
 

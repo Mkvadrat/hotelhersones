@@ -212,16 +212,37 @@ Version: 1.0
 			<!-- start header-banner-block -->
 			
 			<?php
-				$header_image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'full');
-				$action_image = getImageLink('action_image_main_page');
-				$link_action = getMeta('link_action_main_page');
+				if(is_category()){
+					$header_image = getImageLinkCategory('category','image_category_all_page');
+				?>
+					<div class="header-banner-block" style="background-image: url( '<?php echo $header_image ? $header_image : esc_url( get_template_directory_uri() ) . '/images/bg-contacts-header.jpg'; ?>' )" data-speed="2" data-type="background">
+				<?php
+				}elseif(is_taxonomy('news-list') && !is_single()){
+					$header_image = getImageLinkCategory('news-list','image_category_all_page');
+				?>
+					<div class="header-banner-block" style="background-image: url( '<?php echo $header_image ? $header_image : esc_url( get_template_directory_uri() ) . '/images/bg-contacts-header.jpg'; ?>' )" data-speed="2" data-type="background">
+				<?php
+				}elseif(is_single() || is_page()){
+					$header_image = getImageLinkSingle(get_the_ID(),'header_image_news_page');
+				?>
+					<div class="header-banner-block" style="background-image: url( '<?php echo $header_image ? $header_image : esc_url( get_template_directory_uri() ) . '/images/bg-contacts-header.jpg'; ?>' )" data-speed="2" data-type="background">
+				<?php
+				}else{
+					$header_image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'full');
+				?>
+					<div class="header-banner-block" style="background-image: url( '<?php echo $header_image ? $header_image[0] : esc_url( get_template_directory_uri() ) . '/images/bg-contacts-header.jpg'; ?>' )" data-speed="2" data-type="background">
+				<?php 
+				}
 			?>
 			
-			<div class="header-banner-block" style="background-image: url( '<?php echo $header_image ? $header_image[0] : esc_url( get_template_directory_uri() ) . '/images/bg-contacts-header.jpg'; ?>' )" data-speed="2" data-type="background">
-			  <div class="container">
+			<div class="container">
 				<div class="row">
 				  <div class="col-md-12">
 					<div class="title-header-block">
+						<?php
+							$action_image = getImageLink('action_image_main_page');
+							$link_action = getMeta('link_action_main_page');
+						?>
 						<p class="title"><?php get_title(); ?></p>
 						<?php if($action_image){ ?>
 							<a href="<?php echo $link_action; ?>"><img class="sale-banner" src="<?php echo $action_image; ?>" alt=""></a>
@@ -239,6 +260,5 @@ Version: 1.0
 	
 		<!-- start order-line -->
 	
-		<?php echo getMeta('booking_form_main_page');?>
-	
+		<?php echo getMeta('booking_form_main_page'); ?>
 		<!-- end order-line -->

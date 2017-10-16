@@ -1,0 +1,156 @@
+<?php
+/*
+Theme Name: Hotelhersones
+Theme URI: http://hotelhersones.com/
+Author: M2
+Author URI: http://mkvadrat.com/
+Description: Тема для сайта http://hotelhersones.ru/
+Version: 1.0
+*/
+
+get_header();
+?>
+	
+	<!-- start main-services -->
+	
+	<div class="main-services">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8">
+					<?php
+						echo getDataCategory('news-list','text_category_news_page');
+					?>
+					
+					<?php
+						$current_page = (get_query_var('paged')) ? get_query_var('paged') : 1;
+						$args = array(
+							'tax_query' => array(
+								array(
+									'taxonomy' => 'news-list',
+									'terms' => getCurrentNewsID()
+								)
+							),
+							'post_type'   => 'news',
+							'orderby'     => 'date',
+							'order'       => 'DESC',
+							'posts_per_page' => $GLOBALS['wp_query']->query_vars['posts_per_page'],
+							'paged'          => $current_page,
+
+						);
+			
+						$news_list = get_posts( $args );
+					?>
+					<ul class="list-gallerys">
+						<?php if($news_list){ ?>
+						<?php foreach($news_list as $news){ ?>
+						<?php
+							$image_url = wp_get_attachment_image_src( get_post_thumbnail_id($news->ID), 'full');
+							$descr = wp_trim_words( $news->post_content, 30, '...' );
+							$link = get_permalink($news->ID);
+						?>
+						<li>
+							<div class="photo-block">
+								<?php if(!empty($image_url)){ ?>
+									<img src="<?php echo $image_url[0]; ?>" alt="<?php echo get_post_meta( get_post_thumbnail_id($news->ID), '_wp_attachment_image_alt', true ); ?>">
+								<?php }else{ ?>
+									<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/services-4.jpg">
+								<?php } ?>
+							</div>
+							<div class="description-block">
+								<p class="title-italic"><?php echo $news->post_title; ?></p>
+								<p><?php echo $descr; ?></p>
+								<a href="<?php echo $link; ?>" class="button-white">подробнее</a>
+							</div>
+						</li>
+						<?php } ?>
+						<?php wp_reset_postdata(); ?>
+						<?php }else{ ?>
+						<li>В данной категории новостей не найдено!</li>
+						<?php } ?>
+					</ul>
+					
+					<?php
+						$defaults = array(
+							'type' => 'array',
+							'prev_next'    => True,
+							'prev_text'    => __('last'),
+							'next_text'    => __('next'),
+						);
+	
+						$pagination = paginate_links($defaults);
+						
+					if($pagination){
+					?>
+
+                    <ul class="list-pages">
+						<?php foreach ($pagination as $pag){ ?>
+	                        <li><?php echo $pag; ?></li>
+						<?php } ?>
+                    </ul>
+					<?php } ?>
+					
+				</div>
+				<div class="col-md-4">
+					<aside class="sidebar">
+						<?php
+							echo getDataCategory('news-list','title_category_news_page');
+						?>
+						
+						<?php
+						// список разделов произвольной таксономии news-list
+						
+							$args = array(
+								'taxonomy'     => 'news-list', // название таксономии
+								'orderby'      => 'name',  // сортируем по названиям
+								'show_count'   => 0,       // не показываем количество записей
+								'pad_counts'   => 0,       // не показываем количество записей у родителей
+								'hierarchical' => 1,       // древовидное представление
+								'title_li'     => '',      // список без заголовка
+								'hide_empty' => 0,
+								'child_of'   => 17,
+							);
+						?>
+						
+						<ul class="list-links-gallerys">
+							<?php wp_list_categories( $args ); ?>
+						</ul>
+						
+						<div class="form-block">
+                            <div>
+                                <p class="white-title-underline">Форма обратной связи</p>
+                                <input type="text" id="name" placeholder="Введите Ваше имя">
+                                <input type="text" id="phone" placeholder="Ваш телефон / e-mail">
+                                <textarea name="" id="message" placeholder="Текст сообщения"></textarea>
+                                <p class="info">*Задайте ваш вопрос.<br>Наши менеджеры сами<br>вам перезвонят.</p>
+                                <input type="submit" onclick="SendForm();" value="отправить">
+                            </div>
+						</div>
+					</aside>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- end main-services -->
+	
+<script type="text/javascript">
+//форма обратной связи
+function SendForm() {
+	var data = {
+		'action': 'SendForm',
+		'name' : $('#name').val(),
+        'phone' : $('#phone').val(),
+		'message' : $('#message').val()
+	};
+	$.ajax({
+		url:'http://' + location.host + '/wp-admin/admin-ajax.php',
+		data:data,
+		type:'POST',
+		success:function(data){
+			swal(data.message);
+		}
+	});
+};
+</script>
+
+<?php get_footer(); ?>

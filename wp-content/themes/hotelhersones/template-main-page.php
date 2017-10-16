@@ -218,12 +218,12 @@ get_header();
         <!-- end panorama-block -->
         
         <!-- start services-block -->
-        
+        <?php if(get_post_meta( get_the_ID(), 'enable_good_services_block_main_page', $single = true ) == 'yes'){ ?>
+        <?php $image_good_services = getImageLink('image_block_good_services_main_page'); ?>
         <div class="container services-block">
             <div class="row">
                 <div class="col-md-12">
-                    <p class="h2-title">лучший сервис</p>
-                    <p class="paragraph-italic">Мы рады каждому нашему гостю, а поэтому наши сотрудники постараются не просто предоставить отличное место проживания на период посещения города, но и высококачественный сервис, чутко предугадывая каждое Ваше пожелание.</p>
+                    <?php echo get_post_meta( get_the_ID(), 'text_block_good_services_main_page', $single = true ); ?>
                 </div>
             </div>
         </div>
@@ -232,18 +232,17 @@ get_header();
         
         <!-- start arrival-date-block -->
         
-        <div class="container-fluid arrival-date-block" style="    background-image: url(images/arrival-date-bg.jpg);}">
+        <?php $panorama_image_d = getImageLink('image_panorama_block_d_main_page'); ?>
+        <div class="container-fluid arrival-date-block" style="background-image: url( '<?php echo $image_good_services ? $image_good_services : esc_url( get_template_directory_uri() ) . '/images/arrival-date-bg.jpg'; ?>' )">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <input type="text" placeholder="дата заезда">
-                        <input type="text" placeholder="дата выезда">
-                        <a class="button-transparent" href="#">Подробнее</a>
+                        <?php echo get_post_meta( get_the_ID(), 'booking_form_good_services_main_page', $single = true ); ?>
                     </div>
                 </div>
             </div>
         </div>
-        
+        <?php } ?>
         <!-- end arrival-date-block -->
         
         <!-- start news-block -->
