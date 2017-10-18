@@ -24,7 +24,7 @@ get_header();
 					
 					<?php
 						global $nggdb;
-						$slider_id = getNextGallery(get_the_ID(), 'gallery_block_news_page');
+						$slider_id = getNextGallery(get_the_ID(), 'gallery_block_action_page');
 						$slider_image = $nggdb->get_gallery($slider_id[0]["ngg_id"], 'sortorder', 'ASC', false, 0, 0);
 						if($slider_image){
 					?>
@@ -45,20 +45,20 @@ get_header();
 				</div>
 				<div class="col-md-4">
 				<aside class="sidebar">
-					<p class="title-sidebar">Новости</p>
+					<p class="title-sidebar">Акции</p>
 					
 					<?php
 					// список разделов произвольной таксономии news-list
 					
 						$args = array(
-							'taxonomy'     => 'news-list', // название таксономии
+							'taxonomy'     => 'action-list', // название таксономии
 							'orderby'      => 'name',  // сортируем по названиям
 							'show_count'   => 0,       // не показываем количество записей
 							'pad_counts'   => 0,       // не показываем количество записей у родителей
 							'hierarchical' => 1,       // древовидное представление
 							'title_li'     => '',      // список без заголовка
 							'hide_empty' => 0,
-							'child_of'   => 17,
+							'child_of'   => 18,
 						);
 					?>
 					

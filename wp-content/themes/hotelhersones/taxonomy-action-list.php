@@ -18,7 +18,7 @@ get_header();
 			<div class="row">
 				<div class="col-md-8">
 					<?php
-						echo getDataCategory('news-list','text_category_news_page');
+						echo getDataCategory('action-list','text_category_action_page');
 					?>
 					
 					<?php
@@ -26,11 +26,11 @@ get_header();
 						$args = array(
 							'tax_query' => array(
 								array(
-									'taxonomy' => 'news-list',
-									'terms' => getCurrentNewsID()
+									'taxonomy' => 'action-list',
+									'terms' => getCurrentActionID()
 								)
 							),
-							'post_type'   => 'news',
+							'post_type'   => 'action',
 							'orderby'     => 'date',
 							'order'       => 'DESC',
 							'posts_per_page' => $GLOBALS['wp_query']->query_vars['posts_per_page'],
@@ -38,26 +38,26 @@ get_header();
 
 						);
 			
-						$news_list = get_posts( $args );
+						$action_list = get_posts( $args );
 					?>
 					<ul class="list-gallerys">
-						<?php if($news_list){ ?>
-						<?php foreach($news_list as $news){ ?>
+						<?php if($action_list){ ?>
+						<?php foreach($action_list as $action){ ?>
 						<?php
-							$image_url = wp_get_attachment_image_src( get_post_thumbnail_id($news->ID), 'full');
-							$descr = wp_trim_words( $news->post_content, 30, '...' );
-							$link = get_permalink($news->ID);
+							$image_url = wp_get_attachment_image_src( get_post_thumbnail_id($action->ID), 'full');
+							$descr = wp_trim_words( $action->post_content, 30, '...' );
+							$link = get_permalink($action->ID);
 						?>
 						<li>
 							<div class="photo-block">
 								<?php if(!empty($image_url)){ ?>
-									<img src="<?php echo $image_url[0]; ?>" alt="<?php echo get_post_meta( get_post_thumbnail_id($news->ID), '_wp_attachment_image_alt', true ); ?>">
+									<img src="<?php echo $image_url[0]; ?>" alt="<?php echo get_post_meta( get_post_thumbnail_id($action->ID), '_wp_attachment_image_alt', true ); ?>">
 								<?php }else{ ?>
 									<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/services-4.jpg">
 								<?php } ?>
 							</div>
 							<div class="description-block">
-								<p class="title-italic"><?php echo $news->post_title; ?></p>
+								<p class="title-italic"><?php echo $action->post_title; ?></p>
 								<p><?php echo $descr; ?></p>
 								<a href="<?php echo $link; ?>" class="button-white">подробнее</a>
 							</div>
@@ -65,7 +65,7 @@ get_header();
 						<?php } ?>
 						<?php wp_reset_postdata(); ?>
 						<?php }else{ ?>
-						<li>В данной категории новостей не найдено!</li>
+						<li>В данной категории акций не найдено!</li>
 						<?php } ?>
 					</ul>
 					
@@ -96,20 +96,20 @@ get_header();
 							//echo getDataCategory('news-list','title_category_news_page');
 						?>
 						
-						<p class="title-sidebar">Новости</p>
+						<p class="title-sidebar">Акции</p>
 						
 						<?php
-						// список разделов произвольной таксономии news-list
+						// список разделов произвольной таксономии action-list
 						
 							$args = array(
-								'taxonomy'     => 'news-list', // название таксономии
+								'taxonomy'     => 'action-list', // название таксономии
 								'orderby'      => 'name',  // сортируем по названиям
 								'show_count'   => 0,       // не показываем количество записей
 								'pad_counts'   => 0,       // не показываем количество записей у родителей
 								'hierarchical' => 1,       // древовидное представление
 								'title_li'     => '',      // список без заголовка
 								'hide_empty' => 0,
-								'child_of'   => 17,
+								'child_of'   => 18,
 							);
 						?>
 						

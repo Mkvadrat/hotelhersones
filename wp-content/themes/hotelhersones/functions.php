@@ -101,6 +101,20 @@ function getCurrentNewsID(){
 	return $cat_ID;
 }
 
+//Вывод id акций
+function getCurrentActionID(){
+	global $wpdb;
+	global $wp_query;
+	if(is_taxonomy('action-list')){
+		$slug = get_query_var('action-list');
+		$cat_ID = $wpdb->get_var( $wpdb->prepare("SELECT term_id FROM $wpdb->terms WHERE slug = %s" , $slug));
+	}else{
+		$cat_ID = 0;
+	}
+	
+	return $cat_ID;
+}
+
 /**********************************************************************************************************************************************************
 ***********************************************************************************************************************************************************
 ****************************************************************************МЕНЮ САЙТА*********************************************************************
@@ -851,8 +865,8 @@ add_action('wp_ajax_nopriv_SendForm', 'SendForm');
 //Вывод в админке раздела новости
 function register_post_type_news() {
 	$labels = array(
-	 'name' => 'News',
-	 'singular_name' => 'News',
+	 'name' => 'Новости',
+	 'singular_name' => 'Новости',
 	 'add_new' => 'Добавить новость',
 	 'add_new_item' => 'Добавить новую новость',
 	 'edit_item' => 'Редактировать новость',
@@ -912,6 +926,76 @@ function create_taxonomies_news()
     ));
 }
 add_action( 'init', 'create_taxonomies_news', 0 );
+
+/**********************************************************************************************************************************************************
+***********************************************************************************************************************************************************
+**********************************************************************"РАЗДЕЛ АКЦИИ"*********************************************************************
+***********************************************************************************************************************************************************
+***********************************************************************************************************************************************************/
+//Вывод в админке раздела акции
+function register_post_type_action() {
+	$labels = array(
+	 'name' => 'Акции',
+	 'singular_name' => 'Акции',
+	 'add_new' => 'Добавить акцию',
+	 'add_new_item' => 'Добавить новую акцию',
+	 'edit_item' => 'Редактировать акцию',
+	 'new_item' => 'Новая акция',
+	 'all_items' => 'Все акции',
+	 'view_item' => 'Просмотр акций на сайте',
+	 'search_items' => 'Искать акцию',
+	 'not_found' => 'Акции не найден.',
+	 'not_found_in_trash' => 'В корзине нет акций.',
+	 'menu_name' => 'Акции'
+	 );
+	 $args = array(
+		 'labels' => $labels,
+		 'public' => true,
+		 'exclude_from_search' => false,
+		 'show_ui' => true,
+		 'has_archive' => false,
+		 'menu_icon' => 'dashicons-lightbulb', // иконка в меню
+		 'menu_position' => 20,
+		 'supports' =>  array('title','editor', 'thumbnail'),
+	 );
+ 	register_post_type('action', $args);
+}
+add_action( 'init', 'register_post_type_action' );
+
+function true_post_type_action( $action ) {
+	global $post, $post_ID;
+
+	$action['action'] = array(
+			0 => '',
+			1 => sprintf( 'Акции обновлены. <a href="%s">Просмотр</a>', esc_url( get_permalink($post_ID) ) ),
+			2 => 'Акция обновлёна.',
+			3 => 'Акция удалёна.',
+			4 => 'Акция обновлена.',
+			5 => isset($_GET['revision']) ? sprintf( 'Статья восстановлена из редакции: %s', wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			6 => sprintf( 'Акция опубликована на сайте. <a href="%s">Просмотр</a>', esc_url( get_permalink($post_ID) ) ),
+			7 => 'Акция сохранена.',
+			8 => sprintf( 'Отправлена на проверку. <a target="_blank" href="%s">Просмотр</a>', esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+			9 => sprintf( 'Запланирована на публикацию: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Просмотр</a>', date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+			10 => sprintf( 'Черновик обновлён. <a target="_blank" href="%s">Просмотр</a>', esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+	);
+	return $action;
+}
+add_filter( 'post_updated_messages', 'true_post_type_action' );
+	
+//Категории для пользовательских записей "Акции"
+function create_taxonomies_action()
+{
+    // Cats Categories
+    register_taxonomy('action-list',array('action'),array(
+        'hierarchical' => true,
+        'label' => 'Рубрики',
+        'singular_name' => 'Рубрика',
+        'show_ui' => true,
+        'query_var' => true,
+        'rewrite' => array('slug' => 'action-list' )
+    ));
+}
+add_action( 'init', 'create_taxonomies_action', 0 );
 
 /**********************************************************************************************************************************************************
 ***********************************************************************************************************************************************************
@@ -983,6 +1067,71 @@ function parse_request_url_category_news( $query ){
 }
 add_filter('request', 'parse_request_url_category_news', 1, 1 );
 
+//Удаление  из url таксономии
+function true_remove_slug_from_category_action( $url, $term, $taxonomy ){
+
+	$taxonomia_name = 'action-list';
+	$taxonomia_slug = 'action-list';
+
+	if ( strpos($url, $taxonomia_slug) === FALSE || $taxonomy != $taxonomia_name ) return $url;
+
+	$url = str_replace('/' . $taxonomia_slug, '', $url);
+
+	return $url;
+}
+add_filter( 'term_link', 'true_remove_slug_from_category_action', 10, 3 );
+
+//Перенаправление url в случае удаления action-list
+function parse_request_url_category_action( $query ){
+
+	$taxonomia_name = 'action-list';
+
+	if( $query['attachment'] ) :
+		$condition = true;
+		$main_url = $query['attachment'];
+	else:
+		$condition = false;
+		$main_url = $query['name'];
+	endif;
+
+	$termin = get_term_by('slug', $main_url, $taxonomia_name);
+
+	if ( isset( $main_url ) && $termin && !is_wp_error( $termin )):
+
+		if( $condition ) {
+			unset( $query['attachment'] );
+			$parent = $termin->parent;
+			while( $parent ) {
+				$parent_term = get_term( $parent, $taxonomia_name);
+				$main_url = $parent_term->slug . '/' . $main_url;
+				$parent = $parent_term->parent;
+			}
+		} else {
+			unset($query['name']);
+		}
+
+		switch( $taxonomia_name ):
+			case 'category':{
+				$query['category_name'] = $main_url;
+				break;
+			}
+			case 'post_tag':{
+				$query['tag'] = $main_url;
+				break;
+			}
+			default:{
+				$query[$taxonomia_name] = $main_url;
+				break;
+			}
+		endswitch;
+
+	endif;
+
+	return $query;
+
+}
+add_filter('request', 'parse_request_url_category_action', 1, 1 );
+
 
 /**********************************************************************************************************************************************************
 ***********************************************************************************************************************************************************
@@ -991,7 +1140,7 @@ add_filter('request', 'parse_request_url_category_news', 1, 1 );
 ***********************************************************************************************************************************************************/
 //Удаление sluga из url таксономии 
 function remove_slug_from_post( $post_link, $post, $leavename ) {
-	if ( 'news' != $post->post_type || 'publish' != $post->post_status ) {
+	if ( 'news' != $post->post_type && 'action' != $post->post_type || 'publish' != $post->post_status ) {
 		return $post_link;
 	}
 		$post_link = str_replace( '/' . $post->post_type . '/', '/', $post_link );
@@ -1008,7 +1157,7 @@ function parse_request_url_post( $query ) {
 	}
 
 	if ( ! empty( $query->query['name'] ) ) {
-		$query->set( 'post_type', array( 'post', 'news', 'page' ) );
+		$query->set( 'post_type', array( 'post', 'news', 'action','page' ) );
 	}
 }
 add_action( 'pre_get_posts', 'parse_request_url_post' );
