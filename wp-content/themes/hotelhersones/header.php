@@ -72,6 +72,9 @@ Version: 1.0
 	<!-- common js -->
 	<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/common.js"></script>
 	
+	<!-- common js -->
+	<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/reviews.js"></script>
+	
 	<?php wp_head(); ?>
 	
 </head>
@@ -227,15 +230,20 @@ Version: 1.0
 				?>
 					<div class="header-banner-block" style="background-image: url( '<?php echo $header_image ? $header_image : esc_url( get_template_directory_uri() ) . '/images/bg-contacts-header.jpg'; ?>' )" data-speed="2" data-type="background">
 				<?php
-				}elseif(is_single() || is_page()){
+				}elseif(is_single()){
 					$header_image = getImageLinkSingle(get_the_ID(),'header_image_all_page');
 				?>
 					<div class="header-banner-block" style="background-image: url( '<?php echo $header_image ? $header_image : esc_url( get_template_directory_uri() ) . '/images/bg-contacts-header.jpg'; ?>' )" data-speed="2" data-type="background">
 				<?php
+				}elseif(is_page()){
+					$header_image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'full');
+				?>
+					<div class="header-banner-block" style="background-image: url( '<?php echo $header_image ? $header_image[0] : esc_url( get_template_directory_uri() ) . '/images/bg-contacts-header.jpg'; ?>' )" data-speed="2" data-type="background">
+				<?php
 				}else{
 					$header_image = wp_get_attachment_image_src( get_post_thumbnail_id(get_the_ID()), 'full');
 				?>
-					<div class="header-banner-block" <?php var_dump($header_image); ?> style="background-image: url( '<?php echo $header_image ? $header_image[0] : esc_url( get_template_directory_uri() ) . '/images/bg-contacts-header.jpg'; ?>' )" data-speed="2" data-type="background">
+					<div class="header-banner-block" style="background-image: url( '<?php echo $header_image ? $header_image[0] : esc_url( get_template_directory_uri() ) . '/images/bg-contacts-header.jpg'; ?>' )" data-speed="2" data-type="background">
 				<?php 
 				}
 			?>
