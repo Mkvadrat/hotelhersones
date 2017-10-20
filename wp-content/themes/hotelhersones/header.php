@@ -72,7 +72,7 @@ Version: 1.0
 	<!-- common js -->
 	<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/common.js"></script>
 	
-	<!-- common js -->
+	<!-- reviews js -->
 	<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/reviews.js"></script>
 	
 	<?php wp_head(); ?>

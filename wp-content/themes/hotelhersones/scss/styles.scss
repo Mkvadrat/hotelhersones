@@ -871,6 +871,18 @@ p {
 		.photo-block {
 			float: left;
 			width: 160px;
+			
+			a {
+				display: block;
+				width: 130px;
+				
+				&.autor-autographed {
+					height: 130px;
+					background-size: cover;
+					background-position: center;
+					margin-bottom: 10px;
+				}
+			}
 		}
 
 		.description-block {

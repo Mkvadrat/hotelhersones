@@ -34,8 +34,7 @@ get_header();
 							'orderby'     => 'date',
 							'order'       => 'DESC',
 							'posts_per_page' => $GLOBALS['wp_query']->query_vars['posts_per_page'],
-							'paged'          => $current_page,
-
+							'paged'          => $current_page
 						);
 			
 						$news_list = get_posts( $args );

@@ -32,6 +32,7 @@ get_header();
 						$param = array(
 							'status'	=> 'approve',
 							'offset'	=> $offset,
+							'post_parent ' => '554,561',
 							'number'	=> $limit
 						);
 					
