@@ -250,26 +250,37 @@ get_header();
         <div class="container news-block">
             <div class="row">
                 <div class="col-md-12">
-                    <p class="h2-title">Новости отеля</p>
+                    <?php echo get_post_meta( get_the_ID(), 'title_news_block_main_page', $single = true ); ?>
                 </div>
-                <div class="col-md-4">
-                    <div class="block-photo" style="background-image: url(images/news-1.jpg);"></div>
-                    <p class="title-news">Крымский военно-исторический фестиваль 2017</p>
-                    <p>На Федюхиных высотах под Севастополем с 15 по 16 сентября пройдет Крымский военно-исторический фестиваль.</p>
-                    <p><a class="button-white" href="#">Подробнее</a></p>
-                </div>
-                <div class="col-md-4">
-                    <div class="block-photo" style="background-image: url(images/news-2.jpg);"></div>
-                    <p class="title-news">Акция! Бесплатное такси на пляж!</p>
-                    <p>Бесплатное такси на пляж "Парк Победы" для гостей отеля</p>
-                    <p><a class="button-white" href="#">Подробнее</a></p>
-                </div>
-                <div class="col-md-4">
-                    <div class="block-photo" style="background-image: url(images/news-3.jpg);"></div>
-                    <p class="title-news">Приглашаем в ресторан "Парадиз"</p>
-                    <p>Бокал восхитительного вина от Крымских виноделов в ресторане "Парадиз"</p>
-                    <p><a class="button-white" href="#">Подробнее</a></p>
-                </div>
+                
+                <?php
+                    $args = array(
+                        'numberposts' => 3,
+                        'post_type'   => 'news',
+                        'orderby'     => 'date',
+                        'order'       => 'DESC',
+                        'post_status' => 'publish',
+                    );
+        
+                    $news_list = get_posts( $args );
+                ?>
+                <?php if($news_list){ ?>
+                <?php foreach($news_list as $news){ ?>
+                
+                <?php
+                    $image_url = wp_get_attachment_image_src( get_post_thumbnail_id($news->ID), 'full');
+                    $descr = wp_trim_words( $news->post_content, 30, '...' );
+                    $link = get_permalink($news->ID);
+                ?>
+                    <div class="col-md-4">
+                        <div class="block-photo" style="background-image: url( '<?php echo $image_url[0] ? $image_url[0] : esc_url( get_template_directory_uri() ) . '/images/news-1.jpg'; ?>');"></div>
+                        <p class="title-news"><?php echo $news->post_title; ?></p>
+                        <p><?php echo $descr; ?></p>
+                        <p><a class="button-white" href="<?php echo $link; ?>">Подробнее</a></p>
+                    </div>
+                <?php } ?>
+                <?php wp_reset_postdata(); ?>
+                <?php } ?>
             </div>
         </div>
         
@@ -281,33 +292,49 @@ get_header();
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
-                        <p class="h2-title">отзывы</p>
-                        <div class="owl-carousel owl-theme reviews-slider">
-                            <div>
-                                <div class="autographed">
-                                    <img src="images/autographed-1.png" alt="">
-                                    <p class="title">Шикарный отель!</p>
-                                    <q>Спасибо за прекрасные апартаменты, замечательная атмосфера. Надеюсь приехать сюда вновь! С наступающим Новым годом и Рождеством!</q>
-                                    <p class="person"><span>Тимати</span> Рэпер</p>
-                                </div>
+                        <?php echo get_post_meta( get_the_ID(), 'title_reviews_block_main_page', $single = true ); ?> 
+                        <?php
+                            $args = array(
+                                'post_type'   => 'reviews-stars',
+                                'numberposts' => 3,
+                                'post_status' => 'publish',
+                                'orderby'     => 'date',
+                                'order'       => 'DESC',
+                            );
+                
+                            $reviews_stars = get_posts( $args );
+                        ?>
+                        
+                        <?php if($reviews_stars){ ?>
+                            <div class="owl-carousel owl-theme reviews-slider">  
+                                <?php foreach($reviews_stars as $star){ ?>
+                                <?php
+                                    $image_star = getImageLinkSingle( $star->ID, 'images_star_block_reviews_star_guest_single_page' );
+                                    $autograph_star = getImageLinkSingle( $star->ID, 'autograph_star_block_reviews_star_guest_single_page' );
+                                    $text = get_post_meta( $star->ID, 'text_block_reviews_star_guest_single_page', $single = true );
+                                    $name = get_post_meta( $star->ID, 'name_star_block_reviews_star_guest_single_page', $single = true );
+                                    $status = get_post_meta( $star->ID, 'status_star_block_reviews_star_guest_single_page', $single = true );
+                                ?>
+                                    <div>
+                                        <div class="autographed">
+                                            
+                                            <?php if($image_star){ ?>
+                                                <img src="<?php echo $image_star; ?>">
+                                            <?php } ?> 
+                                            
+                                            <?php if($autograph_star){ ?>
+                                                <img src="<?php echo $autograph_star; ?>">
+                                            <?php } ?>
+                                            
+                                            <p class="title"><?php echo $star->post_title; ?></p>
+                                            <?php echo $text; ?>
+                                            <p class="person"><span><?php echo $name; ?></span> <?php echo $status; ?></p>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                                <?php wp_reset_postdata(); ?>
                             </div>
-                            <div>
-                                <div class="autographed">
-                                    <img src="images/autographed-1.png" alt="">
-                                    <p class="title">Шикарный отель!</p>
-                                    <q>Спасибо за прекрасные апартаменты, замечательная атмосфера. Надеюсь приехать сюда вновь! С наступающим Новым годом и Рождеством!</q>
-                                    <p class="person"><span>Тимати</span> Рэпер</p>
-                                </div>
-                            </div>
-                            <div>
-                                <div class="autographed">
-                                    <img src="images/autographed-1.png" alt="">
-                                    <p class="title">Шикарный отель!</p>
-                                    <q>Спасибо за прекрасные апартаменты, замечательная атмосфера. Надеюсь приехать сюда вновь! С наступающим Новым годом и Рождеством!</q>
-                                    <p class="person"><span>Тимати</span> Рэпер</p>
-                                </div>
-                            </div>
-                        </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -320,10 +347,34 @@ get_header();
         <div class="container map-block">
             <div class="row">
                 <div class="col-md-12">
-                    <p class="h2-title">Как к нам доехать в Севастополе:</p>
-                    <p>бутик-отель "Апартаменты Херсонес" на карте</p>
+                    <?php echo get_post_meta( get_the_ID(), 'text_sheme_block_main_page', $single = true ); ?> 
+                    
                     <div class="map-block-wrap">
-                    <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A5ec550252a62cee73bc2e094b425bbb7c49ba525e0c2c90cdb3f7faf9b3e7f01&amp;width=100%25&amp;height=280&amp;lang=ru_UA&amp;scroll=true"></script>
+						<?php $sevastopol = getMeta('address_contact_page'); ?> 
+						
+						<script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+						<div id="sevastopol" style="width:100; height:280px"></div>
+						<script type="text/javascript">
+							var sevastopolMap, sevastopolPlacemark, sevastopolcoords;
+							ymaps.ready(init);
+							function init () {
+								//Определяем начальные параметры карты
+								sevastopolMap = new ymaps.Map('sevastopol', {
+										center: [<?php if(!empty($sevastopol)){ ?><?php echo $sevastopol; ?><?php }else{ echo '56.326944, 44.0075'; } ?>], 
+										zoom: 17
+									});	
+								//Определяем элемент управления поиск по карте	
+								var SearchControl = new ymaps.control.SearchControl({noPlacemark:true});	
+								//Добавляем элементы управления на карту
+								 sevastopolMap.controls              
+									//.add('zoomControl')                
+									.add('typeSelector') 
+								sevastopolcoords = [<?php if(!empty($sevastopol)){ ?><?php echo $sevastopol; ?><?php }else{ echo '56.326944, 44.0075'; } ?>];
+								//Определяем метку и добавляем ее на карту				
+								sevastopolPlacemark = new ymaps.Placemark([<?php if(!empty($sevastopol)){ ?><?php echo $sevastopol; ?><?php }else{ echo '56.326944, 44.0075'; } ?>],{}, {preset: "twirl#redIcon", draggable: true});	
+								sevastopolMap.geoObjects.add(sevastopolPlacemark);			
+							}
+						</script>
                     </div>
                 </div>
             </div>

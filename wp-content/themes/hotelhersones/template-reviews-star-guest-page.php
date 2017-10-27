@@ -20,17 +20,53 @@ get_header();
 				<div class="col-md-8">
 					<?php echo get_post_meta( get_the_ID(), 'text_block_reviews_star_guest_page', $single = true ); ?>
 					
+					<?php
+						$current_page = (get_query_var('paged')) ? get_query_var('paged') : 1;
+						$posts_per_page = $GLOBALS['wp_query']->query_vars['posts_per_page'];
+						$args = array(
+							'post_type'      => 'reviews-stars',
+							'posts_per_page' => $posts_per_page,
+							'paged'          => $current_page,
+							'post_status'    => 'publish',
+						);
+			
+						$reviews_stars = get_posts( $args );
+					?>
 					<ul class="list-reviews">
+					<?php if($reviews_stars){ ?>
+					
+						<?php foreach($reviews_stars as $star){ ?>
+						<?php
+							$image_star = getImageLinkSingle( $star->ID, 'images_star_block_reviews_star_guest_single_page' );
+							$autograph_star = getImageLinkSingle( $star->ID, 'autograph_star_block_reviews_star_guest_single_page' );
+							$popup_image = getImageLinkSingle( $star->ID, 'images_star_fancy_block_reviews_star_guest_single_page' );
+							$text = get_post_meta( $star->ID, 'text_block_reviews_star_guest_single_page', $single = true );
+							$name = get_post_meta( $star->ID, 'name_star_block_reviews_star_guest_single_page', $single = true );
+							$status = get_post_meta( $star->ID, 'status_star_block_reviews_star_guest_single_page', $single = true );
+							$date = get_the_date( 'd.m.y', $star->ID );
+						?>
 						<li>
 							<div class="photo-block">
-								<img src="images/autographed-1.png" alt="">
+								<a class="autor-autographed" style="background-image: url( <?php echo $image_star; ?> );"></a>
+								<img src="<?php echo $autograph_star; ?>" alt="">
 							</div>
 							<div class="description-block">
-								<p class="title">Шикарный отель!<a href="#">Фото отзыва</a></p>
-								<p>Спасибо за прекрасные апартаменты, замечательная атмосфера. Надеюсь приехать сюда вновь! С наступающим Новым годом и Рождеством!</p>
-							<p class="autor">Тимати <span>Рэпер</span><time>28.04.2017</time></p>
+								<p class="title">
+									<?php echo $star->post_title; ?>
+									
+									<?php if($popup_image){?>
+										<a class="fancybox" href="<?php echo $popup_image; ?>">Фото отзыва</a>
+									<?php } ?>
+								</p>
+								<?php echo $text; ?>
+								<p class="autor"><?php echo $name; ?> <span><?php echo $status; ?></span><time><?php echo $date; ?></time></p>
 							</div>
 						</li>
+						<?php } ?>
+						<?php wp_reset_postdata(); ?>
+					<?php }else{ ?>
+						<li>Отзывов не найдено!</li>
+					<?php } ?>
 					</ul>
 				</div>
 				<div class="col-md-4">
@@ -38,15 +74,10 @@ get_header();
 						<?php echo get_post_meta( get_the_ID(), 'category_reviews_star_guest_page', $single = true ); ?>
 						
 						<div class="form-block">
-							<form class="reviews-form" id="commentform">
+							<div>
 								<p class="white-title-underline">Оставьте Ваш отзыв</p>
-								<input type="text" name="author" id="author" placeholder="Введите Ваше имя">
-								<input type="text" name="email" id="email" placeholder="Введите Вашу почту">
-								<textarea name="comment" id="comment" placeholder="Отзыв"></textarea>
-								<?php echo comment_id_fields(); ?> 
-							</form>
-							<div class="respond"></div>
-							<input type="submit" onclick="submit();" value="оставить отзыв">
+								<a href="#">оставить отзыв</a>
+							</div>
 						</div>
 						
 						<div class="links-block">
@@ -55,28 +86,40 @@ get_header();
 					</aside>
 				</div>
 				<div class="col-md-12">
-					<ul class="bread-crumbs">
-						<li><a href="#">Предыдущая страница</a></li>
-						<li><a href="#">1</a></li>
-						<li><span>...</span></li>
-						<li><a href="#">3</a></li>
-						<li><a class="active" href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><span>...</span></li>
-						<li><a href="#">10</a></li>
-						<li><a href="#">Следующая страница</a></li>
-					</ul>
+					<?php
+						$total_posts = get_posts(array(
+							'post_type'      => 'reviews-stars',
+							'post_status'    => 'publish',
+							'posts_per_page' => -1
+						));
+								
+						$pages = ceil(count($total_posts)/$posts_per_page);
+
+						$defaults = array(
+							'type' => 'array',
+							'prev_next'    => True,
+							'prev_text'    => __('Предыдущая страница'),
+							'next_text'    => __('Следующая страница'),
+							'total'        => $pages,
+							
+						);
+	
+						$pagination = paginate_links($defaults);
+						
+					if($pagination){
+					?>
+
+                    <ul class="bread-crumbs">
+						<?php foreach ($pagination as $pag){ ?>
+	                        <li><?php echo $pag; ?></li>
+						<?php } ?>
+                    </ul>
+					<?php } ?>
 				</div>
 			</div>
 		</div>
 	</div>
 	
 	<!-- end main-reviews -->
-	
-<script language="javascript">
-    function submit(){
-        $(".reviews-form").submit();
-    }
-</script>
- 
+	 
 <?php get_footer(); ?>

@@ -22,31 +22,31 @@ get_header();
 					<?php echo get_post_meta( get_the_ID(), 'content_contacts_page', $single = true ); ?> 
                 
                     <div class="map-block">
-                            <?php $sevastopol = get_post_meta( get_the_ID(), 'address_contact_page', $single = true ); ?> 
-                            
-                            <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
-                            <div id="sevastopol" style="width:100; height:240px"></div>
-                            <script type="text/javascript">
-                                var sevastopolMap, sevastopolPlacemark, sevastopolcoords;
-                                ymaps.ready(init);
-                                function init () {
-                                    //Определяем начальные параметры карты
-                                    sevastopolMap = new ymaps.Map('sevastopol', {
-                                            center: [<?php if(!empty($sevastopol)){ ?><?php echo $sevastopol; ?><?php }else{ echo '56.326944, 44.0075'; } ?>], 
-                                            zoom: 17
-                                        });	
-                                    //Определяем элемент управления поиск по карте	
-                                    var SearchControl = new ymaps.control.SearchControl({noPlacemark:true});	
-                                    //Добавляем элементы управления на карту
-                                     sevastopolMap.controls              
-                                        //.add('zoomControl')                
-                                        .add('typeSelector') 
-                                    sevastopolcoords = [<?php if(!empty($sevastopol)){ ?><?php echo $sevastopol; ?><?php }else{ echo '56.326944, 44.0075'; } ?>];
-                                    //Определяем метку и добавляем ее на карту				
-                                    sevastopolPlacemark = new ymaps.Placemark([<?php if(!empty($sevastopol)){ ?><?php echo $sevastopol; ?><?php }else{ echo '56.326944, 44.0075'; } ?>],{}, {preset: "twirl#redIcon", draggable: true});	
-                                    sevastopolMap.geoObjects.add(sevastopolPlacemark);			
-                                }
-                            </script>
+						<?php $sevastopol = get_post_meta( get_the_ID(), 'address_contact_page', $single = true ); ?> 
+						
+						<script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+						<div id="sevastopol" style="width:100; height:240px"></div>
+						<script type="text/javascript">
+							var sevastopolMap, sevastopolPlacemark, sevastopolcoords;
+							ymaps.ready(init);
+							function init () {
+								//Определяем начальные параметры карты
+								sevastopolMap = new ymaps.Map('sevastopol', {
+										center: [<?php if(!empty($sevastopol)){ ?><?php echo $sevastopol; ?><?php }else{ echo '56.326944, 44.0075'; } ?>], 
+										zoom: 17
+									});	
+								//Определяем элемент управления поиск по карте	
+								var SearchControl = new ymaps.control.SearchControl({noPlacemark:true});	
+								//Добавляем элементы управления на карту
+								 sevastopolMap.controls              
+									//.add('zoomControl')                
+									.add('typeSelector') 
+								sevastopolcoords = [<?php if(!empty($sevastopol)){ ?><?php echo $sevastopol; ?><?php }else{ echo '56.326944, 44.0075'; } ?>];
+								//Определяем метку и добавляем ее на карту				
+								sevastopolPlacemark = new ymaps.Placemark([<?php if(!empty($sevastopol)){ ?><?php echo $sevastopol; ?><?php }else{ echo '56.326944, 44.0075'; } ?>],{}, {preset: "twirl#redIcon", draggable: true});	
+								sevastopolMap.geoObjects.add(sevastopolPlacemark);			
+							}
+						</script>
                     </div>
                 
                 </div>

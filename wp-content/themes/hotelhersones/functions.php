@@ -999,6 +999,72 @@ add_action( 'init', 'create_taxonomies_action', 0 );
 
 /**********************************************************************************************************************************************************
 ***********************************************************************************************************************************************************
+******************************************************************"РАЗДЕЛ ОТЗЫВЫ ЗВЕЗДНЫХ ГОСТЕЙ"**********************************************************
+***********************************************************************************************************************************************************
+***********************************************************************************************************************************************************/
+//Вывод в админке раздела отзывы звездных гостей
+function register_post_type_reviews_stars() {
+	$labels = array(
+	 'name' => 'Отзывы',
+	 'singular_name' => 'Отзывы',
+	 'add_new' => 'Добавить отзыв',
+	 'add_new_item' => 'Добавить новый отзыв',
+	 'edit_item' => 'Редактировать отзыв',
+	 'new_item' => 'Новый отзыв',
+	 'all_items' => 'Все отзывы',
+	 'view_item' => 'Просмотр отзывы на сайте',
+	 'search_items' => 'Искать отзыв',
+	 'not_found' => 'Отзыв не найден.',
+	 'not_found_in_trash' => 'В корзине нет отзывов.',
+	 'menu_name' => 'Отзывы'
+	 );
+	 $args = array(
+		 'labels' => $labels,
+		 'public' => true,
+		 'exclude_from_search' => true,
+		 'show_ui' => true,
+		 'has_archive' => false,
+		 'menu_icon' => 'dashicons-thumbs-up', // иконка в меню
+		 'menu_position' => 20,
+		 'supports' =>  array('title','editor', 'thumbnail'),
+		 'publicly_queryable'  => false,
+		 'query_var'           => false
+	 );
+ 	register_post_type('reviews-stars', $args);
+}
+add_action( 'init', 'register_post_type_reviews_stars' );
+
+function true_post_type_reviews_stars( $reviews_stars ) {
+	global $post, $post_ID;
+
+	$reviews_stars['reviews_stars'] = array(
+			0 => '',
+			1 => sprintf( 'Отзывы обновлены. <a href="%s">Просмотр</a>', esc_url( get_permalink($post_ID) ) ),
+			2 => 'Отзыв обновлён.',
+			3 => 'Отзыв удалён.',
+			4 => 'Отзыв обновлен.',
+			5 => isset($_GET['revision']) ? sprintf( 'Отзыв восстановлен из редакции: %s', wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			6 => sprintf( 'Отзыв опубликован на сайте. <a href="%s">Просмотр</a>', esc_url( get_permalink($post_ID) ) ),
+			7 => 'Отзыв сохранен.',
+			8 => sprintf( 'Отправлена на проверку. <a target="_blank" href="%s">Просмотр</a>', esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+			9 => sprintf( 'Запланирована на публикацию: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Просмотр</a>', date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+			10 => sprintf( 'Черновик обновлён. <a target="_blank" href="%s">Просмотр</a>', esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+	);
+	return $reviews_stars;
+}
+add_filter( 'post_updated_messages', 'true_post_type_reviews_stars' );
+
+//Добавление редиректа на 404
+function redirect_cpt_singular_posts() {
+	if ( is_singular('reviews_stars') ) {
+	  global $wp_query;
+	  $wp_query->set_404();
+	}
+}
+add_action( 'template_redirect', 'redirect_cpt_singular_posts' );
+
+/**********************************************************************************************************************************************************
+***********************************************************************************************************************************************************
 ************************************************************ПЕРЕИМЕНОВАВАНИЕ ЗАПИСЕЙ В УСЛУГИ**************************************************************
 ***********************************************************************************************************************************************************
 ***********************************************************************************************************************************************************/
@@ -1294,3 +1360,5 @@ function true_add_ajax_comment(){
 }
 add_action('wp_ajax_ajaxcomments', 'true_add_ajax_comment'); // wp_ajax_{значение параметра action}
 add_action('wp_ajax_nopriv_ajaxcomments', 'true_add_ajax_comment'); // wp_ajax_nopriv_{значение параметра action}
+
+

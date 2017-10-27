@@ -1,6 +1,6 @@
 <?php
 /*
-Template name: Reviews our clients page
+Template name: Reviews about restoran page
 Theme Name: Hotelhersones
 Theme URI: http://hotelhersones.com/
 Author: M2
@@ -18,7 +18,7 @@ get_header();
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8">
-					<?php echo get_post_meta( get_the_ID(), 'text_block_reviews_our_clients_page', $single = true ); ?>
+					<?php echo get_post_meta( get_the_ID(), 'text_block_reviews_about_restoran_page', $single = true ); ?>
 					<?php 
 					
 						define( 'DEFAULT_COMMENTS_PER_PAGE', $GLOBALS['wp_query']->query_vars['comments_per_page']);
@@ -32,14 +32,14 @@ get_header();
 						$param = array(
 							'status'	=> 'approve',
 							'offset'	=> $offset,
-							'post_id' => '554',
+							'post_id' => '600',
 							'number'	=> $limit
 						);
 					
 						$total_comments = get_comments(array(
 							'orderby' => 'comment_date',
 							'order'   => 'ASC',
-							'post_id' => '554',
+							'post_id' => '600',
 							'status'  => 'approve',
 							'parent'  => 0
 					
@@ -108,7 +108,7 @@ get_header();
 				</div>
 				<div class="col-md-4">
 					<aside class="sidebar">
-						<?php echo get_post_meta( get_the_ID(), 'category_reviews_our_clients_page', $single = true ); ?>
+						<?php echo get_post_meta( get_the_ID(), 'category_reviews_about_restoran_page', $single = true ); ?>
 						
 						<div class="form-block">
 							<form class="reviews-form" id="commentform">
@@ -122,7 +122,7 @@ get_header();
 							<input type="submit" onclick="submit();" value="оставить отзыв">
 						</div>
 						<div class="links-block">
-							<?php echo get_post_meta( get_the_ID(), 'social_links_block_reviews_our_clients_page', $single = true ); ?>
+							<?php echo get_post_meta( get_the_ID(), 'social_links_block_reviews_about_restoran_page', $single = true ); ?>
 						</div>
 					</aside>
 				</div>
