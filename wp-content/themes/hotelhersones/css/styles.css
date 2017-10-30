@@ -1485,43 +1485,43 @@ p strong {
 }
 
 .header-page .menu > ul > .sub-menu:nth-child(3) > ul::before {
-  left: 255px;
+  left: 247px;
 }
 
 .header-page .menu > ul > .sub-menu:nth-child(5) > ul::before {
-  left: 413px;
+  left: 407px;
 }
 
 .header-page .menu > ul > .sub-menu:nth-child(6) > ul::before {
-  left: 542px;
+  left: 530px;
 }
 
 .header-page .menu > ul > .sub-menu:nth-child(7) > ul::before {
-  left: 688px;
+  left: 668px;
 }
 
 .header-page .menu > ul > .sub-menu:nth-child(8) > ul::before {
-  left: 799px;
+  left: 792px;
 }
 
 .header-page .menu > ul > .sub-menu:nth-child(9) > ul::before {
-  left: 899px;
+  left: 906px;
 }
 
 .header-page .menu > ul > .sub-menu:nth-child(10) > ul::before {
-  left: 991px;
+  left: 987px;
 }
 
 .header-page .menu > ul > .sub-menu:nth-child(2) > a::before {
-  right: 11px;
+  right: 7px;
 }
 
 .header-page .menu > ul > .sub-menu:nth-child(3) > a::before {
-  right: 12px;
+  right: 7px;
 }
 
 .header-page .menu > ul > .sub-menu:nth-child(5) > a::before {
-  right: 11px;
+  right: 7px;
 }
 
 .header-page .menu > ul > li:nth-child(6) {
@@ -1529,23 +1529,23 @@ p strong {
 }
 
 .header-page .menu > ul > .sub-menu:nth-child(6) > a::before {
-  right: 5px;
+  right: 7px;
 }
 
 .header-page .menu > ul > .sub-menu:nth-child(7) > a::before {
-  right: 13px;
+  right: 7px;
 }
 
 .header-page .menu > ul > .sub-menu:nth-child(8) > a::before {
-  right: 11px;
+  right: 7px;
 }
 
 .header-page .menu > ul > .sub-menu:nth-child(9) > a::before {
-  right: 12px;
+  right: 7px;
 }
 
 .header-page .menu > ul > .sub-menu:nth-child(10) > a::before {
-  right: 11px;
+  right: 7px;
 }
 
 .header-page .menu ul {
@@ -2544,8 +2544,8 @@ p strong {
   float: left;
   background-size: cover;
   background-repeat: no-repeat;
-  background-position: top left;
-  background-size: 110% auto;
+  background-position: center;
+  background-size: cover;
   border: 1px solid #fff;
   -webkit-transition: 0.3s;
   -moz-transition: 0.3s;
@@ -2803,11 +2803,22 @@ p strong {
   margin: 0 auto;
 }
 
+.main-index .reviews-block .autographed .photo-block,
+.main-paradiz .reviews-block .autographed .photo-block {
+  float: left;
+  margin-right: 30px;
+  width: 130px;
+}
+
 .main-index .reviews-block .autographed img,
 .main-paradiz .reviews-block .autographed img {
-  float: left;
-  width: auto;
-  margin-right: 30px;
+  display: block;
+  margin: 0 auto;
+}
+
+.main-index .reviews-block .autographed img:first-child,
+.main-paradiz .reviews-block .autographed img:first-child {
+  margin-bottom: 20px;
 }
 
 .main-index .reviews-block .autographed .title,
