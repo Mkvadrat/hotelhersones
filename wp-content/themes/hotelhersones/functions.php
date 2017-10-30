@@ -1065,6 +1065,61 @@ add_action( 'template_redirect', 'redirect_cpt_singular_posts' );
 
 /**********************************************************************************************************************************************************
 ***********************************************************************************************************************************************************
+*************************************************************************"РАЗДЕЛ НОМЕРА"*******************************************************************
+***********************************************************************************************************************************************************
+***********************************************************************************************************************************************************/
+//Вывод в админке раздела номера для бронирования
+function register_post_type_booking_rooms() {
+	$labels = array(
+	 'name' => 'Номера для бронирования',
+	 'singular_name' => 'Номера для бронирования',
+	 'add_new' => 'Добавить номер',
+	 'add_new_item' => 'Добавить новый номер',
+	 'edit_item' => 'Редактировать номер',
+	 'new_item' => 'Новый номер',
+	 'all_items' => 'Все номера',
+	 'view_item' => 'Просмотр номера на сайте',
+	 'search_items' => 'Искать номер',
+	 'not_found' => 'Номера не найден.',
+	 'not_found_in_trash' => 'В корзине нет номеров.',
+	 'menu_name' => 'Номера для бронирования'
+	 );
+	 $args = array(
+		 'labels' => $labels,
+		 'public' => true,
+		 'exclude_from_search' => false,
+		 'show_ui' => true,
+		 'has_archive' => false,
+		 'menu_icon' => 'dashicons-building', // иконка в меню
+		 'menu_position' => 20,
+		 'supports' =>  array('title','editor', 'thumbnail'),
+	 );
+ 	register_post_type('booking-rooms', $args);
+}
+add_action( 'init', 'register_post_type_booking_rooms' );
+
+function true_post_type_booking_rooms( $booking_rooms ) {
+	global $post, $post_ID;
+
+	$booking_rooms['booking_rooms'] = array(
+			0 => '',
+			1 => sprintf( 'Номера обновлены. <a href="%s">Просмотр</a>', esc_url( get_permalink($post_ID) ) ),
+			2 => 'Номер обновлён.',
+			3 => 'Номер удалён.',
+			4 => 'Номер обновлен.',
+			5 => isset($_GET['revision']) ? sprintf( 'Номер восстановлен из редакции: %s', wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			6 => sprintf( 'Номер опубликован на сайте. <a href="%s">Просмотр</a>', esc_url( get_permalink($post_ID) ) ),
+			7 => 'Номер сохранен.',
+			8 => sprintf( 'Отправлена на проверку. <a target="_blank" href="%s">Просмотр</a>', esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+			9 => sprintf( 'Запланирована на публикацию: <strong>%1$s</strong>. <a target="_blank" href="%2$s">Просмотр</a>', date_i18n( __( 'M j, Y @ G:i' ), strtotime( $post->post_date ) ), esc_url( get_permalink($post_ID) ) ),
+			10 => sprintf( 'Черновик обновлён. <a target="_blank" href="%s">Просмотр</a>', esc_url( add_query_arg( 'preview', 'true', get_permalink($post_ID) ) ) ),
+	);
+	return $booking_rooms;
+}
+add_filter( 'post_updated_messages', 'true_post_type_booking_rooms' );
+
+/**********************************************************************************************************************************************************
+***********************************************************************************************************************************************************
 ************************************************************ПЕРЕИМЕНОВАВАНИЕ ЗАПИСЕЙ В УСЛУГИ**************************************************************
 ***********************************************************************************************************************************************************
 ***********************************************************************************************************************************************************/
@@ -1236,7 +1291,7 @@ add_filter('request', 'parse_request_url_category_action', 1, 1 );
 ***********************************************************************************************************************************************************/
 //Удаление sluga из url таксономии 
 function remove_slug_from_post( $post_link, $post, $leavename ) {
-	if ( 'news' != $post->post_type && 'action' != $post->post_type || 'publish' != $post->post_status ) {
+	if ( 'booking-rooms' != $post->post_type && 'news' != $post->post_type && 'action' != $post->post_type || 'publish' != $post->post_status ) {
 		return $post_link;
 	}
 		$post_link = str_replace( '/' . $post->post_type . '/', '/', $post_link );
@@ -1253,7 +1308,7 @@ function parse_request_url_post( $query ) {
 	}
 
 	if ( ! empty( $query->query['name'] ) ) {
-		$query->set( 'post_type', array( 'post', 'news', 'action','page' ) );
+		$query->set( 'post_type', array( 'post', 'booking-rooms', 'news', 'action', 'page' ) );
 	}
 }
 add_action( 'pre_get_posts', 'parse_request_url_post' );

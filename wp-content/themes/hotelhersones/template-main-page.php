@@ -227,13 +227,13 @@ get_header();
                 </div>
             </div>
         </div>
-        
+         <?php } ?>
         <!-- end services-block -->
         
         <!-- start arrival-date-block -->
         
-        <?php $panorama_image_d = getImageLink('image_panorama_block_d_main_page'); ?>
-        <div class="container-fluid arrival-date-block" style="background-image: url( '<?php echo $image_good_services ? $image_good_services : esc_url( get_template_directory_uri() ) . '/images/arrival-date-bg.jpg'; ?>' )">
+        <?php $booking_form_image = getImageLink('image_block_good_services_main_page'); ?>
+        <div class="container-fluid arrival-date-block" style="background-image: url( '<?php echo $booking_form_image ? $booking_form_image : esc_url( get_template_directory_uri() ) . '/images/arrival-date-bg.jpg'; ?>' )">
             <div class="container">
                 <div class="row">
                     <div class="col-md-12">
@@ -242,7 +242,7 @@ get_header();
                 </div>
             </div>
         </div>
-        <?php } ?>
+
         <!-- end arrival-date-block -->
         
         <!-- start news-block -->

@@ -81,124 +81,90 @@ get_header();
 		<!-- end galery-block -->
 		
 		<!-- start main-menu -->
-		
+		<?php if(get_post_meta( get_the_ID(), 'enable_main_menu_block_hotels_paradiz_page', $single = true ) == 'yes'){ ?>
 		<div class="container main-menu">
 			<div class="row">
 				<div class="col-md-12">
-					<p class="h2-title">ОСНОВНОЕ МЕНЮ</p>
-					<p class="paragraph-italic">«Парадиз» предлагает своим посетителям разнообразие великолепных блюд из средиземноморской и крымско-татарской кухонь с акцентом на мясные и рыбные блюда, а также различные морепродукты.</p>
-				</div>
-				<div class="col-md-6">
-					<img src="images/paradiz-8.jpg" alt="">
-				</div>
-				<div class="col-md-6">
-					<p class="paragraph-italic pad-right text-left text-indent">Рыба, подаваемая в ресторане, всегда свежая, а овощи и фрукты выращены под ласковым солнцем Крыма. <br>Повара ресторана готовят с любовью каждое блюдо, а потому их вкус никого не оставит равнодушным.</p>
-				</div>
-				<div class="col-md-6">
-					<p class="paragraph-italic pad-left text-left text-indent">Различные салаты, закуски, первые блюда, пасты, ризотто – меню способно удовлетворить запросы самого изысканного гурмана. Вы можете ужинать каждый вечер в ресторане и каждый раз пробовать что-то новое.</p>
-				</div>
-				<div class="col-md-6">
-					<img src="images/paradiz-9.jpg" alt="">
-				</div>
-				<div class="col-md-12">
-					<p class="paragraph-italic">Перед ассортиментом аппетитных десертов — великолепных сладостей, которые просто тают во рту, невозможно устоять. А в баре ресторана гостям предлагают только самые лучшие алкогольные и безалкогольные коктейли, утонченные вина, элитный алкоголь и пиво на любой вкус. С раннего вечера и до поздней ночи здесь предлагается широкий выбор свежевыжатых соков, а также вкуснейший кофе Bristot.</p>
-					<p class="button-block"><a href="#" class="button-white">посмотреть меню</a></p>
+					<?php echo get_post_meta( get_the_ID(), 'text_main_menu_block_hotels_paradiz_page', $single = true ); ?>
 				</div>
 			</div>
 		</div>
-		
+		<?php } ?>
 		<!-- end main-menu -->
 		
 		<!-- start panorama-block -->
+		<?php if(get_post_meta( get_the_ID(), 'enable_panorama_block_b_hotels_paradiz_page', $single = true ) == 'yes'){ ?>
+		<?php $panorama_image_b = getImageLink('image_panorama_block_b_hotels_paradiz_page'); ?>
 		
-		<div class="container-fluid panorama-block conference-service" style="background-image: url(images/wedding-bg.jpg);">
+		<div class="container-fluid panorama-block conference-service" style="background-image: url( '<?php echo $panorama_image_b ? $panorama_image_b : esc_url( get_template_directory_uri() ) . '/images/wedding-bg.jpg'; ?>' );">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="content-block">
-							<p class="white-title-first">Свадьба в Апартаменты херсонес</p>
-							<p class="white-paragraph-first">всю заботу о мероприятии мы возьмем на себя</p>
-							<p><a href="#" class="button-transparent">Подробнее</a></p>
+							<?php echo get_post_meta( get_the_ID(), 'content_panorama_block_b_hotels_paradiz_page', $single = true ); ?>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+		<?php } ?>
 		<!-- end panorama-block -->
 		
 		<!-- start under-panorama-block -->
-		
+		<?php if(get_post_meta( get_the_ID(), 'enable_services_block_a_hotels_paradiz_page', $single = true ) == 'yes'){ ?>
 		<div class="container-fluid panorama-block wedding-block-description">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<p class="paragraph-italic">Для организации незабываемой свадьбы не подойдет любое место, ведь это особенный день в жизни каждого человека. Подходящее для торжества место невесты выбирают так же тщательно, как и свадебное платье. Ведь и от самой свадьбы, и от места ее проведения должны остаться только самые лучшие воспоминания. Именно поэтому ресторан «Парадиз» — наилучшее место для проведения здесь роскошной свадьбы.</p>
-					</div>
-					<div class="col-md-6">
-						<img src="images/paradiz-10.png" alt="">
-					</div>
-					<div class="col-md-6">
-						<p class="paragraph-italic text-left text-indent">Мы организуем для Вас не просто свадьбу, а самое сказочное свадебное торжество, которое навсегда запомнится и Вам, и всем Вашим гостям. С помощью тематических украшений, аккуратной сервировки и безупречного обслуживания мы создадим особенную праздничную атмосферу, а изысканные блюда из меню, составленного по вашему вкусу, понравятся даже самым требовательным из гостей.</p>
-						<p class="paragraph-italic text-left text-indent">Мы учтем все Ваши пожелания, ведь организация Вашей свадьбы – для нас не просто работа, а забота о Вас и вашем удовольствии. Сделайте свою свадьбу такой, о которой Вы мечтали всю жизнь, и так часто видели в фильмах. Ресторан «Парадиз» и самый роскошный банкетный зал в Севастополе с нетерпением ждет именно Вас.</p>
-					</div>
-					<div class="col-md-12">
-						<p class="button-block">
-						<a href="#" class="button-white">Заказать свадебный банкет</a>
-						</p>
+						<?php echo get_post_meta( get_the_ID(), 'text_services_block_a_hotels_paradiz_page', $single = true ); ?>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+		<?php } ?>
 		<!-- end under-panorama-block -->
 		
 		<!-- start services-block -->
-		
+		<?php if(get_post_meta( get_the_ID(), 'enable_services_block_b_hotels_paradiz_page', $single = true ) == 'yes'){ ?>
 		<div class="container services-block">
 			<div class="row">
 				<div class="col-md-8">
-					<div class="horizontal-services service-part" style="background-image: url(images/paradiz-10.jpg);">
-						<a href="#">
-						<p class="title-service">БАНКЕТЫ, ЮБИЛЕИ<br>И КОРПОРАТИВЫ</p>
-						</a>
+					<?php $services_image_a = getImageLink('image_services_block_b_dot_a_hotels_paradiz_page'); ?>
+					<div class="horizontal-services service-part" style="background-image: url( '<?php echo $services_image_a ? $services_image_a : esc_url( get_template_directory_uri() ) . '/images/paradiz-10.jpg'; ?>' );">
+						<?php echo get_post_meta( get_the_ID(), 'text_services_block_b_dot_a_hotels_paradiz_page', $single = true ); ?>
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="horizontal-services service-part" style="background-image: url(images/paradiz-11.jpg);">
-						<a href="#">
-						<p class="title-service">Акции</p>
-						</a>
+					<?php $services_image_b = getImageLink('image_services_block_b_dot_b_hotels_paradiz_page'); ?>
+					<div class="horizontal-services service-part" style="background-image: url( '<?php echo $services_image_b ? $services_image_b : esc_url( get_template_directory_uri() ) . '/images/paradiz-11.jpg'; ?>' );">
+						<?php echo get_post_meta( get_the_ID(), 'text_services_block_b_dot_b_hotels_paradiz_page', $single = true ); ?>
 					</div>
 				</div>
 				<div class="col-md-4">
-					<div class="horizontal-small-services service-part" style="background-image: url(images/paradiz-12.jpg);">
-						<a href="#">
-						<p class="title-service">детские <br>праздники</p>
-						</a>
+					<?php $services_image_c = getImageLink('image_services_block_b_dot_c_hotels_paradiz_page'); ?>
+					<div class="horizontal-small-services service-part" style="background-image: url( '<?php echo $services_image_c ? $services_image_c : esc_url( get_template_directory_uri() ) . '/images/paradiz-12.jpg'; ?>' );">
+						<?php echo get_post_meta( get_the_ID(), 'text_services_block_c_dot_b_hotels_paradiz_page', $single = true ); ?>
 					</div>
 				</div>
 				<div class="col-md-8">
-					<div class="horizontal-small-services service-part" style="background-image: url(images/paradiz-13.jpg);">
-						<a href="#">
-						<p class="title-service">обслуживание конференций</p>
-						</a>
+					<?php $services_image_d = getImageLink('image_services_block_d_dot_c_hotels_paradiz_page'); ?>
+					<div class="horizontal-small-services service-part" style="background-image: url( '<?php echo $services_image_d ? $services_image_d : esc_url( get_template_directory_uri() ) . '/images/paradiz-13.jpg'; ?>' );">
+						<?php echo get_post_meta( get_the_ID(), 'text_services_block_c_dot_d_hotels_paradiz_page', $single = true ); ?>
 					</div>
 				</div>
 			</div>
 		</div>
-		
+		<?php } ?>
 		<!-- end services-block -->
 		
 		<!-- start arrival-date-block -->
 		
-		<div class="container-fluid arrival-date-block" style="    background-image: url(images/arrival-date-bg.jpg);}">
+		<?php $booking_form_image = getImageLink('image_block_booking_form_hotels_paradiz_page'); ?>
+		<div class="container-fluid arrival-date-block" style="background-image: url( '<?php echo $booking_form_image ? $booking_form_image : esc_url( get_template_directory_uri() ) . '/images/arrival-date-bg.jpg'; ?>' );">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<input type="text" placeholder="дата заезда">
-						<input type="text" placeholder="дата выезда">
-						<a class="button-transparent" href="#">Подробнее</a>
+						<?php echo get_post_meta( get_the_ID(), 'booking_form_hotels_paradiz_page', $single = true ); ?>
 					</div>
 				</div>
 			</div>
@@ -211,26 +177,37 @@ get_header();
 		<div class="container news-block">
 			<div class="row">
 				<div class="col-md-12">
-					<p class="h2-title">Новости отеля</p>
+					<?php echo get_post_meta( get_the_ID(), 'title_news_block_hotels_paradiz_page', $single = true ); ?>
 				</div>
-				<div class="col-md-4">
-					<div class="block-photo" style="background-image: url(images/news-1.jpg);"></div>
-					<p class="title-news">Крымский военно-исторический фестиваль 2017</p>
-					<p>На Федюхиных высотах под Севастополем с 15 по 16 сентября пройдет Крымский военно-исторический фестиваль.</p>
-					<p><a class="button-white" href="#">Подробнее</a></p>
-				</div>
-				<div class="col-md-4">
-					<div class="block-photo" style="background-image: url(images/news-2.jpg);"></div>
-					<p class="title-news">Акция! Бесплатное такси на пляж!</p>
-					<p>Бесплатное такси на пляж "Парк Победы" для гостей отеля</p>
-					<p><a class="button-white" href="#">Подробнее</a></p>
-				</div>
-				<div class="col-md-4">
-					<div class="block-photo" style="background-image: url(images/news-3.jpg);"></div>
-					<p class="title-news">Приглашаем в ресторан "Парадиз"</p>
-					<p>Бокал восхитительного вина от Крымских виноделов в ресторане "Парадиз"</p>
-					<p><a class="button-white" href="#">Подробнее</a></p>
-				</div>
+				
+				<?php
+                    $args = array(
+                        'numberposts' => 3,
+                        'post_type'   => 'news',
+                        'orderby'     => 'date',
+                        'order'       => 'DESC',
+                        'post_status' => 'publish',
+                    );
+        
+                    $news_list = get_posts( $args );
+                ?>
+                <?php if($news_list){ ?>
+                <?php foreach($news_list as $news){ ?>
+                
+                <?php
+                    $image_url = wp_get_attachment_image_src( get_post_thumbnail_id($news->ID), 'full');
+                    $descr = wp_trim_words( $news->post_content, 30, '...' );
+                    $link = get_permalink($news->ID);
+                ?>
+                    <div class="col-md-4">
+                        <div class="block-photo" style="background-image: url( '<?php echo $image_url[0] ? $image_url[0] : esc_url( get_template_directory_uri() ) . '/images/news-1.jpg'; ?>');"></div>
+                        <p class="title-news"><?php echo $news->post_title; ?></p>
+                        <p><?php echo $descr; ?></p>
+                        <p><a class="button-white" href="<?php echo $link; ?>">Подробнее</a></p>
+                    </div>
+                <?php } ?>
+                <?php wp_reset_postdata(); ?>
+                <?php } ?>
 			</div>
 		</div>
 		
@@ -242,33 +219,50 @@ get_header();
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
-						<p class="h2-title">отзывы</p>
-						<div class="owl-carousel owl-theme reviews-slider">
-							<div>
-								<div class="autographed">
-								<img src="images/autographed-1.png" alt="">
-								<p class="title">Шикарный отель!</p>
-								<q>Спасибо за прекрасные апартаменты, замечательная атмосфера. Надеюсь приехать сюда вновь! С наступающим Новым годом и Рождеством!</q>
-								<p class="person"><span>Тимати</span> Рэпер</p>
-								</div>
-								</div>
-							<div>
-								<div class="autographed">
-								<img src="images/autographed-1.png" alt="">
-								<p class="title">Шикарный отель!</p>
-								<q>Спасибо за прекрасные апартаменты, замечательная атмосфера. Надеюсь приехать сюда вновь! С наступающим Новым годом и Рождеством!</q>
-								<p class="person"><span>Тимати</span> Рэпер</p>
-								</div>
-							</div>
-							<div>
-							<div class="autographed">
-								<img src="images/autographed-1.png" alt="">
-								<p class="title">Шикарный отель!</p>
-								<q>Спасибо за прекрасные апартаменты, замечательная атмосфера. Надеюсь приехать сюда вновь! С наступающим Новым годом и Рождеством!</q>
-								<p class="person"><span>Тимати</span> Рэпер</p>
-								</div>
-							</div>
-						</div>
+						<?php echo get_post_meta( get_the_ID(), 'title_reviews_block_hotels_paradiz_page', $single = true ); ?>
+						
+						<?php
+                            $args = array(
+                                'post_type'   => 'reviews-stars',
+                                'numberposts' => 3,
+                                'post_status' => 'publish',
+                                'orderby'     => 'date',
+                                'order'       => 'DESC',
+                            );
+                
+                            $reviews_stars = get_posts( $args );
+                        ?>
+                        
+                        <?php if($reviews_stars){ ?>
+                            <div class="owl-carousel owl-theme reviews-slider">  
+                                <?php foreach($reviews_stars as $star){ ?>
+                                <?php
+                                    $image_star = getImageLinkSingle( $star->ID, 'images_star_block_reviews_star_guest_single_page' );
+                                    $autograph_star = getImageLinkSingle( $star->ID, 'autograph_star_block_reviews_star_guest_single_page' );
+                                    $text = get_post_meta( $star->ID, 'text_block_reviews_star_guest_single_page', $single = true );
+                                    $name = get_post_meta( $star->ID, 'name_star_block_reviews_star_guest_single_page', $single = true );
+                                    $status = get_post_meta( $star->ID, 'status_star_block_reviews_star_guest_single_page', $single = true );
+                                ?>
+                                    <div>
+                                        <div class="autographed">
+                                            
+                                            <?php if($image_star){ ?>
+                                                <img src="<?php echo $image_star; ?>">
+                                            <?php } ?> 
+                                            
+                                            <?php if($autograph_star){ ?>
+                                                <img src="<?php echo $autograph_star; ?>">
+                                            <?php } ?>
+                                            
+                                            <p class="title"><?php echo $star->post_title; ?></p>
+                                            <?php echo $text; ?>
+                                            <p class="person"><span><?php echo $name; ?></span> <?php echo $status; ?></p>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                                <?php wp_reset_postdata(); ?>
+                            </div>
+                        <?php } ?>
 					</div>
 				</div>
 			</div>
@@ -281,11 +275,35 @@ get_header();
 		<div class="container map-block">
 			<div class="row">
 				<div class="col-md-12">
-					<p class="h2-title">Как к нам доехать в Севастополе:</p>
-					<p>бутик-отель "Апартаменты Херсонес" на карте</p>
+					<?php echo get_post_meta( get_the_ID(), 'text_sheme_block_hotels_paradiz_page', $single = true ); ?>
+					
 					<div class="map-block-wrap">
-						<script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A5ec550252a62cee73bc2e094b425bbb7c49ba525e0c2c90cdb3f7faf9b3e7f01&amp;width=100%25&amp;height=280&amp;lang=ru_UA&amp;scroll=true"></script>
-					</div>
+						<?php $sevastopol = getMeta('address_contact_page'); ?> 
+						
+						<script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+						<div id="sevastopol" style="width:100; height:280px"></div>
+						<script type="text/javascript">
+							var sevastopolMap, sevastopolPlacemark, sevastopolcoords;
+							ymaps.ready(init);
+							function init () {
+								//Определяем начальные параметры карты
+								sevastopolMap = new ymaps.Map('sevastopol', {
+										center: [<?php if(!empty($sevastopol)){ ?><?php echo $sevastopol; ?><?php }else{ echo '56.326944, 44.0075'; } ?>], 
+										zoom: 17
+									});	
+								//Определяем элемент управления поиск по карте	
+								var SearchControl = new ymaps.control.SearchControl({noPlacemark:true});	
+								//Добавляем элементы управления на карту
+								 sevastopolMap.controls              
+									//.add('zoomControl')                
+									.add('typeSelector') 
+								sevastopolcoords = [<?php if(!empty($sevastopol)){ ?><?php echo $sevastopol; ?><?php }else{ echo '56.326944, 44.0075'; } ?>];
+								//Определяем метку и добавляем ее на карту				
+								sevastopolPlacemark = new ymaps.Placemark([<?php if(!empty($sevastopol)){ ?><?php echo $sevastopol; ?><?php }else{ echo '56.326944, 44.0075'; } ?>],{}, {preset: "twirl#redIcon", draggable: true});	
+								sevastopolMap.geoObjects.add(sevastopolPlacemark);			
+							}
+						</script>
+                    </div>
 				</div>
 			</div>
 		</div>
