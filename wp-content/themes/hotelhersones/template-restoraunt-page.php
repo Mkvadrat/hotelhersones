@@ -246,13 +246,15 @@ get_header();
                                     <div>
                                         <div class="autographed">
                                             
-                                            <?php if($image_star){ ?>
-                                                <img src="<?php echo $image_star; ?>">
-                                            <?php } ?> 
-                                            
-                                            <?php if($autograph_star){ ?>
-                                                <img src="<?php echo $autograph_star; ?>">
-                                            <?php } ?>
+                                            <div class="photo-block">
+	                                            <?php if($image_star){ ?>
+	                                                <img src="<?php echo $image_star; ?>">
+	                                            <?php } ?> 
+	                                            
+	                                            <?php if($autograph_star){ ?>
+	                                                <img src="<?php echo $autograph_star; ?>">
+	                                            <?php } ?>
+	                                        </div>
                                             
                                             <p class="title"><?php echo $star->post_title; ?></p>
                                             <?php echo $text; ?>

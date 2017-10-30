@@ -42,10 +42,15 @@ $(document).ready(function() {
     })
 
     // MMENU
+
     $(function() {
         $('nav#menu').mmenu({
-            extensions  : [ 'fx-menu-slide', 'shadow-page', 'shadow-panels', 'listview-large', 'pagedim-black' ]
+            extensions  : [ 'fx-listitems-slide', 'fx-panels-zoom', 'fx-listitems-slide', 'multiline', 'shadow-page', 'shadow-panels', 'listview-large', 'pagedim-black' ]
         });
+    });
+
+    $(function() {
+        $('.mm-navbar .mm-title').text('Меню');
     });
 
 	//Плавный скролл до блока .div по клику на .scroll
