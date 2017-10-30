@@ -1984,7 +1984,7 @@ p strong {
 
 .main-index .welcome-apartments-hersones-block,
 .main-paradiz .welcome-apartments-hersones-block {
-  padding: 67px 0 35px;
+  padding: 67px 15px 35px;
   text-align: center;
 }
 
@@ -2034,7 +2034,7 @@ p strong {
 
 .main-index .our-rooms-block,
 .main-paradiz .our-rooms-block {
-  padding: 70px 0 80px;
+  padding: 70px 15px 80px;
   text-align: center;
 }
 
@@ -2162,7 +2162,7 @@ p strong {
 
 .main-index .services-block,
 .main-paradiz .services-block {
-  padding: 80px 0 45px;
+  padding: 80px 15px 45px;
 }
 
 .main-index .services-block .paragraph-italic,
@@ -2273,6 +2273,7 @@ p strong {
   height: 100px;
   width: 100%;
   text-transform: uppercase;
+  word-break: break-all;
   font-family: "LoraRegular";
   font-size: 14px;
   font-weight: 700;
@@ -2521,7 +2522,7 @@ p strong {
 
 .main-index .galery-block,
 .main-paradiz .galery-block {
-  padding: 87px 0 60px;
+  padding: 87px 15px 60px;
 }
 
 .main-index .galery-block p,
@@ -2586,7 +2587,8 @@ p strong {
 .main-paradiz .galery-block .list-galery li:nth-child(3),
 .main-paradiz .galery-block .list-galery li:nth-child(5),
 .main-paradiz .galery-block .list-galery li:nth-child(6) {
-  width: 423px;
+  max-width: 423px;
+  width: 100%;
 }
 
 .main-index .galery-block .list-galery li:nth-child(7),
@@ -2718,7 +2720,7 @@ p strong {
 
 .main-index .news-block,
 .main-paradiz .news-block {
-  padding: 90px 0 40px;
+  padding: 90px 15px 40px;
 }
 
 .main-index .news-block .h2-title,

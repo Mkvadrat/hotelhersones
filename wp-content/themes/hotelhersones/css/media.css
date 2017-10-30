@@ -3,6 +3,16 @@
 /* Large Devices, Wide Screens */
 @media only screen and (max-width : 1200px) {
 
+	body {
+		overflow-x: hidden;
+	}
+
+	.main-index .reviews-block .autographed .photo-block,
+	.main-paradiz .reviews-block .autographed .photo-block {
+		float: none;
+		margin: 0 auto;
+	}
+
 	.main-standart .galery {
 		text-align: center;
 	}
@@ -193,7 +203,7 @@
 
 	.header-page .left-block .rating-5::before,
 	.header-page .left-block .rating-10::before {
-		background-size: 240px auto;
+		background-size: 760px auto;
 	}
 
 	.header-page .left-block .rating-5::before {
@@ -684,8 +694,9 @@
 
 	.main-index .services-block .service-part .title-service,
 	.main-paradiz .services-block .service-part .title-service {
-		font-size: 18px;
-		line-height: 26px;
+		font-size: 14px;
+		line-height: 20px;
+		letter-spacing: 3px;
 	}
 
 	.white-paragraph-second {
