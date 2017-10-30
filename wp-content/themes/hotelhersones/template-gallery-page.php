@@ -31,7 +31,7 @@ get_header();
 							foreach($gallery_image as $image) {
 								if(!$image->exclude == 1){
 						?>
-							<li class="small-block" style="background-image: url( '<?php echo nextgen_esc_url($image->thumbnailURL); ?>' );">
+							<li class="small-block" style="background-image: url( '<?php echo nextgen_esc_url($image->imageURL); ?>' );">
 								<a data-fancybox="gallery" href="<?php echo nextgen_esc_url($image->imageURL); ?>"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
 							</li>
 						<?php
