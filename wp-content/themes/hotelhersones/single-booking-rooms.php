@@ -18,7 +18,8 @@ get_header();
 			<div class="row">
 				<div class="logo-block">
 					<div class="col-md-4">
-						<img src="<?php echo esc_url( get_template_directory_uri() ); ?>/images/pattern-poseidon-red.png" alt="">
+						<?php $image_classic = getImageLinkSingle(get_the_ID(), 'classic_image_number_room_single_page'); ?>
+						<img src="<?php echo $image_classic ? $image_classic : esc_url( get_template_directory_uri() ) . '/images/pattern-poseidon-red.png'; ?>" alt="">
 					</div>
 					<div class="col-md-8">
 						<?php echo get_post_meta( get_the_ID(), 'short_description_number_room_single_page', $single = true ); ?> 
@@ -64,21 +65,15 @@ get_header();
 					
 					<?php echo get_post_meta( get_the_ID(), 'virtual_tour_number_room_single_page', $single = true ); ?>
 					
-					<p class="title-italic">Отзывы</p>
-					
 					<?php echo get_post_meta( get_the_ID(), 'text_block_reviews_star_guest_page', $single = true ); ?>
 					
 					<?php
-						$args = array(
-							'post_type'      => 'reviews-stars',
-							'post_status'    => 'publish',
-							'numberposts'    => 2,
-						);
-			
-						$reviews_stars = get_posts( $args );
+						$reviews_stars = getProductsMeta(get_the_ID(), 'reviews_room_number_room_single_page');
 					?>
 					
 					<?php if($reviews_stars){ ?>
+					<p class="title-italic">Отзывы</p>
+					
 					<ul class="list-reviews">
 						<?php foreach($reviews_stars as $star){ ?>
 						<?php
@@ -109,8 +104,6 @@ get_header();
 						</li>
 						<?php } ?>
 						<?php wp_reset_postdata(); ?>
-					<?php }else{ ?>
-						<li>Отзывов не найдено!</li>
 					<?php } ?>
 					</ul>
 										
@@ -136,12 +129,13 @@ get_header();
 				<div class="col-md-4">
 				<aside class="sidebar">
 					<div class="form-block form-block-room">
-						<form action="">
-						<p class="title-price-room-form"><span>цена</span>от 4000р.<span>/ сутки</span></p>
+					  <?php echo get_post_meta( get_the_ID(), 'price__number_room_single_page', $single = true ); ?>
+					  
+					  <form action="">
 						<input type="text" placeholder="Выбрать дату заезда">
 						<input type="text" placeholder="Выбрать дату заезда">
 						<input type="submit" value="Найти номер">
-						</form>
+					  </form>
 					</div>
 					<p class="title-sidebar">Номера</p>
 						<?php

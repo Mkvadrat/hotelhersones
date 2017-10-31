@@ -398,6 +398,25 @@ function getImageLinkSingle($post_id, $meta_key){
 	return $link;
 }
 
+//Вывод связанных данных для single.php
+function getProductsMeta($post_id, $meta_key){
+	global $wpdb;
+	
+	$value = array();
+
+	$serialized_object = $wpdb->get_results( $wpdb->prepare("SELECT meta_value FROM $wpdb->postmeta WHERE post_id = %s AND meta_key = %s", $post_id, $meta_key) );
+	
+	$unserialized_object = unserialize($serialized_object[0]->meta_value);
+	
+	if($unserialized_object){
+		foreach($unserialized_object as $post_id){
+			$value[] = get_post( $post_id );
+		}
+	}
+	
+	return $value;
+}
+
 /**********************************************************************************************************************************************************
 ***********************************************************************************************************************************************************
 **************************************************************************ЗАГОЛОВОК************************************************************************
