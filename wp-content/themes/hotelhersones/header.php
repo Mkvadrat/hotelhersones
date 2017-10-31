@@ -75,6 +75,9 @@ Version: 1.0
 	<!-- reviews js -->
 	<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/reviews.js"></script>
 	
+	<!-- MASK -->
+	<script src="<?php echo esc_url( get_template_directory_uri() ); ?>/js/mask.js"></script>
+
 	<?php wp_head(); ?>
 	
 </head>
