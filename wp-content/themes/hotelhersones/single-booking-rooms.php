@@ -62,14 +62,7 @@ get_header();
 					</ul>
 					<?php } ?>
 					
-					<p class="title-italic">Виртуальный тур</p>
-					
-					<ul class="virtual-tour">
-						<li><a href="#"><img src="images/virtual-tour-1.png" alt=""></a></li>
-						<li><a href="#"><img src="images/virtual-tour-2.png" alt=""></a></li>
-						<li><a href="#"><img src="images/virtual-tour-3.png" alt=""></a></li>
-						<li><a href="#"><img src="images/virtual-tour-4.png" alt=""></a></li>
-					</ul>
+					<?php echo get_post_meta( get_the_ID(), 'virtual_tour_number_room_single_page', $single = true ); ?>
 					
 					<p class="title-italic">Отзывы</p>
 					
@@ -86,7 +79,7 @@ get_header();
 					?>
 					
 					<?php if($reviews_stars){ ?>
-						<ul class="list-reviews">
+					<ul class="list-reviews">
 						<?php foreach($reviews_stars as $star){ ?>
 						<?php
 							$image_star = getImageLinkSingle( $star->ID, 'images_star_block_reviews_star_guest_single_page' );
@@ -119,42 +112,53 @@ get_header();
 					<?php }else{ ?>
 						<li>Отзывов не найдено!</li>
 					<?php } ?>
-						</ul>
-					
+					</ul>
+										
+					<?php
+						$prev = mod_get_adjacent_post('prev', array('booking-rooms'));
+						$next = mod_get_adjacent_post('next', array('booking-rooms'));
+					?>
 					
 					<ul class="prev-next-room">
-					<li><a href="#">Предыдущий номер</a></li>
-					<li><a href="#">Следующий номер</a></li>
-					</ul>
+						<?php if($next){ ?>
+							<li><a href="<?php echo get_permalink($next->ID); ?>">Следующий номер</a></li>
+						<?php }else{ ?>
+							<li><a href="<?php echo get_permalink(742); ?>">Перейти на страницу номеров</a></li>
+						<?php } ?>
+						<?php if($prev){ ?>
+							<li><a href="<?php echo get_permalink($prev->ID)?>">Предыдущый номер</a></li>
+						<?php }else{ ?>
+							<li><a href="<?php echo get_permalink(742); ?>">Перейти на страницу номеров</a></li>
+						<?php } ?>
+					</ul>			
 				</div>
 				
 				<div class="col-md-4">
 				<aside class="sidebar">
-				<div class="form-block form-block-room">
-				<form action="">
-				<p class="title-price-room-form"><span>цена</span>от 4000р.<span>/ сутки</span></p>
-				<input type="text" placeholder="Выбрать дату заезда">
-				<input type="text" placeholder="Выбрать дату заезда">
-				<input type="submit" value="Найти номер">
-				</form>
-				</div>
-				<p class="title-sidebar">Номера</p>
-					<ul class="list-links-gallerys">
-						<li><a href="#">ХЕРСОНЕС</a></li>
-						<li><a href="#">МОРСКОЙ</a></li>
-						<li><a href="#">АТЛАНТИДА</a></li>
-						<li><a href="#">УСАДЬБА СКУЛЬПТОРА</a></li>
-						<li><a href="#">АРГО</a></li>
-						<li><a href="#">ЦВЕТОЧНЫЙ</a></li>
-						<li><a href="#">ДИОНИС</a></li>
-						<li><a href="#">АРТЕМИДА</a></li>
-						<li><a href="#">СПАРТА</a></li>
-						<li><a href="#">ВОСТОЧНЫЙ</a></li>
-						<li><a href="#">АФРОДИТА</a></li>
-						<li><a href="#">ТЕАТР</a></li>
-						<li><a href="#">ДИОГЕН</a></li>
-						<li><a href="#">РИМСКИЙ ФОРУМ</a></li>
-					</ul>
+					<div class="form-block form-block-room">
+						<form action="">
+						<p class="title-price-room-form"><span>цена</span>от 4000р.<span>/ сутки</span></p>
+						<input type="text" placeholder="Выбрать дату заезда">
+						<input type="text" placeholder="Выбрать дату заезда">
+						<input type="submit" value="Найти номер">
+						</form>
+					</div>
+					<p class="title-sidebar">Номера</p>
+						<?php
+							$args = array(
+								'post_type'      => 'booking-rooms',
+								'post_status'    => 'publish',
+							);
+				
+							$all_posts = get_posts( $args );
+						?>
+						<?php if($all_posts){ ?>
+						<ul class="list-links-gallerys">
+							<?php foreach($all_posts as $posts){ ?>
+								<li><a href="<?php echo get_permalink( $posts->ID ); ?>"><?php echo $posts->post_title; ?></a></li>
+							<?php } ?>
+						</ul>
+						<?php } ?>
 				</aside>
 				</div>
 			</div>
