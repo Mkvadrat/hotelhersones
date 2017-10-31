@@ -20,11 +20,11 @@ get_header();
 				<div class="col-md-8">
 					<?php echo get_post_meta( get_the_ID(), 'content_block_a_booking_page', $single = true ); ?>
 					
-					<p><a class="button-white" href="#">ОНЛАЙН БРОНИРОВАНИЕ</a><a class="button-white fancybox" href="#easy-reservation">ЛЕГКОЕ БРОНИРОВАНИЕ</a></p>
+					<p><a class="button-white scrollto" href="#reservation-form">ОНЛАЙН БРОНИРОВАНИЕ</a><a class="button-white fancybox" href="#easy-reservation">ЛЕГКОЕ БРОНИРОВАНИЕ</a></p>
 				
 					<?php echo get_post_meta( get_the_ID(), 'content_block_b_booking_page', $single = true ); ?>
 					
-					<div class="reservation-form">
+					<div class="reservation-form" id="reservation-form">
 						<?php echo get_post_meta( get_the_ID(), 'booking_form_booking_page', $single = true ); ?>
 					</div>
 
