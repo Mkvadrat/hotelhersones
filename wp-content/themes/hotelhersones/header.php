@@ -284,7 +284,7 @@ Version: 1.0
 	
 		<!-- start header -->
 	
-		<header class="header-page header-page-main">
+		<header class="header-page <?php if( is_front_page() ) { ?> header-page-main <?php } ?>">
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
