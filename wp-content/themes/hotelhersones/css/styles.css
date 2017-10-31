@@ -4845,6 +4845,10 @@ p strong {
   text-align: center;
 }
 
+.sidebar .agree label {
+  text-align: left;
+}
+
 .agree input[type=checkbox] {
   display: none;
 }
