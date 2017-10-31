@@ -121,12 +121,12 @@ get_header();
 					
 					<ul class="prev-next-room">
 						<?php if($next){ ?>
-							<li><a href="<?php echo get_permalink($next->ID); ?>">Следующая статья</a></li>
+							<li><a href="<?php echo get_permalink($next->ID); ?>">Следующий номер</a></li>
 						<?php }else{ ?>
 							<li><a href="<?php echo get_permalink(742); ?>">Перейти на страницу номеров</a></li>
 						<?php } ?>
 						<?php if($prev){ ?>
-							<li><a href="<?php echo get_permalink($prev->ID)?>">Предыдущая статья</a></li>
+							<li><a href="<?php echo get_permalink($prev->ID)?>">Предыдущый номер</a></li>
 						<?php }else{ ?>
 							<li><a href="<?php echo get_permalink(742); ?>">Перейти на страницу номеров</a></li>
 						<?php } ?>
