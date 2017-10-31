@@ -20,6 +20,7 @@ get_header();
 				<div class="col-md-8">
 					<?php echo get_post_meta( get_the_ID(), 'content_block_a_booking_page', $single = true ); ?>
 					
+<<<<<<< HEAD
 					<p><a class="button-white" href="#">ОНЛАЙН БРОНИРОВАНИЕ</a><a class="button-white fancybox" href="#easy-reservation">ЛЕГКОЕ БРОНИРОВАНИЕ</a></p>
 				
 					<?php echo get_post_meta( get_the_ID(), 'content_block_b_booking_page', $single = true ); ?>
@@ -27,6 +28,45 @@ get_header();
 					<div class="reservation-form">
 						<?php echo get_post_meta( get_the_ID(), 'booking_form_booking_page', $single = true ); ?>
 					</div>
+=======
+					<p><a class="button-white scrollto" href="#reservation-form">ОНЛАЙН БРОНИРОВАНИЕ</a><a class="button-white fancybox" href="#easy-reservation">ЛЕГКОЕ БРОНИРОВАНИЕ</a></p>
+					
+					<p><a href="#">Договор с физлицами</a></p>
+					<p class="text-indent">С помощью приведенной ниже формы вы можете забронировать наши номера в режиме онлайн и получить гарантированную бронь. Для оплаты вы можете использовать кредитную карту, электронные деньги, безналичный расчет либо <strong>оплатить заказ на месте.</strong></p>
+					
+					<div id="reservation-form" class="reservation-form"><img class="image-width-full" src="/wp-content/themes/hotelhersones/images/reservation-photo.jpg" alt=""></div>
+					
+					<p class="title-italic-small">Заявки на бронирование номеров в отеле принимаются</p>
+					
+					<ul>
+					<li>по телефону,</li>
+					<li>по факсу,</li>
+					<li>через форму бронирования on-line,</li>
+					<li>по электронной почте;</li>
+					<li>от имени гостя, компании (предприятия, организации и т.д.),</li>
+					<li>через турагентство (туроператорскую фирму).</li>
+					</ul>
+					
+					<p class="title-italic-small">Условия бронирования</p>
+					
+					<p class="text-indent">Услуга бронирования в отеле "Апартаменты Херсонес" - бесплатная. Факт бронирования подтверждает закрепление того или иного номера за гостем. Предварительное бронирование не является гарантированным бронированием. Бронирование считается гарантированным только при получении предоплаты в размере 100% стоимости первых суток проживания в течение 3 банковских дней со дня бронирования.</p>
+					<p class="text-indent">При аннуляции гарантированного бронирования менее чем за 3 суток до даты предполагаемого заезда предоплата в размере стоимости 1 суток проживания гостю не возвращается.</p>
+					
+					<p class="title-italic-small">Форма предоплаты</p>
+					
+					<ol>
+					<li><span>Наличными или кредитной картой в кассе отеля.</span></li>
+					<li><span>Предоплата через банк.</span></li>
+					<li><span>Анкета на списание средств с кредитной карты.</span></li>
+					</ol>
+					
+					<p class="paragraph-italic-left-border">При поступлении оплаты бронь автоматически становится гарантированной</p>
+					
+					<p><a href="#">Агентский договор в формате Microsoft Word</a><br>
+					<a href="#">Типовой договор о предоставлении гостиничных услуг для ФИЗЛИЦ в формате Microsoft Word</a></p>
+					
+					<p class="paragraph-italic-left-border">Оплачивая счет соглашаюсь с условиями договора</p>
+>>>>>>> 7f8e2cc3650e54e65565af035e2119768a2b0e07
 				
 					<?php echo get_post_meta( get_the_ID(), 'content_block_c_booking_page', $single = true ); ?>
 				</div>
@@ -61,6 +101,10 @@ get_header();
 			<input type="text" name="" placeholder="Дата заезда *">
 			<input type="text" name="" placeholder="Дата выезда *">
 			<p>Поля отмеченные * обязательны.</p>
+			<div class="agree">
+				<input id="agree" type="checkbox" name=""  value="">
+				<label for="agree">Я принимаю условия соглашения на обработку персональных</label>
+			</div>
 			<button>Очистить</button>
 			<input type="submit" name="" value="Отправить">
 			</form>
