@@ -24,12 +24,12 @@ get_header();
 					
 					<p class="title-italic">Ваш сказочный отдых начнется прямо сейчас!</p>
 					
-					<p><a class="button-white" href="#">ОНЛАЙН БРОНИРОВАНИЕ</a><a class="button-white fancybox" href="#easy-reservation">ЛЕГКОЕ БРОНИРОВАНИЕ</a></p>
+					<p><a class="button-white scrollto" href="#reservation-form">ОНЛАЙН БРОНИРОВАНИЕ</a><a class="button-white fancybox" href="#easy-reservation">ЛЕГКОЕ БРОНИРОВАНИЕ</a></p>
 					
 					<p><a href="#">Договор с физлицами</a></p>
 					<p class="text-indent">С помощью приведенной ниже формы вы можете забронировать наши номера в режиме онлайн и получить гарантированную бронь. Для оплаты вы можете использовать кредитную карту, электронные деньги, безналичный расчет либо <strong>оплатить заказ на месте.</strong></p>
 					
-					<div class="reservation-form"><img class="image-width-full" src="images/reservation-photo.jpg" alt=""></div>
+					<div id="reservation-form" class="reservation-form"><img class="image-width-full" src="/wp-content/themes/hotelhersones/images/reservation-photo.jpg" alt=""></div>
 					
 					<p class="title-italic-small">Заявки на бронирование номеров в отеле принимаются</p>
 					
@@ -94,6 +94,10 @@ get_header();
 			<input type="text" name="" placeholder="Дата заезда *">
 			<input type="text" name="" placeholder="Дата выезда *">
 			<p>Поля отмеченные * обязательны.</p>
+			<div class="agree">
+				<input id="agree" type="checkbox" name=""  value="">
+				<label for="agree">Я принимаю условия соглашения на обработку персональных</label>
+			</div>
 			<button>Очистить</button>
 			<input type="submit" name="" value="Отправить">
 			</form>

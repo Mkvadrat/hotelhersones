@@ -413,6 +413,10 @@
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
 
+	.main-rooms .list-two-rooms li {
+		margin-bottom: 30px !important;
+	}
+
 	.main-services .list-gallerys li .photo-block {
 		float: none;
 		width: 100%;
@@ -478,8 +482,9 @@
 	}
 
 	.main-gallery .list-gallerys .title-gallery {
-		font-size: 20px;
-		line-height: 26px;
+		font-size: 18px;
+		line-height: 24px;
+		letter-spacing: 4px;
 	}
 
 	.sidebar .form-block {
