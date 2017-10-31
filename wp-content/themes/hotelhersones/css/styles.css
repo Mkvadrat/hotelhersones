@@ -866,7 +866,7 @@ p strong {
   width: 176px;
   height: 63px;
   border: 1px solid white;
-  margin-top: 30px;
+  margin-top: 10px;
   background: transparent;
   text-align: center;
   text-transform: uppercase;
@@ -4350,6 +4350,7 @@ p strong {
 
 .main-standart .galery li {
   width: 24%;
+  height: 135px;
   padding-left: 0;
   float: left;
   margin-right: 10px;
@@ -4890,16 +4891,19 @@ p strong {
 }
 
 .agree-booking.no-active,
-.sidebar .agree-callbackform.no-active {
+.sidebar .agree-callbackform.no-active,
+.sidebar .agree-button.no-active {
   opacity: 0.5;
 }
 
 .agree-booking.active,
-.sidebar .agree-callbackform.active {
+.sidebar .agree-callbackform.active,
+.sidebar .agree-button.active {
   opacity: 1;
 }
 
-.sidebar .agree-callbackform.no-active:hover {
+.sidebar .agree-callbackform.no-active:hover,
+.sidebar .agree-button.no-active:hover {
   background: transparent  !important;
   color: #fff !important;
 }
