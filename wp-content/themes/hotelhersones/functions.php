@@ -797,7 +797,7 @@ function SendForm(){
 		<h5 class="">Контактная информация:</h5>
 		<br/>
 		<p>Имя: <strong>'.$name.'</strong></p>
-		<p>Телефон: <strong>'.$phone.'</strong></p>
+		<p>Телефон/e-mail: <strong>'.$phone.'</strong></p>
 		</td>
 		</tr>
 		</table>
@@ -847,20 +847,11 @@ function SendForm(){
 	if (isset($_POST['name']) && isset($_POST['phone']) && isset($_POST['message'])){
 		$name = $_POST['name'];
 		$phone = $_POST['phone'];
-		$email = $_POST['email'];
 		$message = $_POST['message'];
 		
-		if(!is_email($email)) {
-			$alert = array(
-				'status' => 1,
-				'message' => 'Email введен не верно, проверте внимательно поле!'
-			);
-		}
-
 		if ($name == '' || $phone == '' || $message == '') {
 			unset($name);
 			unset($phone);
-			unset($email);
 			unset($message);
 			$alert = array(
 				'status' => 1,

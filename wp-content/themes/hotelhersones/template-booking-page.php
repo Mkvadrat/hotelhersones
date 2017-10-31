@@ -84,9 +84,9 @@ $(document).ready(function() {
 	if($(window).load()){
 		$(".reset").val('');
 		$(".clear").val('');
-		$('#i-take').removeAttr('checked');
+		$('#i-take-form').removeAttr('checked');
 		$('#i-take-callbackform').removeAttr('checked');
-		$(".agree-button").replaceWith('<input type="submit" class="agree-button no-active" value="Отправить">');
+		$(".agree-booking").replaceWith('<input type="submit" class="agree-booking no-active" value="Отправить">');
 		$( ".agree-callbackform" ).replaceWith('<input type="submit" class="agree-callbackform no-active" value="Перезвоните мне">');
 	}
 	

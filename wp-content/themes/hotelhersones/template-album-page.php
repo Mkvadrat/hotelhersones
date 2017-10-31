@@ -23,15 +23,22 @@ get_header();
 				<div class="col-md-4">
 					<aside class="sidebar">
 						<?php echo get_post_meta( get_the_ID(), 'category_albums_page', $single = true ); ?>
+						
 						<div class="form-block">
-                            <div>
-                                <p class="white-title-underline">Форма обратной связи</p>
-                                <input type="text" id="name" placeholder="Введите Ваше имя">
-                                <input type="text" id="phone" placeholder="Ваш телефон / e-mail">
-                                <textarea name="" id="message" placeholder="Текст сообщения"></textarea>
-                                <p class="info">*Задайте ваш вопрос.<br>Наши менеджеры сами<br>вам перезвонят.</p>
-                                <input type="submit" onclick="SendForm();" value="отправить">
-                            </div>
+							<div>
+								<p class="white-title-underline">Форма обратной связи</p>
+								<input type="text" class="reset" id="name" placeholder="Введите Ваше имя">
+								<input type="text" class="reset" id="phone" placeholder="Ваш телефон / e-mail">
+								<textarea name="" class="reset" id="message" placeholder="Текст сообщения"></textarea>
+								<p class="info">*Задайте ваш вопрос.<br>Наши менеджеры сами<br>вам перезвонят.</p>
+								
+								<div class="agree">
+									<input id="i-take-form" type="checkbox">
+									<label for="i-take-form">Я принимаю условия соглашения на обработку персональных</label>
+								</div>
+								
+								<input type="submit" class="agree-button no-active" value="Отправить">
+							</div>
 						</div>
 					</aside>
 				</div>
@@ -40,6 +47,27 @@ get_header();
 	</div>
 
 <!-- end main-gallery -->
+
+<script type="text/javascript">
+$(document).ready(function() {
+	if($(window).load()){
+		$(".reset").val('');
+		$('#i-take-form').removeAttr('checked');
+		$(".agree-button").replaceWith('<input type="submit" class="agree-button no-active" value="Отправить">');
+	}
+	
+	var checkbox_booking = $("#i-take-form");
+	
+	checkbox_booking.change(function(event) {
+		var checkbox_booking = event.target;
+		if (checkbox_booking.checked) {
+			$( ".agree-button" ).replaceWith('<input type="submit" class="agree-button active" onclick="SendForm(); return true;" value="Отправить">');
+		}else{
+			$( ".agree-button" ).replaceWith('<input type="submit" class="agree-button no-active" value="Отправить">');
+		}
+	});
+});
+</script>
 
 <script type="text/javascript">
 //форма обратной связи
@@ -55,7 +83,18 @@ function SendForm() {
 		data:data,
 		type:'POST',
 		success:function(data){
-			swal(data.message);
+			swal({
+				title: data.message,
+				text: "",
+				timer: 1000,
+				showConfirmButton: false
+			});
+			
+			if(data.status == 200) {
+				$('.reset').val('');
+				$('#i-take-form').removeAttr('checked');
+				$( ".agree-button" ).replaceWith('<input type="submit" class="agree-button no-active" value="Отправить">');
+			}
 		}
 	});
 };
