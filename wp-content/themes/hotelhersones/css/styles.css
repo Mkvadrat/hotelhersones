@@ -4885,4 +4885,23 @@ p strong {
   opacity: 1;
 }
 
+.agree-booking.no-active:hover {
+  background-image: linear-gradient(to top, #11664d 0%, #65ff2f 100%) !important;
+}
+
+.agree-booking.no-active,
+.sidebar .agree-callbackform.no-active {
+  opacity: 0.5;
+}
+
+.agree-booking.active,
+.sidebar .agree-callbackform.active {
+  opacity: 1;
+}
+
+.sidebar .agree-callbackform.no-active:hover {
+  background: transparent  !important;
+  color: #fff !important;
+}
+
 /*----- end modal-form  -----*/
