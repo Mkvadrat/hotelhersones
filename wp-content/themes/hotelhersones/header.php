@@ -86,194 +86,28 @@ Version: 1.0
 
 	<div id="page">
 		<div class="header-mobile">
-			<nav id="menu">
-				<ul>
-					<li><a href="#">Бронирование</a></li>
-					<li><a href="#contact">О нас</a>
-						<ul>
-							<li class="sub-menu">
-								<a href="#">О гостинице</a>
-								<ul>
-									<li><a href="#">Наша территория</a></li>
-									<li><a href="#">Правила проживания в отеле</a></li>
-									<li><a href="#">Вакансии отеля</a></li>
-									<li><a href="#">Награды</a></li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="#">О Севастополе</a>
-								<ul>
-									<li><a href="#">Новости</a></li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="#">Партнеры</a>
-							</li>
-						</ul>
-					</li>
-					<li><a href="#contact">Акции</a>
-						<ul>
-							<li class="sub-menu">
-								<a href="#">Акции отеля</a>
-								<ul>
-									<li><a href="#">Раннее бронирование</a></li>
-									<li><a href="#">Скидки для командировочных</a></li>
-									<li><a href="#">Бархатный сезон</a></li>
-									<li><a href="#">Школьные каникулы  в Севастополе</a></li>
-									<li><a href="#">Сезонные скидки</a></li>
-									<li><a href="#">Новый год в отеле «Апартаменты Херсонес» </a></li>
-									<li><a href="#">Бесплатный трансфер на пляж</a></li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="#">Свадебные пакеты</a>
-								<ul>
-									<li><a href="#">Подарочные сертификаты</a></li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="#">Акции ресторана «Парадиз»</a>
-							</li>
-						</ul>
-					</li>
-					<li><a href="#contact">Номера</a></li>
-					<li><a href="#contact">Цены</a>
-						<ul>
-							<li class="sub-menu">
-								<a href="#">Акции и скидки сегодняшнего дня</a>
-							</li>
-							<li class="sub-menu">
-								<a href="#">Программа для командировочных</a>
-							</li>
-							<li class="sub-menu">
-								<a href="#">Раннее бронирование на  весну-лето 2018</a>
-							</li>
-						</ul>
-					</li>
-					<li><a href="#contact">Местоположение</a>
-						<ul>
-							<li class="sub-menu">
-								<a href="#">Карта (достопримечательностей) «Рядом с нами»</a>
-								<ul>
-									<li><a href="#">Пляжи</a></li>
-									<li><a href="#">Программа мероприятий музея «Херсонес Таврический»</a></li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="#">О Севастополе</a>
-								<ul>
-									<li><a href="#">История Херсонеса</a></li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="#">Владимирский собор</a>
-								<ul>
-									<li><a href="#">Венчание</a></li>
-									<li><a href="#">Крещение детей во Владимирском соборе Севастополя</a></li>
-									<li><a href="#">Светлая Пасха в гостинице «Апартаменты Херсонес»</a></li>
-									<li><a href="#">Отпевание</a></li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li><a href="#contact">Ресторан</a>
-						<ul>
-							<li class="sub-menu">
-								<a href="#">Меню</a>
-								<ul>
-									<li><a href="#">Завтраки</a></li>
-									<li><a href="#">Полный пансион</a></li>
-									<li><a href="#">Меню банкетов и праздников</a></li>
-									<li><a href="#">Меню кофе-брейков</a></li>
-									<li><a href="#">Карта вин</a></li>
-									<li><a href="#">Чайная карта</a></li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="#">События</a>
-								<ul>
-									<li><a href="#">Банкеты и корпоративы</a></li>
-									<li><a href="#">Свадебные банкеты</a></li>
-									<li><a href="#">Обеды тургрупп</a></li>
-									<li><a href="#">Юбилеи, Дни рождения у взрослых и детей</a></li>
-								</ul>
-							</li>
-							<li>
-								<a href="#">Отзывы</a>
-							</li>
-						</ul>
-					</li>
-					<li><a href="#contact">Услуги</a>
-						<ul>
-							<li class="sub-menu">
-								<a href="#">Услуги отеля</a>
-								<ul>
-									<li><a href="#">Полный пансион</a></li>
-									<li><a href="#">Сауна отеля с купелью в коттедже «Усадьба Скульптора»</a></li>
-									<li><a href="#">Экскурсии в Севастополе </a></li>
-									<li><a href="#">Отдых с детьми</a></li>
-									<li><a href="#">Яхтинг в Севастополе</a></li>
-									<li><a href="#">Парковка отеля</a></li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="#">О свадьбе в отеле «Апартаменты Херсонес»</a>
-								<ul>
-									<li><a href="#">Выездная церемония вручения свидетельства о браке</a></li>
-									<li><a href="#">Стилизованные свадьбы</a></li>
-									<li><a href="#">Свадебные пакеты</a></li>
-									<li><a href="#">Подарочные сертификаты</a></li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="#">Конференц-сервис</a>
-							</li>
-						</ul>
-					</li>
-					<li><a href="#contact">Отзывы</a>
-						<ul>
-							<li class="sub-menu">
-								<a href="#">Звездные гости об отеле</a>
-							</li>
-							<li class="sub-menu">
-								<a href="#">Наши гости</a>
-							</li>
-							<li class="sub-menu">
-								<a href="#">Отзывы о ресторане «Парадиз»</a>
-							</li>
-						</ul>
-					</li>
-					<li><a href="#contact">Фото</a>
-						<ul>
-							<li class="sub-menu">
-								<a href="#">Отель</a>
-								<ul>
-									<li><a href="#">Территория</a></li>
-									<li><a href="#">Номера</a></li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="#">Ресторан</a>
-								<ul>
-									<li><a href="#">Кафе</a></li>
-									<li><a href="#">Летние площадки</a></li>
-								</ul>
-							</li>
-							<li class="sub-menu">
-								<a href="#">События</a>
-								<ul>
-									<li><a href="#">Свадьбы и выездные регистрации</a></li>
-									<li><a href="#">Фестиваль невест</a></li>
-									<li><a href="#">Наши невесты</a></li>
-									<li><a href="#">Фотографии с праздников и мероприятий</a></li>
-									<li><a href="#">Семейный отдых в отеле Херсонесе</a></li>
-								</ul>
-							</li>
-						</ul>
-					</li>
-					<li><a href="#contact">Контакты</a></li>
-				</ul>
-			</nav>
+			<?php
+				if (has_nav_menu('mobile_menu')){
+					wp_nav_menu( array(
+						'theme_location'  => 'mobile_menu',
+						'menu'            => '',
+						'container'       => false,
+						'container_class' => '',
+						'container_id'    => '',
+						'menu_class'      => '',
+						'menu_id'         => '',
+						'echo'            => true,
+						'fallback_cb'     => 'wp_page_menu',
+						'before'          => '',
+						'after'           => '',
+						'link_before'     => '',
+						'link_after'      => '',
+						'items_wrap'      => '<nav id="menu"><ul>%3$s</ul></nav>',
+						'depth'           => 3,
+						'walker'          => new header_menu(),
+					) );
+				}
+			?>
 		</div>
 
 		<!-- end mobile header -->
