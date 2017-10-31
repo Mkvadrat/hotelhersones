@@ -33,18 +33,18 @@ get_header();
 				<div class="col-md-4">
 					<aside class="sidebar">
 						<div class="form-block no-textarea">
-							<form action="">
-							<p class="white-title-underline">Бронирование по телефону</p>
-							<input type="text" placeholder="Введите Ваше имя">
-							<input type="tel" placeholder="Введите Ваш телефон">
-							<p class="info">*Наши менеджеры сами<br>вам перезвонят.</p>
-							<div class="agree">
-								<input id="i-take-callbackform" type="checkbox">
-								<label for="i-take-callbackform">Я принимаю условия соглашения на обработку персональных</label>
+							<div>
+								<p class="white-title-underline">Бронирование по телефону</p>
+								<input type="text" class="clear" id="name_callbackform" placeholder="Введите Ваше имя">
+								<input type="text" class="clear" id="phone_callbackform" placeholder="Введите Ваш телефон">
+								<p class="info">*Наши менеджеры сами<br>вам перезвонят.</p>
+								<div class="agree">
+									<input id="i-take-callbackform" type="checkbox">
+									<label for="i-take-callbackform">Я принимаю условия соглашения на обработку персональных</label>
+								</div>
+	
+								<input type="submit" class="agree-callbackform no-active" value="Перезвоните мне">
 							</div>
-
-							<input type="submit" class="agree-callbackform no-active" value="Перезвоните мне">
-							</form>
 						</div>
 					</aside>
 				</div>
@@ -81,6 +81,15 @@ get_header();
 
 <script type="text/javascript">
 $(document).ready(function() {
+	if($(window).load()){
+		$(".reset").val('');
+		$(".clear").val('');
+		$('#i-take').removeAttr('checked');
+		$('#i-take-callbackform').removeAttr('checked');
+		$(".agree-button").replaceWith('<input type="submit" class="agree-button no-active" value="Отправить">');
+		$( ".agree-callbackform" ).replaceWith('<input type="submit" class="agree-callbackform no-active" value="Перезвоните мне">');
+	}
+	
 	var checkbox_booking = $("#i-take-form");
 	
 	checkbox_booking.change(function(event) {
@@ -101,9 +110,9 @@ $(document).ready(function() {
 	checkbox_callbackform.change(function(event) {
 		var checkbox_callbackform = event.target;
 		if (checkbox_callbackform.checked) {
-			$( ".agree-callbackform" ).replaceWith('<input type="submit" class="agree-callbackform active" onclick="SendMini(); return true;" value="Отправить">');
+			$( ".agree-callbackform" ).replaceWith('<input type="submit" class="agree-callbackform active" onclick="SendMini(); return true;" value="Перезвоните мне">');
 		}else{
-			$( ".agree-callbackform" ).replaceWith('<input type="submit" class="agree-callbackform no-active" value="Отправить">');
+			$( ".agree-callbackform" ).replaceWith('<input type="submit" class="agree-callbackform no-active" value="Перезвоните мне">');
 		}
 	});
 });
@@ -133,6 +142,7 @@ function lightBooking() {
 		  });
 		  
 		  if(data.status == 200) {
+			  $('.reset').val('');
 			  $('#i-take-form').removeAttr('checked');
 			  $( ".agree-booking" ).replaceWith('<input type="submit" class="agree-booking no-active" value="Отправить">');
 		  }
@@ -153,12 +163,9 @@ function clearFields(){
 //форма обратной связи
 function SendMini() {
 	var data = {
-	  'action': 'SendMini',
-	  'name' : $('#name_light_booking').val(),
-	  'email' : $('#email_light_booking').val(),
-	  'phone' : $('#phone_light_booking').val(),
-	  'arrival' : $('#arrival_light_booking').val(),
-	  'departure' : $('#departure_light_booking').val(),
+		'action': 'SendMini',
+		'name' : $('#name_callbackform').val(),
+		'phone' : $('#phone_callbackform').val()
 	};
 	$.ajax({
 	  url:'http://' + location.host + '/wp-admin/admin-ajax.php',
@@ -173,8 +180,9 @@ function SendMini() {
 		  });
 		  
 		  if(data.status == 200) {
-			  $('#i-take-callbackform').removeAttr('checked');
-			  $( ".agree-callbackform" ).replaceWith('<input type="submit" class="agree-callbackform no-active" value="Отправить">');
+			$('.clear').val('');
+			$('#i-take-callbackform').removeAttr('checked');
+			$( ".agree-callbackform" ).replaceWith('<input type="submit" class="agree-callbackform no-active" value="Перезвоните мне">');
 		  }
 	  }
 	});
