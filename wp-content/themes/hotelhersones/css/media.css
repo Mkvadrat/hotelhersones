@@ -179,14 +179,14 @@
 	}
 	
 	.header-page .left-block .logo-block img {
-		width: 250px;
+		width: 220px;
 		height: auto;
 	}
 
 	.header-page .left-block .weather {
-		font-size: 12px;
+		font-size: 10px;
 		line-height: 16px;
-		letter-spacing: 3.3px;
+		letter-spacing: 3px;
 	}
 
 	.header-page .left-block .rating-5,
@@ -254,12 +254,38 @@
 
 	#button-menu-mobile {
 		display: inline-block;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+
+	.header-page .left-block .logo-block {
+		padding-left: 30px;
 	}
 
 }
 
 /* Medium Devices, Desktops */
 @media only screen and (max-width : 992px) {
+
+	.header-page .right-block .button-yellow {
+		vertical-align: top;
+		margin-top: 20px;
+		margin-right: 10px;
+	}
+
+	.header-page .left-block, .header-page .right-block {
+		text-align: center;
+	}
+
+	.header-page .left-block .logo-block,
+	.header-page .left-block .rating-5,
+	.header-page .left-block .rating-10,
+	.header-page .right-block .phones-block,
+	.header-page .right-block .button-yellow {
+		display: inline-block !important;
+		float: none !important;
+	}
 
 	.main-rooms .list-vip-rooms .big-block-number {
 		height: 650px;
@@ -413,6 +439,10 @@
 /* Small Devices, Tablets */
 @media only screen and (max-width : 768px) {
 
+	#button-menu-mobile {
+		left: 15px;
+	}
+
 	.main-rooms .list-two-rooms li {
 		margin-bottom: 30px !important;
 	}
@@ -531,7 +561,7 @@
 	}
 
 	.header-page .left-block {
-		width: 430px;
+		width: 100%;
 	}
 
 	.header-page .left-block .rating-5,
@@ -552,6 +582,59 @@
 		font-size: 14px;
 	}
 
+}
+
+@media only screen and (max-width : 600px) {
+
+	.header-page .left-block .logo-block {
+		padding-left: 0;
+	}
+
+	.header-page .left-block .logo-block,
+	.header-page .right-bloc .button-yellow,
+	.header-page .right-block .phones-block {
+		display: block !important;
+		margin: 0 auto !important;
+	}
+
+	.header-page .right-block .button-yellow {
+		width: 152px;
+		margin-right: auto !important;
+	}
+
+	.header-page .left-block .rating-5 {
+		margin-left: 0;
+	}
+
+	.header-page .right-block .phones-block {
+		padding-top: 20px;
+		text-align: center;
+	}
+
+	.header-page .right-block {
+		display: flex;
+		-webkit-flex-wrap: wrap;
+		    -ms-flex-wrap: wrap;
+		        flex-wrap: wrap;
+		-webkit-flex-direction: row;
+		    -ms-flex-direction: row;
+		        flex-direction: row;
+	}
+
+	.header-page .right-block .phones-block {
+		width: 100%;
+		text-align: center;
+		-webkit-order: 1;
+		    -ms-order: 1;
+		        order: 1;
+	}
+
+	.header-page .right-block .button-yellow {
+		margin-left: auto;
+		-webkit-order: 2;
+		    -ms-order: 2;
+		        order: 2;
+	}
 }
 
 /* Extra Small Devices, Phones */
@@ -774,44 +857,15 @@
 		margin-left: 0;
 	}
 
-	.header-page .right-block {
-		display: flex;
-		-webkit-flex-wrap: wrap;
-		    -ms-flex-wrap: wrap;
-		        flex-wrap: wrap;
-		-webkit-flex-direction: row;
-		    -ms-flex-direction: row;
-		        flex-direction: row;
-	}
-
-	.header-page .right-block .phones-block {
-		width: 100%;
-		max-width: 280px;
-		margin-left: auto;
-		margin-right: auto !important;
-		text-align: center;
-		-webkit-order: 1;
-		    -ms-order: 1;
-		        order: 1;
-	}
-
-	.header-page .right-block .button-yellow {
-		margin-left: auto;
-		margin-right: auto !important;
-		-webkit-order: 2;
-		    -ms-order: 2;
-		        order: 2;
-	}
-
 	.header-page .right-block .phones-block,
 	.header-page .right-block .button-yellow {
 		float: none;
 		margin-right: 0;
 	}
 
-	.header-page .right-block .phones-block a {
-		display: inline-block;
-	}
+	.header-page .left-block .logo-block img {
+    	width: 200px;
+    }
 }
 
 /* Custom, iPhone Retina */

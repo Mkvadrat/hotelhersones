@@ -2971,15 +2971,15 @@ p strong {
 }
 
 .footer .footer-menu-line .menu > ul > .sub-menu:nth-child(2) > a::before {
-  right: 11px;
+  right: 7px;
 }
 
 .footer .footer-menu-line .menu > ul > .sub-menu:nth-child(3) > a::before {
-  right: 12px;
+  right: 7px;
 }
 
 .footer .footer-menu-line .menu > ul > .sub-menu:nth-child(5) > a::before {
-  right: 11px;
+  right: 7px;
 }
 
 .footer .footer-menu-line .menu > ul > li:nth-child(6) {
@@ -2991,19 +2991,19 @@ p strong {
 }
 
 .footer .footer-menu-line .menu > ul > .sub-menu:nth-child(7) > a::before {
-  right: 13px;
+  right: 7px;
 }
 
 .footer .footer-menu-line .menu > ul > .sub-menu:nth-child(8) > a::before {
-  right: 11px;
+  right: 7px;
 }
 
 .footer .footer-menu-line .menu > ul > .sub-menu:nth-child(9) > a::before {
-  right: 12px;
+  right: 7px;
 }
 
 .footer .footer-menu-line .menu > ul > .sub-menu:nth-child(10) > a::before {
-  right: 11px;
+  right: 7px;
 }
 
 .footer .footer-menu-line .menu ul {
@@ -3249,7 +3249,7 @@ p strong {
 
 .footer .footer-contacts-line dt {
   float: left;
-  width: 90px;
+  width: 105px;
   text-transform: uppercase;
 }
 
@@ -4694,7 +4694,6 @@ p strong {
   height: 35px;
   font-size: 34px;
   color: #FFF;
-  margin-top: 20px;
   z-index: 100;
   outline: none;
 }

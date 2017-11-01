@@ -129,6 +129,7 @@ Version: 1.0
 						<div class="top-line">
 							<div class="left-block">
 								<div class="logo-block">
+									<a id="button-menu-mobile" href="#menu"><span><i class="fa fa-bars" aria-hidden="true"></i></span></a>
 									<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="logo">
 										<img
 										src="<?php header_image(); ?>"
@@ -157,8 +158,6 @@ Version: 1.0
 					</div>
 					<div class="col-md-12">
 						<!-- start bottom-line (menu) -->
-
-						<a id="button-menu-mobile" href="#menu"><span><i class="fa fa-bars" aria-hidden="true"></i></span></a>
 						
 						<?php
 							if (has_nav_menu('header_menu')){
