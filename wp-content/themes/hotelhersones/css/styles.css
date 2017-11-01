@@ -2927,16 +2927,18 @@ p strong {
 
 .footer .footer-menu-line {
   background-color: #892422;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .footer .footer-menu-line .menu {
   display: block;
 }
 
-.footer .footer-menu-line .menu > ul {
+/*.footer .footer-menu-line .menu > ul {
   border-top: 1px solid rgba(255, 255, 255, 0.2);
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
+}*/
 
 .footer .footer-menu-line .menu > ul > .sub-menu:nth-child(2) > ul::before {
   left: 170px;
