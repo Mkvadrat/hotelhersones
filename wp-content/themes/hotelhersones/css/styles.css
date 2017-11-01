@@ -4909,3 +4909,10 @@ p strong {
 }
 
 /*----- end modal-form  -----*/
+.main-404 {
+  padding: 45px 15px 40px;
+}
+
+.main-404 p {
+  text-indent: 0 !important;
+}
