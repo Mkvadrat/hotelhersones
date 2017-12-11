@@ -4917,3 +4917,18 @@ p strong {
 .main-404 p {
   text-indent: 0 !important;
 }
+
+
+
+@media (max-width:767px) {
+  .menu-list .service-part .title-service {
+    letter-spacing:normal;
+  }
+}
+
+.menu-list .service-part .title-service,
+.menu-list,
+.service-part,
+.title-service {
+  text-shadow: none !important;
+}
