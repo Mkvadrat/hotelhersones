@@ -598,7 +598,7 @@ class A_NextGen_Basic_Album_Controller extends Mixin_NextGen_Basic_Pagination
         $image_gen = C_Dynamic_Thumbnails_Manager::get_instance();
         if (empty($displayed_gallery->display_settings['override_thumbnail_settings'])) {
             // legacy templates expect these dimensions
-            $image_gen_params = array('width' => 360, 'height' => 250, 'crop' => TRUE);
+            $image_gen_params = array('width' => 91, 'height' => 68, 'crop' => TRUE);
         } else {
             // use settings requested by user
             $image_gen_params = array('width' => $displayed_gallery->display_settings['thumbnail_width'], 'height' => $displayed_gallery->display_settings['thumbnail_height'], 'quality' => isset($displayed_gallery->display_settings['thumbnail_quality']) ? $displayed_gallery->display_settings['thumbnail_quality'] : 100, 'crop' => isset($displayed_gallery->display_settings['thumbnail_crop']) ? $displayed_gallery->display_settings['thumbnail_crop'] : NULL, 'watermark' => isset($displayed_gallery->display_settings['thumbnail_watermark']) ? $displayed_gallery->display_settings['thumbnail_watermark'] : NULL);
