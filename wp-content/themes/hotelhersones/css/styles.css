@@ -9926,6 +9926,7 @@ p strong {
 .main-404 p {
 
   text-indent: 0 !important;
+<<<<<<< HEAD
 
 }
 
@@ -10145,4 +10146,21 @@ a.sobor-lnk:hover {
     padding-bottom:56.25%;
     margin-bottom:15px;
   }
+=======
+}
+
+
+
+@media (max-width:767px) {
+  .menu-list .service-part .title-service {
+    letter-spacing:normal;
+  }
+}
+
+.menu-list .service-part .title-service,
+.menu-list,
+.service-part,
+.title-service {
+  text-shadow: none !important;
+>>>>>>> 679e5c201e3c1517b8b54382d345dd065afd5e5f
 }
