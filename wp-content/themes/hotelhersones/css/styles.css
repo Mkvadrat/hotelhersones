@@ -10146,10 +10146,7 @@ a.sobor-lnk:hover {
     padding-bottom:56.25%;
     margin-bottom:15px;
   }
-=======
 }
-
-
 
 @media (max-width:767px) {
   .menu-list .service-part .title-service {
@@ -10162,5 +10159,71 @@ a.sobor-lnk:hover {
 .service-part,
 .title-service {
   text-shadow: none !important;
->>>>>>> 679e5c201e3c1517b8b54382d345dd065afd5e5f
 }
+
+/*08.12.2017 Nikitas*/
+.menu-list .service-part.horizontal-small-services {
+    height: 220px;
+}
+.menu-list .service-part:hover {
+    border: 1px solid #d7d7d7;
+    background-position: top right;
+}
+.menu-list .service-part:hover::before {
+    border: 20px solid #fff;
+}
+.menu-list .service-part {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-bottom: 15px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top left;
+    border: 1px solid #fff;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+.menu-list .service-part::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    border: 0px solid #fff;
+    -webkit-transition: 0.3s;
+    -moz-transition: 0.3s;
+    -ms-transition: 0.3s;
+    -o-transition: 0.3s;
+    transition: 0.3s;
+}
+.menu-list .service-part a {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    text-decoration: none;
+}
+.menu-list .service-part .title-service {
+    position: absolute;
+    margin-bottom: 0;
+    bottom: 30px;
+    left: 30px;
+    right: 30px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    font-family: "LoraRegular";
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 30px;
+    color: #fff;
+    text-shadow:2px 2px 5px #690907;
+}
+/*08.12.2017 Nikitas*/
