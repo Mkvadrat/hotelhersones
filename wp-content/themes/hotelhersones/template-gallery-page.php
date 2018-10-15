@@ -18,6 +18,9 @@ get_header();
 		<div class="container">
 			<div class="row">
 			<div class="col-md-8">
+				
+				<?php if (function_exists('dimox_breadcrumbs')) dimox_breadcrumbs(); ?>
+				
 				<?php echo get_post_meta( get_the_ID(), 'text_gallery_page', $single = true ); ?>
 				
 				<div class="divider"></div>
@@ -32,7 +35,7 @@ get_header();
 								if(!$image->exclude == 1){
 						?>
 							<li class="small-block" style="background-image: url( '<?php echo nextgen_esc_url($image->imageURL); ?>' );">
-								<a data-fancybox="gallery" href="<?php echo nextgen_esc_url($image->imageURL); ?>"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
+								<a data-fancybox="gallery" data-caption="<?php echo htmlspecialchars_decode($image->alttext); ?>" href="<?php echo nextgen_esc_url($image->imageURL); ?>"><i class="fa fa-search-plus" aria-hidden="true"></i></a>
 							</li>
 						<?php
 								}

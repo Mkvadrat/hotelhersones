@@ -4,9 +4,24 @@
 
 /* Large Devices, Wide Screens */
 
+@media only screen and (max-width : 1260px) {
+
+	.wrap-sale-banner {
+		width: 166px;
+		top: 170px;
+		left: 50%;
+		margin-left: -83px;
+	}
+
+}
+
 @media only screen and (max-width : 1200px) {
-
-
+	a.logo>span {
+		margin-right: 6%;
+	}
+	.wrap-sale-banner {
+		top: 110px;
+	}
 
 	body {
 
@@ -14,7 +29,9 @@
 
 	}
 
-
+	.left-block .adress {
+		margin-top: 8px;
+	}
 
 	.main-index .reviews-block .autographed .photo-block,
 
@@ -105,15 +122,22 @@
 	}
 
 
-
-	.main-room .appliances li {
-
-		width: 107px;
-
-		margin-right: 15px;
-
+	.main-room .appliances {
+		justify-content: center;
 	}
+	.main-room .appliances li:nth-child(n) {
 
+		/* width: 107px; */
+
+		margin: 0 15px 15px 0;
+	}
+	.main-room .appliances.next-appliances {
+		justify-content: space-between;
+	}
+	.main-room .appliances.next-appliances li:nth-child(n) {
+		width: 49%;
+		margin-right: 0;
+	}
 
 
 	.main-room .logo-block {
@@ -539,6 +563,13 @@
 /* Medium Devices, Desktops */
 
 @media only screen and (max-width : 992px) {
+	a.logo>span {
+		margin-right: 7%;
+	}
+	.wrap-sale-banner {
+		top: 190px;
+		z-index: 1000;
+	}
 
 	.socials {
 		display: none;
@@ -592,7 +623,7 @@
 	}
 
 
-
+	.left-block .adress,
 	.header-page .left-block .logo-block,
 
 	.header-page .left-block .rating-5,
@@ -609,7 +640,10 @@
 
 	}
 
-
+	.left-block .adress {
+		position: relative;
+    	bottom: 24px;
+	}
 
 	.main-rooms .list-vip-rooms .big-block-number {
 
@@ -1231,8 +1265,25 @@
 
 
 @media only screen and (max-width : 600px) {
+	.icon-table>div {
+		width: 50%;
+	}
+	a.logo>span {
+		margin-right: 2%;
+	}
+	.banner-main {
+	    top: 445px !important;
+	}
+	.left-block .adress {
+    	bottom: 0;
+	}
+	.header-banner-block .title-header-block {
+	    margin-top: 230px;
+	}
 
-
+	.wrap-sale-banner {
+		top: 320px;
+	}
 
 	.header-page .left-block .logo-block {
 
@@ -1331,7 +1382,29 @@
 		        order: 2;
 
 	}
+	.main-standart-red-block .block_2 {flex-direction: column;}
 
+	.main-standart-red-block .block_2_1, .main-standart-red-block .block_2_2 {
+		width: 100%;
+	}
+	
+	.main-standart-red-block .block_2_1 {
+		border: none;
+		border-bottom: 1px solid #fff;
+	}
+	
+	.main-standart-red-block .block_2_2 .block_2_2_1,.main-standart-red-block .block_2_2 .block_2_2_2 {
+		width: 100%;
+	}
+	
+	.main-standart-red-block .block_1 ul {
+		flex-direction: column;
+	}
+	
+	.main-standart-red-block .block_1 ul li {
+		width: 100%;
+		align-items: center;
+	}
 }
 
 
@@ -1339,7 +1412,13 @@
 /* Extra Small Devices, Phones */
 
 @media only screen and (max-width : 480px) {
-
+	.icon-table>div,
+	.main-room .appliances.next-appliances li:nth-child(n) {
+		width: 100%;
+	}
+	.icon-list {
+		flex-direction: column;
+	}
 	.socials-mobile {
 		width: 260px;
 		display: block !important;
@@ -1586,7 +1665,7 @@
 
 	.header-banner-block .title-header-block {
 
-	    margin-top: 310px;
+	    margin-top: 260px;
 
 	}
 

@@ -44,7 +44,7 @@ class A_NextGen_Basic_Template_Form extends Mixin
         }
         // add <default> template that acts the same way as having no template specified
         $templates['default'] = __('Default', 'nggallery');
-        return $this->object->render_partial('photocrati-nextgen_basic_templates#nextgen_basic_templates_settings_template', array('display_type_name' => $display_type->name, 'template_label' => __('Template', 'nggallery'), 'template_text' => __('Use a legacy template when rendering (not recommended).', 'nggallery'), 'chosen_file' => $display_type->settings['template'], 'templates' => $templates), True);
+        return $this->object->render_partial('photocrati-nextgen_basic_templates#nextgen_basic_templates_settings_template', array('display_type_name' => $display_type->name, 'template_label' => __('Legacy (Old) Templates', 'nggallery'), 'template_text' => __('Use a legacy template when rendering (not recommended).', 'nggallery'), 'chosen_file' => $display_type->settings['template'], 'templates' => $templates), True);
     }
     /**
      * Retrieves listing of available templates
@@ -236,7 +236,7 @@ class Mixin_Legacy_Template_Locator extends Mixin
     function get_templates_from_dir($dir, $prefix = FALSE)
     {
         if (!is_dir($dir)) {
-            return;
+            return array();
         }
         $dir = new RecursiveDirectoryIterator($dir);
         $iterator = new RecursiveIteratorIterator($dir);

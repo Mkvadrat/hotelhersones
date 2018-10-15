@@ -16,6 +16,14 @@ get_header();
 	
 	<div class="main-paradiz">
 		
+		<div class="container galery-block">
+			<div class="row">
+				<div class="col-md-12">
+					<?php if (function_exists('dimox_breadcrumbs')) dimox_breadcrumbs(); ?>
+				</div>
+			</div>
+		</div>
+		
 		<!-- start welcome-apartments-hersones-block -->
 		<?php if(get_post_meta( get_the_ID(), 'enable_primary_block_information_hotels_paradiz_page', $single = true ) == 'yes'){ ?>
 		<div class="container">
@@ -147,7 +155,7 @@ get_header();
 					</div>
 				</div>
 				<div class="col-md-8">
-					<?php $services_image_d = getImageLink('image_services_block_d_dot_c_hotels_paradiz_page'); ?>
+					<?php $services_image_d = getImageLink('image_services_block_b_dot_d_hotels_paradiz_page'); ?>
 					<div class="horizontal-small-services service-part" style="background-image: url( '<?php echo $services_image_d ? $services_image_d : esc_url( get_template_directory_uri() ) . '/images/paradiz-13.jpg'; ?>' );">
 						<?php echo get_post_meta( get_the_ID(), 'text_services_block_c_dot_d_hotels_paradiz_page', $single = true ); ?>
 					</div>

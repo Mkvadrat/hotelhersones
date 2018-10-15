@@ -18,6 +18,9 @@ get_header();
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8">
+					
+					<?php if (function_exists('dimox_breadcrumbs')) dimox_breadcrumbs(); ?>
+					
 					<?php echo do_shortcode(get_post_meta( get_the_ID(), 'main_text_albums_page', $single = true )); ?>
 				</div>
 				<div class="col-md-4">

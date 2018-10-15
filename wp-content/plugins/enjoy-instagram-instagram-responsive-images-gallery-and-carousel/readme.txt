@@ -1,20 +1,21 @@
-=== Enjoy Instagram ===
+=== Enjoy Instagram feed on website with WordPress Widget and Shortcode ===
 Contributors: mediabeta
 Donate link: https://www.google.com/url?q=https%3A%2F%2Fwww.paypal.com%2Fcgi-bin%2Fwebscr%3Fcmd%3D_s-xclick%26hosted_button_id%3D8MXZ37DWHAX46&sa=D&sntz=1&usg=AFQjCNFHixLdowdc2AAEXDYmM9tQBl-TXQ
-Tags: Instagram, Instagram feeds, Instagram grid, Instagram carousel, Widget instagram, Embed instagram, Embed instagram feed, Instagram feed on website, responsive carousel, wordpress carousel, Instagram gallery, Lightbox, Instagram pictures
+Tags: Instagram, Instagram feed, Instagram grid, Instagram carousel, Widget Instagram, Embed Instagram, Embed Instagram feed, Instagram feed on website, responsive carousel, WordPress carousel, Instagram gallery, Instagram WordPress, Instagram pictures
 Requires at least: 3.0.1
-Tested up to: 4.8.1
-Version: 3.4.2
-Stable tag: 3.4.2
+Tested up to: 4.9
+Version: 4.0.1
+Stable tag: 4.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Instagram photos and videos with simple shortcodes and widgets for profiles and hashtags on posts, pages, sidebar.
+Instagram feed on website by hashtag and profile with shortcodes on posts, pages. Instagram widgets on sidebar.
 
 == Description ==
 
 = Enjoy Instagram allows to display Instagram feed based on hashtag and public Instagram account with carousel and grid view. =
-Only one plugin to publish, with shortcode and widget, Instagram pictures and Instagram videos in your pages, posts and sidebars. 
+
+Only one plugin to publish, with shortcode and widget, Instagram pictures and Instagram videos in your pages, posts and sidebars.
 Each Instagram photo can be shown in Carousel and Grid mode with Lightbox effect.
 Enjoy Instagram is responsive and optimized for mobile devices.
 
@@ -29,8 +30,8 @@ Once you have installed our plugin Enjoy Instagram, thanks to the presence of En
 * Hashtag-based Instagram feed to show pictures by Instagram hashtag
 * Profile-based Instagram feed to show pictures by Instagram profiles
 * Instagram video visualization
-* Shortcode to publish Instagram feed with carousel and grid visualization 
-* Shortcode button in the editor
+* Instagram Carousel feed and Instagram Grid feed to add with Shortcode
+* Shortcode button in the editor page and post
 * Widget for sidebars to publish Instagram feed with carousel and grid visualization
 
 * Pictures Transition for carousel: one picture / more pictures at a time
@@ -41,7 +42,7 @@ Once you have installed our plugin Enjoy Instagram, thanks to the presence of En
 * Fade In Effect for Instagram Grid View
 
 * Standard resolution in Lightbox view
-* Lightbox with media caption and navigation arrow  
+* Lightbox with media caption and navigation arrow
 * HTML 5 video support in Lightbox view
 
 * Touch
@@ -57,7 +58,7 @@ Once you have installed our plugin Enjoy Instagram, thanks to the presence of En
 
 = Enjoy Instagram PREMIUM VERSION =
 
-Enjoy Instagram is the only Wordpress plugin with a MODERATION PANEL which allows you to display or not the images in the pages, posts and sidebars. 
+Enjoy Instagram is the only Wordpress plugin with a MODERATION PANEL which allows you to display or not the images in the pages, posts and sidebars.
 The last plugin version now supports multi hashtags and profiles, pictures with square format, grid view with a border between pictures.
 
 
@@ -65,13 +66,13 @@ The last plugin version now supports multi hashtags and profiles, pictures with 
 
 * More shortcodes in the same page or post to display multiple instagram feeds
 * More shortcodes for different hashtags or profiles in the same page or post
-* Display photos from Multi hashtags in the same feed 
+* Display photos from Multi hashtags in the same feed
 * Display instagram feed for public Instagram profile
 * Customize the margin/space between photos of Instagram feed
 * Instagram pictures with squared format supported
 * Instagram grid view with border between pictures
 * Instagram video visualization for browser supporting HTML5
-* Carousel, Grid, Polaroid, Album and Badge view
+* Instagram Carousel, Instagram Grid, Instagram Polaroid, Instagram Album and Badge view
 * On click, Pictures of different views can be redirected to Instagram page, to a particular website or opened in a Lightbox
 * The Lightbox displays Instagram pictures as a slideshow with media caption
 * NEW - Performance improved
@@ -81,44 +82,44 @@ The last plugin version now supports multi hashtags and profiles, pictures with 
 * NEW - Better management for a big number of Instagram pictures in line with the latest Instagram guidelines
 
 For Lightbox you can set:
-* delay to Hide bars 
+* delay to Hide bars
 * delay to Hide bars on Mobile
 * to Show Likes Count
-* to Show author 
+* to Show author
 
-= For Carousel Instagram feed view you can set: =
+= For Instagram Carousel feed view you can set: =
 * images displayed at a time
 * animation in / animation out
 * show different number of images for different screen resolution
 * customize text of navigation button
 * customize slide speed / loop / autoplay / stop on Hover / timeout autoplay / speed autoplay
 
-[DEMO for Carousel](https://www.mediabetaprojects.com/enjoy-instagram-premium/carousel-view-instagram-wordpress-plugin/)
+[DEMO for Instagram Carousel feed on website WordPress](https://www.mediabetaprojects.com/enjoy-instagram-premium/carousel-view-instagram-wordpress-plugin/)
 
-= For Grid Instagram feed view you can set: =
+= For Instagram Grid feed view you can set: =
 * the number of rows and columns for the different shortcodes
 * the number of images that are replaced at the same time
 * interval the images will be replaced
 * images switch when mouse over
 * animation speed / animation type
 
-[DEMO for Grid](https://www.mediabetaprojects.com/enjoy-instagram-premium/grid-view-instagram-plugin/)
+[DEMO for Instagram Grid feed on website WordPress](https://www.mediabetaprojects.com/enjoy-instagram-premium/grid-view-instagram-plugin/)
 
 = For Polaroid Instagram feed view you can set: =
-* to show info (caption) on back 
+* to show info (caption) on back
 * color background, border width, border color
 
-[DEMO for Polaroid](https://www.mediabetaprojects.com/enjoy-instagram-premium/polaroid-view-instagram-wordpress-plugin/) 
+[DEMO for Polaroid Instagram feed on website WordPress](https://www.mediabetaprojects.com/enjoy-instagram-premium/polaroid-view-instagram-wordpress-plugin/)
 
 See Also demo for:
-* [Album Instagram feed view](https://www.mediabetaprojects.com/enjoy-instagram-premium/add-instagram-hashtag-album-view/)
+* [Album Instagram feed on website WordPress](https://www.mediabetaprojects.com/enjoy-instagram-premium/add-instagram-hashtag-album-view/)
 
 
-* [Badge Instagram feed view](https://www.mediabetaprojects.com/enjoy-instagram-premium/instagram-widget-badge-view/)
- 
+* [Badge Instagram feed on website WordPress](https://www.mediabetaprojects.com/enjoy-instagram-premium/instagram-widget-badge-view/)
 
 
-= See LIVE PREVIEW: = 
+
+= See LIVE PREVIEW: =
 [http://www.mediabetaprojects.com/enjoy-instagram-premium/](http://www.mediabetaprojects.com/enjoy-instagram-premium/)
 
 = Other features: =
@@ -172,10 +173,10 @@ Sometimes, when you upgrade the plugin you need also to hook again your Instagra
 The shortcodes are automatically generated by clicking the “Enjoy Instagram Button” that you can see on text editor of posts and pages.
 If you do not see the button of shortcodes, ​you can use these ​shortcode​s​ to:
 
-[enjoyinstagram_mb] -> Carousel View
-[enjoyinstagram_mb_grid] -> Grid View
+[enjoyinstagram_mb] -> Instagram Carousel View
+[enjoyinstagram_mb_grid] -> Instagram Grid View
 
-In the Setting section yon can customize grid and/or Carousel view 
+In the Setting section yon can customize grid and/or Carousel view
 
 
 == Screenshots ==
@@ -191,20 +192,34 @@ In the Setting section yon can customize grid and/or Carousel view
 
 == Changelog ==
 
+= 4.0.1 =
+* Bug fix for user access token
+* Add default option value to avoid empty shortcodes
+= 4.0.0 =
+* Code rewritten and optimized
+* Code Ready for localization
+* Javascript errors fixed
+* Compatibility fix for Beaver Builder
+= 3.4.4 =
+* Bug fix
+= 3.4.3 =
+* Hot Fix for Instagram feed update
+= 3.4.2 =
+* Bug Fix
 = 3.4.1 =
-* NB: Php 7 compatible
+* NB: Enjoy Instagram feed on website Wordpress is Php 7 compatible
 = 3.4 =
-* Bux fixing for DIVI theme - full compatibility
+* Bux fixing: Instagram feed on website Wordpress full compatibility with DIVI theme  
 = 3.3 =
-* New: Video visualization for browser supporting HTML5
+* New: Video Instagram feed visualization for browser supporting HTML5
 * Fixed: Minor issues
 = 3.2 =
-* New: pictures with squared format supported
+* New: Enjoy Instagram feed with squared format supported
 * Fixed: Minor issues
 = 3.1 =
 * Fixed: Minor issues
 = 3.0 =
-* New Instagram Api Implementation
+* New: Enjoy Instagram feed on website full compatible with New Instagram Api Implementation
 = 2.1.3 =
 * Add Shortcakes Info
 = 2.1.2 =
@@ -228,15 +243,15 @@ In the Setting section yon can customize grid and/or Carousel view
 = 1.6 =
 * Add support for https protocol
 = 1.5.3 =
-* Support for swedish specific characters.
+* Support for swedish specific characters on captions of Instagram feed on website 
 = 1.5.2 =
 * Bug for utf8 4-byte (mobile emoticon) Fixed
 = 1.5.1 =
 * Bugs Fix
 = 1.5 =
-* Fix shortcode use and setting saving
+* Fix shortcode use and setting saving - Instagram feed on website
 = 1.4 =
-* Fix warning for empty hashtag value
+* Fix warning for empty hashtag value on Instagram feed on website
 = 1.3 =
 * Bux Fix
 = 1.2 =
@@ -246,4 +261,4 @@ In the Setting section yon can customize grid and/or Carousel view
 = 1.01 =
 * Bux Fix
 = 1.0 =
-* Initial Version
+* Initial Version of Enjoy Instagram feed on website

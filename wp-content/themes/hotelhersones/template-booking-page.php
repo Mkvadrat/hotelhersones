@@ -15,9 +15,61 @@ get_header();
 	<!-- start main-reservation -->
 	
 	<div class="main-reservation">
+
+		<!-- OtelMS -->
+		<script>
+			var is_safari = navigator.userAgent.indexOf("Safari") > -1; // safari detection
+			if (is_safari) {
+				if (!jQuery.cookie("apartmentshersones_fixed")) {
+					jQuery.cookie("apartmentshersones_fixed", "fixed", { expires: 365, path: "/" }); // 1 year
+					if (document.body.clientWidth > 767) {  window.location.replace("//apartmentshersones-book.otelms.com/_safari_fix.html");}
+			   else { window.location.replace("//apartmentshersones-book-m.otelms.com/_safari_fix.html");}
+				}
+			}
+		</script>
+		
+		<script type="text/javascript">// <![CDATA[
+			var myEventMethod = window.addEventListener ? "addEventListener" : "attachEvent"; 
+			var myEventListener = window[myEventMethod]; 
+			var myEventMessage = myEventMethod == "attachEvent" ? "onmessage" : "message"; 
+			myEventListener(myEventMessage, function(e) { 
+				if (e.data === parseInt(e.data)) 
+					{ document.getElementById("my-iframe-id").height = e.data + "px"; console.log(e.data); 
+				} 
+				}, false); 
+			function getParameterByName(name) { 
+				name = name.replace(/[\[]/, "\[").replace(/[\]]/, "\]"); 
+				var regex = new RegExp("[\?"+"\u0026"+"]" + name + "=([^"+"\u0026"+"#]*)"), 
+				results = regex.exec(location.search); 
+				return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " ")); 
+			} 
+			// ]]>
+			document.addEventListener("DOMContentLoaded", function(event) {
+			var url;
+			if (document.body.clientWidth > 767) {
+				url = "//apartmentshersones-book.otelms.com/bookit/step1/?inline=true" + "\u0026" 
+				+  "datein=" + getParameterByName("datein") + "\u0026" 
+				+ "dateout=" + getParameterByName("dateout") + "\u0026" 
+				+ "lang=" + getParameterByName("lang");
+				}
+			else {
+				url = "//apartmentshersones-book-m.otelms.com/bookit/step1/?inline=true" + "\u0026" 
+				+ "datein=" + getParameterByName("datein") + "\u0026" 
+				+ "dateout=" + getParameterByName("dateout") + "\u0026" 
+				+ "lang=" + getParameterByName("lang");
+				};
+			document.getElementById("my-iframe-id").src = url;
+				});
+			// ]]>
+		</script>
+		<!-- end of OtelMS -->
+
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8">
+
+					<?php if (function_exists('dimox_breadcrumbs')) dimox_breadcrumbs(); ?>
+					
 					<?php echo get_post_meta( get_the_ID(), 'content_block_a_booking_page', $single = true ); ?>
 					
 					<p><a class="button-white scrollto" href="#reservation-form">ОНЛАЙН БРОНИРОВАНИЕ</a><a class="button-white fancybox" href="#easy-reservation">ЛЕГКОЕ БРОНИРОВАНИЕ</a></p>

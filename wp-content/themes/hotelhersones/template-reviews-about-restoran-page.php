@@ -18,6 +18,9 @@ get_header();
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8">
+					
+					<?php if (function_exists('dimox_breadcrumbs')) dimox_breadcrumbs(); ?>
+					
 					<?php echo get_post_meta( get_the_ID(), 'text_block_reviews_about_restoran_page', $single = true ); ?>
 					<?php 
 					

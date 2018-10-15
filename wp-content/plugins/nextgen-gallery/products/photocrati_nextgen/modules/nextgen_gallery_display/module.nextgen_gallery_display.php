@@ -23,8 +23,8 @@ class M_Gallery_Display extends C_Base_Module
 			'photocrati-nextgen_gallery_display',
 			'Gallery Display',
 			'Provides the ability to display gallery of images',
-			'0.17',
-      'https://www.imagely.com/wordpress-gallery-plugin/nextgen-gallery/',
+			'3.0.0.4',
+			'https://www.imagely.com/wordpress-gallery-plugin/nextgen-gallery/',
       'Imagely',
       'https://www.imagely.com'
 		);
@@ -32,14 +32,13 @@ class M_Gallery_Display extends C_Base_Module
 		C_Photocrati_Installer::add_handler($this->module_id, 'C_Display_Type_Installer');
 	}
 
-
 	/**
 	 * Register utilities required for this module
 	 */
 	function _register_utilities()
 	{
         // Register frontend-only components
-        if (apply_filters('ngg_load_frontend_logic', TRUE, $this->module_id))
+        if (!is_admin() && apply_filters('ngg_load_frontend_logic', TRUE, $this->module_id))
         {
             // This utility provides a controller to render the settings form
             // for a display type, or render the front-end of a display type
@@ -95,7 +94,7 @@ class M_Gallery_Display extends C_Base_Module
         }
 
         // Frontend-only components
-        if (apply_filters('ngg_load_frontend_logic', TRUE, $this->module_id))
+        if (!is_admin() && apply_filters('ngg_load_frontend_logic', TRUE, $this->module_id))
         {
             $this->get_registry()->add_adapter('I_MVC_View', 'A_Gallery_Display_View');
             $this->get_registry()->add_adapter('I_MVC_View', 'A_Displayed_Gallery_Trigger_Element');
@@ -108,8 +107,9 @@ class M_Gallery_Display extends C_Base_Module
 	 */
 	function _register_hooks()
 	{
-        if (apply_filters('ngg_load_frontend_logic', TRUE, $this->module_id))
+        if (!is_admin() && apply_filters('ngg_load_frontend_logic', TRUE, $this->module_id))
         {
+            C_NextGen_Shortcode_Manager::add('ngg', array(&$this, 'display_images'));
             C_NextGen_Shortcode_Manager::add('ngg_images', array(&$this, 'display_images'));
             add_action('wp_enqueue_scripts', array(&$this, 'no_resources_mode'), PHP_INT_MAX-1);
             add_filter('the_content', array($this, '_render_related_images'));
@@ -249,7 +249,7 @@ class M_Gallery_Display extends C_Base_Module
 	/**
 	 * Gets the src url for the registered fontawesome handler
 	 * @param bool $ngg_provided_only
-	 * @return null|string|void
+	 * @return null|string
 	 */
 	static function get_fontawesome_url($ngg_provided_only=FALSE)
 	{
@@ -322,7 +322,7 @@ class M_Gallery_Display extends C_Base_Module
       $taglist = implode(',', $sluglist);
 
       if ($taglist === 'uncategorized' || empty($taglist))
-          return;
+          return '';
 
       $renderer = C_Displayed_Gallery_Renderer::get_instance();
       $view     = C_Component_Factory::get_instance()->create('mvc_view', '');
@@ -411,7 +411,7 @@ class M_Gallery_Display extends C_Base_Module
 	        NGG_SCRIPT_VERSION
         );
 
-        if (apply_filters('ngg_load_frontend_logic', TRUE, $this->module_id))
+        if (!is_admin() && apply_filters('ngg_load_frontend_logic', TRUE, $this->module_id))
         {
             wp_register_style(
                 'nextgen_gallery_related_images',
@@ -431,6 +431,13 @@ class M_Gallery_Display extends C_Base_Module
 	            $router->get_static_url('photocrati-nextgen_gallery_display#trigger_buttons.css'),
 	            FALSE,
 	            NGG_SCRIPT_VERSION
+            );
+
+            wp_register_script(
+                'ngg_waitforimages',
+                $router->get_static_url('photocrati-nextgen_gallery_display#jquery.waitforimages.js'),
+                array('jquery'),
+                NGG_SCRIPT_VERSION
             );
         }
     }
@@ -512,10 +519,11 @@ class M_Gallery_Display extends C_Base_Module
 
         /* Create array of directories to scan */
         $dirs = array(
+            //'default' => C_Component_Registry::get_instance()->get_module_dir($display_type->module_id ? $display_type->module_id : $display_type->name) . DIRECTORY_SEPARATOR . 'templates',
             'default' => C_Component_Registry::get_instance()->get_module_dir($display_type->name) . DIRECTORY_SEPARATOR . 'templates',
             'custom' => WP_CONTENT_DIR . DIRECTORY_SEPARATOR . 'ngg' . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . $display_type->name . DIRECTORY_SEPARATOR . 'templates',
         );
-
+    
         /* Apply filters so third party devs can add directories for their templates */
         $dirs = apply_filters('ngg_display_type_template_dirs', $dirs, $display_type);
         $dirs = apply_filters('ngg_' . $display_type->name . '_template_dirs', $dirs, $display_type);

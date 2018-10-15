@@ -17,6 +17,9 @@ get_header();
 		<div class="container">
 			<div class="row">
 				<div class="col-md-8">
+					
+					<?php if (function_exists('dimox_breadcrumbs')) dimox_breadcrumbs(); ?>
+					
 					<?php
 						echo getDataCategory('news-list','text_category_news_page');
 					?>

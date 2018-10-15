@@ -19,12 +19,13 @@ get_header();
             <div class="row">
                 <div class="col-md-8">
                     
+                    <?php if (function_exists('dimox_breadcrumbs')) dimox_breadcrumbs(); ?>
+                    
 					<?php echo get_post_meta( get_the_ID(), 'content_contacts_page', $single = true ); ?> 
                 
                     <div class="map-block">
 						<?php $sevastopol = get_post_meta( get_the_ID(), 'address_contact_page', $single = true ); ?> 
-						
-						<script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+
 						<div id="sevastopol" style="width:100; height:240px"></div>
 						<script type="text/javascript">
 							var sevastopolMap, sevastopolPlacemark, sevastopolcoords;

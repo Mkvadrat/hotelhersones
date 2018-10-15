@@ -212,19 +212,13 @@ class C_Taxonomy_Controller extends C_MVC_Controller
         parent::define($context);
         $this->implement('I_Taxonomy_Controller');
     }
-    /**
-     * Returns the rendered HTML of a gallery based on the provided tag
-     *
-     * @param string $tag
-     * @return string
-     */
-    function index_action($tag)
+    function render_tag($tag)
     {
         $mapper = C_Display_Type_Mapper::get_instance();
         // Respect the global display type setting
         $display_type = $mapper->find_by_name(NGG_BASIC_TAGCLOUD, TRUE);
         $display_type = !empty($display_type->settings['gallery_display_type']) ? $display_type->settings['gallery_display_type'] : NGG_BASIC_THUMBNAILS;
-        return "[ngg_images source='tags' container_ids='{$tag}' slug='{$tag}' display_type='{$display_type}']";
+        return "[ngg source='tags' container_ids='{$tag}' slug='{$tag}' display_type='{$display_type}']";
     }
     /**
      * Determines if the current page is /ngg_tag/{*}
@@ -279,7 +273,7 @@ class C_Taxonomy_Controller extends C_MVC_Controller
         $post->post_name = 'ngg_tag';
         $post->guid = get_bloginfo('wpurl') . '/' . 'ngg_tag';
         $post->post_title = $title;
-        $post->post_content = $this->index_action($tag);
+        $post->post_content = $this->render_tag($tag);
         $post->ID = FALSE;
         $post->post_type = 'page';
         $post->post_status = 'publish';

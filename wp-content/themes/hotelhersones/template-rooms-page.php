@@ -19,6 +19,8 @@ get_header();
 		<div class="row">
 			<div class="col-md-12">
 				
+				<?php if (function_exists('dimox_breadcrumbs')) dimox_breadcrumbs(); ?>
+				
 				<?php echo get_post_meta( get_the_ID(), 'main_content_numbers_page', $single = true ); ?>
 				
 				<?php echo get_post_meta( get_the_ID(), 'vip_numbers_rooms_page', $single = true ); ?>

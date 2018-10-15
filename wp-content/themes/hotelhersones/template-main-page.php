@@ -700,16 +700,12 @@ get_header();
 
                     <?php echo get_post_meta( get_the_ID(), 'text_sheme_block_main_page', $single = true ); ?> 
 
+                    <?php $sevastopol = getMeta('address_contact_page');
                     
-
+                     ?> 
+                    
+                    <?php if(!empty($sevastopol)){ ?>
                     <div class="map-block-wrap">
-
-						<?php $sevastopol = getMeta('address_contact_page'); ?> 
-
-						
-
-						<script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
-
 						<div id="sevastopol" style="width:100; height:280px"></div>
 
 						<script type="text/javascript">
@@ -753,9 +749,8 @@ get_header();
 							}
 
 						</script>
-
                     </div>
-
+                    <?php } ?>
                 </div>
 
             </div>
