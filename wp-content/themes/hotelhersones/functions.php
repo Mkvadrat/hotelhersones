@@ -246,6 +246,9 @@ function getCurrentActionID(){
 
 remove_filter('the_content', 'wpautop');
 
+//Отключить редактор
+add_filter('use_block_editor_for_post', '__return_false');
+
 
 
 /**********************************************************************************************************************************************************
@@ -631,40 +634,22 @@ class footer_menu extends Walker_Nav_Menu {
 //Функция для вывода температуры 
 
 function getTemperature(){
-
-	$link_temp = file_get_contents('http://www.realmeteo.ru/sevastopol/1/current');
-
-	
+	$link_temp = file_get_contents('https://www.gismeteo.ua/weather-sevastopol-5003/');
 
 	$document = phpQuery::newDocument($link_temp);
 
-  
-
-	$temp = $document->find('td.meteodata');
-
+	$hentry = $document->find('div.temp');
 	
-
-	$temp_explode = explode('°C', $temp);
-
-	
-
-	$r_temp_trim = trim($temp_explode[0], "</span>");
-
-	
-
-	if(!empty($r_temp_trim)){
-
-		echo $r_temp_trim;
-
-	}else{
-
-		echo 0;
-
+	foreach($hentry as $el){
+		$pq = pq($el);
+		
+		$elem = $pq->find('span.meas')->remove();
+		
+		$temp[] = $pq->find('dd.value.m_temp.c')->html();
 	}
-
+	
+	echo !empty($temp[0]) ? $temp[0] : 0;
 }
-
-
 
 /**********************************************************************************************************************************************************
 
@@ -697,28 +682,16 @@ function getMeta($meta_key){
 //Получить данные из произвольных полей для таксономии
 
 function getDataCategory($taxonomy, $meta_key){
-
 	global $wpdb;
-
-	
 
 	$term = get_queried_object();
 
-	
-
 	$cat_id = $term->term_id;
 
-	
-
-	$cat_data = get_option($taxonomy . '_' . $cat_id . '_' . $meta_key);
-
-			
+	$cat_data = $wpdb->get_var( $wpdb->prepare("SELECT meta_value FROM $wpdb->termmeta WHERE term_id = %s AND meta_key = %s", $cat_id, $meta_key));
 
 	return $cat_data;
-
 }
-
-
 
 function getNextGallery($post_id, $meta_key){
 
@@ -765,29 +738,20 @@ function getImageLink($meta_key){
 //Получить урл изображения из произвольных полей для таксономии рубрики
 
 function getImageLinkCategory($taxonomy, $meta_key){
-
-	global $wpdb;
-
 	
+	global $wpdb;
 
 	$term = get_queried_object();
 
-	
-
 	$cat_id = $term->term_id;
 
+	//$cat_data = get_option($taxonomy . '_' . $cat_id . '_' . $meta_key);
 	
-
-	$cat_data = get_option($taxonomy . '_' . $cat_id . '_' . $meta_key);
-
-		
+	$cat_data = $wpdb->get_var( $wpdb->prepare("SELECT meta_value FROM $wpdb->termmeta WHERE term_id = %s AND meta_key = %s", $cat_id, $meta_key));
 
 	$link = $wpdb->get_var( $wpdb->prepare("SELECT guid FROM $wpdb->posts WHERE ID = %s", $cat_data));
 
-	
-
 	return $link;
-
 }
 
 

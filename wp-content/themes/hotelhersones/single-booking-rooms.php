@@ -274,7 +274,7 @@ get_header();
 						<input type="text" placeholder="Выбрать дату заезда">
 
 						<input type="submit" value="Забронировать">-->
-						<a href="/booking-page/" class="button-yellow">Забронировать</a>
+						<a href="/booking-page/?room-type=<?php echo get_post_meta( get_the_ID(), 'room_type', $single = true ); ?>" class="button-yellow">Забронировать</a>
 					</div>
 
 					<p class="title-sidebar">Номера</p>

@@ -4695,12 +4695,12 @@ aside.sidebar {
 
 .main-room .appliances li {
   float: left;
-  width: 125px;
+  width: 105px;
   margin-right: 0;
   text-align: center;
   text-transform: uppercase;
   font-family: "MyriadPro-Regular";
-  font-size: 15px;
+  font-size: 12px;
   font-weight: 400;
   line-height: 18px;
   color: #323232;
@@ -4756,6 +4756,7 @@ aside.sidebar {
   width: calc(100% - 46px);
   margin: 0;
   color: #690907;
+  -webkit-text-fill-color: #690907;
 }
 .main-room .prev-next-room {
   overflow: hidden;

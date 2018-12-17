@@ -45,7 +45,7 @@ if( ! defined( 'ABSPATH' ) ) {
         ?>
         <div class="box">
             <a title="<?php echo $entry['caption']['text'] ?>" rel="gallery_swypebox" class="swipebox"
-               href="<?php echo $entry['images']['standard_resolution']['url'] ?>" <?php echo $link_style ?>
+               href="<?php echo $entry['images']['standard_resolution']['url'] ?>" <?php echo $link_style ?>>
                 <img  src="<?php echo $url ?>">
             </a>
         </div>

@@ -52,8 +52,7 @@ if( ! function_exists( 'enjoyinstagram_format_entry_before_print' ) ) {
     /**
      * Format an entry before print
      *
-     * @since 9.0.0
-     * @author Francesco Licandro
+     * @since 4.0.0
      * @param array $entry
      * @return array
      */
@@ -77,15 +76,15 @@ function get_user_info($access_token){
 }
 //ANDREA NEW FUNC
 function get_user_by_name($user,$count, $account_name, $hashtag = ""){
-    return EnjoyInstagram_Api_Connection()->get_user_by_name( $user,$count, $account_name, $hashtag = "" );
+    return array();
 }
 
 function get_hash($hashtag,$count){
-    return EnjoyInstagram_Api_Connection()->get_hash( $hashtag,$count );
+    return EnjoyInstagram_Api_Connection()->get_hash( $hashtag, $count );
 }
 
 function get_hash_code($hashtag,$count){
-    return EnjoyInstagram_Api_Connection()->get_hash_code( $hashtag,$count );
+    return '';
 }
 
 function get_user($user,$count, $hashtag = ""){
@@ -101,11 +100,11 @@ function get_media($user,$media){
 }
 
 function get_likes($user,$count){
-    return EnjoyInstagram_Api_Connection()->get_likes( $user,$count );
+    return array();
 }
 
 function get_likes_code($user,$count){
-    return EnjoyInstagram_Api_Connection()->get_likes_code( $user,$count );
+    return '';
 }
 
 function replace4byte($string) {

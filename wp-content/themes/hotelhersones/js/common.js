@@ -186,15 +186,15 @@ $(document).ready(function() {
 
          $(window).scroll(function() {
 
-            var yPos = ($window.scrollTop() / $bgobj.data('speed')); 
+            var yPos = ($window.scrollTop() / $bgobj.data('speed'));
 
             var coords = '45% '+ yPos + 'px';
 
             $bgobj.css({ backgroundPosition: coords });
 
-        }); 
+        });
 
-     });    
+     });
 
     });
 

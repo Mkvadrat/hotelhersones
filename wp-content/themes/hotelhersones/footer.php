@@ -133,7 +133,7 @@ Version: 1.0
                 <div class="row">
 
                     <div class="col-md-12">
-                        <ul class="socials socials-mobile">
+                        <noindex><ul class="socials socials-mobile">
                             <li><a href="#"><img src="/wp-content/themes/hotelhersones/images/soc-1.png" alt=""></a></li>
                             <li><a href="#"><img src="/wp-content/themes/hotelhersones/images/soc-2.png" alt=""></a></li>
                             <li><a href="#"><img src="/wp-content/themes/hotelhersones/images/soc-3.png" alt=""></a></li>
@@ -142,7 +142,7 @@ Version: 1.0
                             <li><a href="#"><img src="/wp-content/themes/hotelhersones/images/soc-7.png" alt=""></a></li>
                             <li><a href="#"><img src="/wp-content/themes/hotelhersones/images/soc-8.png" alt=""></a></li>
                             <li><a href="#"><img src="/wp-content/themes/hotelhersones/images/soc-9.png" alt=""></a></li>
-                        </ul>
+                        </ul></noindex>
                     </div>
 
                     <div class="col-md-4">

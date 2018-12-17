@@ -58,11 +58,12 @@
 			 * Listen for click events to our placeholder
 			 */
             editor.on('mouseup touchend', function(e) {
+
 				tinymce.extend(self, {
 					editor: editor,
 					plugin: editor.plugins.NextGEN_AttachToPost
 				});
-
+				
 				// Support for IGW placeholder images. NGG <= 2.1.50
 				if (e.target.tagName == 'IMG') {
 					if (self.get_class_name(e.target).indexOf('ngg_displayed_gallery') >= 0) {
@@ -75,30 +76,38 @@
 						});
 					}
 				}
+
 				// Support for IGW Visual Shortcodes. NGG >= 2.1.50.1
 				else {
+
 					var $target = $(e.target);
-					if ($target.parents('.nggPlaceholderButton')) {
-						$target = $target.parents('.nggPlaceholderButton');
-					}
+
 					if ($target.hasClass('nggPlaceholderButton')) {
 
 						// Remove button
 						if ($target.hasClass('nggIgwRemove')) {
-							$target.parents('.nggPlaceholder').remove();
+							var $placeholder = $target.parents('.nggPlaceholder')
+							var shortcode = $placeholder[0].getAttribute('data-shortcode')
+							editor.fire('ngg-removed', {shortcode: shortcode})
+							$placeholder.remove();
 						}
-
+						
 						// Edit button
 						else {
-							window.igw_shortcode=  $(e.target).parents('.nggPlaceholder').data('shortcode');
+							// Do not use jQuery's .data() here: it will use cached data
+							window.igw_shortcode = $(e.target).parents('.nggPlaceholder')[0].getAttribute('data-shortcode');
+
 							self.render_attach_to_post_interface({
 								key: 'shortcode',
 								val: Base64.encode(window.igw_shortcode),
 								ref: $(e.target).parents('.nggPlaceholder').attr('id')
 							});
 						}
+
 					}
+
 				}
+
 			});
 
 			/**
@@ -206,7 +215,8 @@
 				if (typeof(params['ref']) != 'undefined') {
 					attach_to_post_url += '&ref='+encodeURIComponent(params.ref);
 				}
-            }
+			}
+			attach_to_post_url += "&editor="+this.editor.id;
 
 			var win = window;
 			while (win.parent != null && win.parent != win) {

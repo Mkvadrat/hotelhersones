@@ -52,7 +52,7 @@ get_header();
 					<?php
 					// список разделов произвольной таксономии news-list
 					
-						$args = array(
+						/*$args = array(
 							'taxonomy'     => 'category', // название таксономии
 							'orderby'      => 'name',  // сортируем по названиям
 							'show_count'   => 0,       // не показываем количество записей
@@ -61,11 +61,12 @@ get_header();
 							'title_li'     => '',      // список без заголовка
 							'hide_empty' => 0,
 							'child_of'   => 1,
-						);
+						);*/
 					?>
 					
 					<ul class="list-links-gallerys">
-						<?php wp_list_categories( $args ); ?>
+						<?php //wp_list_categories( $args ); ?>
+						<?php echo get_post_meta( get_the_ID(), 'sidebar_category_in_services_page', $single = true ); ?> 
 					</ul>
 				
 					<div class="form-block">

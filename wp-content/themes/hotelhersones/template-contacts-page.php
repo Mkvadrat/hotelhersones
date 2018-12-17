@@ -18,7 +18,25 @@ get_header();
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    
+				<script type="application/ld+json">
+					{
+						"@context": "http://schema.org/",
+						"@type": "Organization",
+						"name": "Апартаменты Херсонес",
+						"url": "http://hersones.mkvadrat.pw",
+						"logo": "http://hersones.mkvadrat.pw/wp-content/themes/hotelhersones/images/logo.png",
+						"address":
+							{
+								"@type": "PostalAddress",
+								"addressLocality": "АР Крым, г. Севастополь",
+								"postalCode": "299045",
+								"streetAddress": "ул. Древняя, 34"
+							},
+						"email": "hotel-hersones@mail.ru",
+						"telephone": "+7 978 832 98 40, +7 8692 24 15 87",
+						"faxNumber": "+7 8692 23 13 03"
+					}
+				</script>
                     <?php if (function_exists('dimox_breadcrumbs')) dimox_breadcrumbs(); ?>
                     
 					<?php echo get_post_meta( get_the_ID(), 'content_contacts_page', $single = true ); ?> 

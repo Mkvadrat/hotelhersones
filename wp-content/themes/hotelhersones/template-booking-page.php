@@ -66,7 +66,7 @@ get_header();
 
 		<div class="container">
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-8" style="display: none;">
 
 					<?php if (function_exists('dimox_breadcrumbs')) dimox_breadcrumbs(); ?>
 					

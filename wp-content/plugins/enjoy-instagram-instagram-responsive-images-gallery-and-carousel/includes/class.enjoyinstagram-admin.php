@@ -88,8 +88,7 @@ class EnjoyInstagram_Admin {
      *
      * @param string $tab
      * @param array $params
-     * @since 9.0.0
-     * @author Francesco Licandro
+     * @since 4.0.0
      * @return string
      */
     public function build_admin_url( $tab, $params = array() ){
@@ -216,8 +215,7 @@ class EnjoyInstagram_Admin {
     /**
      * Manage Instagram response and add a new user
      *
-     * @since 9.0.0
-     * @author Francesco Licandro
+     * @since 4.0.0
      * @return void
      */
     public function add_user(){
@@ -248,8 +246,7 @@ class EnjoyInstagram_Admin {
     /**
      * Remove and user from plugin
      *
-     * @since 9.0.0
-     * @author Francesco Licandro
+     * @since 4.0.0
      * @return void
      */
     public function remove_user(){
@@ -274,8 +271,7 @@ class EnjoyInstagram_Admin {
     /**
      * Get Instagram login url
      *
-     * @since 9.0.0
-     * @author Francesco Licandro
+     * @since 4.0.0
      * @return string
      */
     public function get_instagram_login_url(){

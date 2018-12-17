@@ -64,8 +64,8 @@ class EnjoyInstagram_Shortcodes {
     /**
      * Register common scripts
      *
-     * @since 9.0.0
-     * @author Francesco Licandro
+     * @since 4.0.0
+     * @return void
      */
     public function register_scripts(){
         wp_register_script('owl', ENJOYINSTAGRAM_ASSETS_URL . '/js/owl.carousel.min.js', array('jquery'), ENJOYINSTAGRAM_VERSION );
@@ -85,8 +85,7 @@ class EnjoyInstagram_Shortcodes {
     /**
      * Enqueue scripts ans styles
      *
-     * @since 9.0.0
-     * @author Francesco Licandro
+     * @since 4.0.0
      */
     public function enqueue_scripts(){
 
@@ -112,7 +111,7 @@ class EnjoyInstagram_Shortcodes {
     /**
      * JS functions in head
      *
-     * @since 9.0.0
+     * @since 4.0.0
      */
     public function functions_in_head(){
         ?>
@@ -130,8 +129,7 @@ class EnjoyInstagram_Shortcodes {
     /**
      * Get shortcode data
      *
-     * @since 9.0.0
-     * @author Francesco Licandro
+     * @since 4.0.0
      * @param string $type
      * @return array
      */
@@ -158,7 +156,6 @@ class EnjoyInstagram_Shortcodes {
      * Carousel shortcode callback
      *
      * @since 4.0.0
-     * @author Francesco Licandro
      * @param array $atts
      * @return string
      */
@@ -191,7 +188,6 @@ class EnjoyInstagram_Shortcodes {
      * Grid shortcode callback
      *
      * @since 4.0.0
-     * @author Francesco Licandro
      * @param array $atts
      * @return string
      */
@@ -222,7 +218,6 @@ class EnjoyInstagram_Shortcodes {
      * Carousel shortcode widget callback
      *
      * @since 4.0.0
-     * @author Francesco Licandro
      * @param array $atts
      * @return string
      */
@@ -253,7 +248,6 @@ class EnjoyInstagram_Shortcodes {
      * Grid shortcode widget callback
      *
      * @since 4.0.0
-     * @author Francesco Licandro
      * @param array $atts
      * @return string
      */

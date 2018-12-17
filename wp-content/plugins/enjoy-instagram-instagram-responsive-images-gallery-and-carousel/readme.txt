@@ -3,9 +3,9 @@ Contributors: mediabeta
 Donate link: https://www.google.com/url?q=https%3A%2F%2Fwww.paypal.com%2Fcgi-bin%2Fwebscr%3Fcmd%3D_s-xclick%26hosted_button_id%3D8MXZ37DWHAX46&sa=D&sntz=1&usg=AFQjCNFHixLdowdc2AAEXDYmM9tQBl-TXQ
 Tags: Instagram, Instagram feed, Instagram grid, Instagram carousel, Widget Instagram, Embed Instagram, Embed Instagram feed, Instagram feed on website, responsive carousel, WordPress carousel, Instagram gallery, Instagram WordPress, Instagram pictures
 Requires at least: 3.0.1
-Tested up to: 4.9
-Version: 4.0.1
-Stable tag: 4.0.1
+Tested up to: 5.0
+Version: 4.0.3
+Stable tag: 4.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -192,6 +192,11 @@ In the Setting section yon can customize grid and/or Carousel view
 
 == Changelog ==
 
+= 4.0.3 =
+* Support to WordPress 5.0
+* Support to new Instagram API
+= 4.0.2 =
+* Missing closing tag on carousel-widget.php
 = 4.0.1 =
 * Bug fix for user access token
 * Add default option value to avoid empty shortcodes

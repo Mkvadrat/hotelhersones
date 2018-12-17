@@ -12,8 +12,7 @@ class Slider_Widget extends WP_Widget {
     /**
      * Slider_Widget constructor.
      *
-     * @since 9.0.0
-     * @author Francesco Licandro
+     * @since 4.0.0
      */
 	public function __construct() {
 		parent::__construct(
