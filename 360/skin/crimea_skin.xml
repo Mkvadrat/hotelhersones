@@ -1,0 +1,188 @@
+<krpano onstart="setuppano();">
+	<!-- krpano 1.16.2 default buttons skin -->
+
+	<progress showload="none" showwait="none" showreloads="false" />
+
+	<!-- control buttons -->
+	<style name="button" url="buttons_crimea.png" keep="true" align="bottom" />
+	
+	<plugin name="btn_in"       devices="desktop" x="-140" y="10" style="button" crop="160|0|40|40" onovercrop="160|40|40|40" ondowncrop="160|80|40|40" ondown="set(fov_moveforce,-1);"     onup="set(fov_moveforce,0);"     />
+	<plugin name="btn_out"      devices="desktop" x="-100" y="10" style="button" crop="200|0|40|40" onovercrop="200|40|40|40" ondowncrop="200|80|40|40" ondown="set(fov_moveforce,+1);"     onup="set(fov_moveforce,0);"     />
+	<plugin name="btn_lft"      devices="desktop" x="-60"  y="10" style="button" crop=  "0|0|40|40" onovercrop=  "0|40|40|40" ondowncrop=  "0|80|40|40" ondown="set(hlookat_moveforce,-1);" onup="set(hlookat_moveforce,0);" />
+	<plugin name="btn_rgt"      devices="desktop" x="-20"  y="10" style="button" crop= "40|0|40|40" onovercrop= "40|40|40|40" ondowncrop= "40|80|40|40" ondown="set(hlookat_moveforce,+1);" onup="set(hlookat_moveforce,0);" />
+	<plugin name="btn_up"       devices="desktop" x="+20"  y="10" style="button" crop= "80|0|40|40" onovercrop= "80|40|40|40" ondowncrop= "80|80|40|40" ondown="set(vlookat_moveforce,-1);" onup="set(vlookat_moveforce,0);" />
+	<plugin name="btn_dwn"      devices="desktop" x="+60"  y="10" style="button" crop="120|0|40|40" onovercrop="120|40|40|40" ondowncrop="120|80|40|40" ondown="set(vlookat_moveforce,+1);" onup="set(vlookat_moveforce,0);" />
+	<plugin name="btn_dragmode" devices="desktop" x="+100" y="10" style="button" crop="400|0|40|40" onovercrop="400|40|40|40" ondowncrop="400|80|40|40" onclick="dragcursor();" visible="true"  />
+	<plugin name="btn_movemode" devices="desktop" x="+100" y="10" style="button" crop="360|0|40|40" onovercrop="360|40|40|40" ondowncrop="360|80|40|40" onclick="qtvrcursor();" visible="false" />
+	<plugin name="btn_enterfs"  devices="desktop+fullscreensupport" x="+140" y="10" style="button" crop="280|0|40|40" onovercrop="280|40|40|40" ondowncrop="280|80|40|40" onclick="set(fullscreen,true);"  visible="true"  />
+	<plugin name="btn_exitfs"   devices="desktop+fullscreensupport" x="+140" y="10" style="button" crop="320|0|40|40" onovercrop="320|40|40|40" ondowncrop="320|80|40|40" onclick="set(fullscreen,false);" visible="false" />
+	<plugin name="btn_logo"     
+	url="logo.png" keep="true" 
+	align="rightbottom" x="10" y="10" alpha="0.5" 
+	onover="tween(alpha,1,1)" 
+	onout="tween(alpha, 0.5,1);" 
+	onclick="onclickA();"
+	onclickA="set(layer[info].enabled, true);tween(layer[info].alpha,0.9,1);set(onclick, onclickB(););"
+	onclickB="set(layer[info].enabled, false);tween(layer[info].alpha,0,1);set(onclick, onclickA(););" 
+	/>
+	
+	<krpano devices="!fullscreensupport">
+		<!-- skin changes for no fullscreen support (no fullscreen button, change other button positions) -->
+		<plugin name="btn_in"       x="-120" />
+		<plugin name="btn_out"      x="-80"  />
+		<plugin name="btn_lft"      x="-40"  />
+		<plugin name="btn_rgt"      x="-0"   />
+		<plugin name="btn_up"       x="+40"  />
+		<plugin name="btn_dwn"      x="+80"  />
+		<plugin name="btn_dragmode" x="+120" />
+		<plugin name="btn_movemode" x="+120" />
+	</krpano>
+
+
+	<!-- android buttons and events -->
+	<plugin name="androidzoom_out" devices="android+flash" keep="true" url="androidbuttons.png" alpha="0.5" crop="0|0|71|64"   align="rightbottom" x="88" y="10" ondown="set(crop,0|64|71|64);  set(fov_moveforce,+1);" onup="set(crop,0|0|71|64);  set(fov_moveforce,0);" />
+	<plugin name="androidzoom_in"  devices="android+flash" keep="true" url="androidbuttons.png" alpha="0.5" crop="71|0|78|64"  align="rightbottom" x="10" y="10" ondown="set(crop,71|64|78|64); set(fov_moveforce,-1);" onup="set(crop,71|0|78|64); set(fov_moveforce,0);" />
+	<plugin name="androidfsbutton" devices="android+flash" keep="true" url="androidbuttons.png" alpha="0.5" crop="149|0|64|64" align="righttop"    x="0"  y="0"  onclick="switch(fullscreen);" />
+	
+	<events name="androidfsbutton" devices="android+flash" keep="true" onenterfullscreen="set(plugin[androidfsbutton].crop,149|64|64|64);" onexitfullscreen="set(plugin[androidfsbutton].crop,149|0|64|64);" />
+
+	
+
+	<!-- right-click context menu to change the viewing settings -->
+	<contextmenu fullscreen="true"  versioninfo="true"   enterfs="На полный экран" exitfs="Свернуть">
+	<item caption="FULLSCREEN"  />
+    <item caption="[font color='#0091d3' face='arial'][u]Все панорамы Крыма[/u][/font]" onclick="openurl('http://ilikecrimea.com/');" separator="true"/>
+    <item caption="[font color='#0091d3' face='arial'][u]Панорамы Крыма ВКонтакте[/u][/font]" onclick="openurl('http://vk.com/app3360148_4297275?ref=9');" />
+	<item caption="KRPANO" separator="true"/>
+    </contextmenu>
+	
+
+	<!-- actions to change the mouse cursor -->
+	<action name="dragcursor">
+		set(plugin[btn_dragmode].visible, false);
+		set(plugin[btn_movemode].visible, true);
+		set(control.mousetype, drag2D);
+		set(cursors.url, %SWFPATH%/skin/drag-cursors.png);
+		set(cursors.type, drag);
+		set(cursors.move,  2|0|30|32);
+		set(cursors.drag, 37|0|30|32);
+	</action>
+
+	<action name="qtvrcursor">
+		set(plugin[btn_dragmode].visible, true);
+		set(plugin[btn_movemode].visible, false);
+		set(control.mousetype, moveto);
+		set(cursors.url, %SWFPATH%/skin/qtvr-cursors.png);
+		set(cursors.type, 8way);
+		set(cursors.move,       0|0|16|16);
+		set(cursors.drag,      16|0|16|16);
+		set(cursors.arrow_u,   32|0|16|16);
+		set(cursors.arrow_d,   48|0|16|16);
+		set(cursors.arrow_l,   64|0|16|16);
+		set(cursors.arrow_r,   80|0|16|16);
+		set(cursors.arrow_lu,  96|0|16|16);
+		set(cursors.arrow_ru, 112|0|16|16);
+		set(cursors.arrow_rd, 128|0|16|16);
+		set(cursors.arrow_ld, 144|0|16|16);
+	</action>
+	
+	<action name="setuppano">
+		qtvrcursor();
+
+	</action>
+
+	
+	<!-- Info Layer -->
+	<style name="links" keep="true" alpha="1"
+	url="links.png" align="top" width="200" height="20" zorder="2" enabled="true"    
+	/>
+	
+	<layer name="info" url="info.png" keep="true" enabled="true" handcursor="false" width="300" height="200" align="center" alpha="0" onclick="set(enabled, false);tween(alpha,0,1);set(plugin[btn_logo].onclick, onclickA(););"  >
+	
+	<layer name="virtualcrimea"  
+	       style="links" y="50"
+		   crop="0|0|200|20"
+		   onovercrop="0|20|200|20"
+		   onclick="openurl('http://virtual.crimea.ua',_blank);"
+	       />
+     
+	<layer name="allhotels"  
+	       style="links" y="80"
+		   crop="0|40|200|20"
+		   onovercrop="0|60|200|20"
+		   onclick="openurl('http://allhotels.crimea.ua',_blank);"
+	
+	/>
+    <layer name="most"  
+	       style="links" y="110"
+		   crop="0|80|200|20"
+		   onovercrop="0|100|200|20"
+		   onclick="openurl('http://most-inform.com',_blank);"
+	       />
+ 
+    <layer name="close" url="buttons_crimea.png" align="righttop" zorder="2"	
+	       x="10" y="10" width="25" height="25"
+		   crop="440|0|25|25"
+		   onovercrop="440|25|25|25"
+		   onclick="set(layer[info].enabled, false);tween(layer[info].alpha,0,1);set(plugin[btn_logo].onclick, onclickA(););"
+	       />
+ 
+	</layer>
+	
+	
+	
+	
+	<!-- Loading Actions -->
+	
+	
+	<!-- loading percent events -->
+	<events name="loadingpercent" keep="true"
+	        onxmlcomplete="loadingpercent_startloading();"
+	        onloadcomplete="delayedcall(0.25, loadingpercent_stoploading() );"
+			onenterfullscreen="set(plugin[btn_enterfs].visible,false); set(plugin[btn_exitfs].visible,true);"
+	        onexitfullscreen ="set(plugin[btn_enterfs].visible,true);  set(plugin[btn_exitfs].visible,false);"
+	        />
+
+
+	<!-- loading percent graphics/text -->
+	<layer name="loadingpercent_text" keep="true" zorder="1"
+	       url="textfield.swf"
+	       align="center"
+		   alpha="1"
+		   width="220"
+	       autoheight="true"
+	       css="text-align:center; color:#0091d3; font-family:Arial; font-weight:bold; font-size:18px; font-style:normal;" 
+		   textshadow="0.8"
+		   background="true"
+           backgroundcolor="0xFFFFFF"
+           backgroundalpha="0.8"
+		   border="true"
+           bordercolor="0x0091d3"
+           borderalpha="1"
+           borderwidth="1.5"
+           roundedge="10"
+           textshadowrange="1.0"
+           textshadowangle="45"
+           textshadowcolor="0xFFFFFF"
+           textshadowalpha="1.0"
+	       html=""
+	       />
+
+	
+	<!-- loading percent actions -->	
+	<action name="loadingpercent_startloading">
+		set(loadingpercent_isloading, true);
+		set(layer[loadingpercent_text].visible, true);
+		
+		asyncloop(loadingpercent_isloading,
+			mul(pv, progress.progress, 100);
+			roundval(pv,0);
+			txtadd(layer[loadingpercent_text].html, 'Загрузка: ', get(pv), '%');
+		  );
+	</action>
+	
+	<action name="loadingpercent_stoploading">
+		set(loadingpercent_isloading, false); 
+		set(layer[loadingpercent_text].visible, false);
+	</action>
+</krpano>

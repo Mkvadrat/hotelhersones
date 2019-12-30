@@ -90,7 +90,7 @@ final class tinymce_enjoyinstagram_button {
      */
     public function ajax_tinymce() {
         if( ! current_user_can('edit_pages') || ! current_user_can('edit_posts') ) {
-            wp_die( __( 'You are not allowed to be here', 'enjoyinstagram' ) );
+            wp_die( __( 'You are not allowed to be here', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ) );
         }
 
         include_once( 'shortcode-tinymce-window.php');

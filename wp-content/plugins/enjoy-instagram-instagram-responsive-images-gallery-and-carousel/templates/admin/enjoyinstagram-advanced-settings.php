@@ -31,23 +31,23 @@ if (!defined('ABSPATH')) {
         <tr valign="top">
             <th scope="row" style="align:left;">
                     <span class="highlighted">
-                        <?php _e('Inclusion mode', 'enjoyinstagram'); ?>:
+                        <?php _e('Inclusion mode', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?>:
                     </span>
             </th>
             <td>
                 <div class="ei_block">
                     <div class="ei_settings_float_block">
-                        <?php _e('Show pics', 'enjoyinstagram'); ?>:
+                        <?php _e('Show pics', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?>:
                     </div>
                     <div class="ei_settings_float_block">
                         <input type="radio"
                                name="enjoyinstagram_user_or_hashtag" <?php checked('user', get_option('enjoyinstagram_user_or_hashtag', 'user')) ?>
                                value="user">
-                        <?php _ex('of Your Profile', 'option label', 'enjoyinstagram'); ?><br/><br/>
+                        <?php _ex('of Your Profile', 'option label', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?><br/><br/>
                         <input type="radio"
                                name="enjoyinstagram_user_or_hashtag" <?php checked('hashtag', get_option('enjoyinstagram_user_or_hashtag', 'user')) ?>
                                value="hashtag">
-                        <?php _ex('by Hashtag', 'option label', 'enjoyinstagram'); ?><br/>
+                        <?php _ex('by Hashtag', 'option label', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?><br/>
                     </div>
                     <div class="ei_settings_float_block">
                         <div id="enjoyinstagram_user_or_hashtag_user"
@@ -61,7 +61,7 @@ if (!defined('ABSPATH')) {
                             #<input type="text" id="enjoyinstagram_hashtag" required
                                     value="<?php echo get_option('enjoyinstagram_hashtag'); ?>"
                                     name="enjoyinstagram_hashtag"/>
-                            <span class="description"><?php _ex("insert a hashtag without '#'", 'option description', 'enjoyinstagram'); ?></span>
+                            <span class="description"><?php _ex("insert a hashtag without '#'", 'option description', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?></span>
                         </div>
                     </div>
                 </div>
@@ -77,14 +77,14 @@ if (!defined('ABSPATH')) {
         <tr valign="top">
             <th scope="row" style="align:left;">
                 <span class="highlighted">
-                    <?php _e('Carousel settings', 'enjoyinstagram'); ?>:
+                    <?php _e('Carousel settings', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?>:
                 </span>
             </th>
             <td>
                 <div class="ei_block">
                     <div class="ei_settings_float_block ei_fixed">
                         <label for="enjoyinstagram_carousel_items_number">
-                            <?php _ex('Images displayed at a time', 'option label', 'enjoyinstagram'); ?>:
+                            <?php _ex('Images displayed at a time', 'option label', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?>:
                         </label>
                     </div>
                     <div class="ei_settings_float_block">
@@ -101,17 +101,17 @@ if (!defined('ABSPATH')) {
                 <div class="ei_block">
                     <div class="ei_settings_float_block ei_fixed">
                         <label for="enjoyinstagram_carousel_navigation">
-                            <?php _ex('Navigation buttons', 'option label', 'enjoyinstagram'); ?>:
+                            <?php _ex('Navigation buttons', 'option label', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?>:
                         </label>
                     </div>
                     <div class="ei_settings_float_block">
                         <select name="enjoyinstagram_carousel_navigation" class="ei_sel"
                                 id="enjoyinstagram_carousel_navigation">
                             <option value="true" <?php selected('true', get_option('enjoyinstagram_carousel_navigation', 'false')); ?>>
-                                <?php _e('Yes', 'enjoyinstagram'); ?>
+                                <?php _e('Yes', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?>
                             </option>
                             <option value="false" <?php selected('false', get_option('enjoyinstagram_carousel_navigation', 'false')); ?>>
-                                <?php _e('No', 'enjoyinstagram'); ?>
+                                <?php _e('No', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?>
                             </option>
                         </select>
                     </div>
@@ -127,14 +127,14 @@ if (!defined('ABSPATH')) {
         <tr valign="top">
             <th scope="row" style="align:left;">
                 <span class="highlighted">
-                    <?php _e('Grid view settings', 'enjoyinstagram'); ?>:
+                    <?php _e('Grid view settings', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?>:
                 </span>
             </th>
             <td>
                 <div class="ei_block">
                     <div class="ei_settings_float_block ei_fixed">
                         <label for="enjoyinstagram_grid_cols">
-                            <?php _ex('Number of Columns', 'option label', 'enjoyinstagram'); ?>:
+                            <?php _ex('Number of Columns', 'option label', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?>:
                         </label>
                     </div>
                     <div class="ei_settings_float_block">
@@ -151,7 +151,7 @@ if (!defined('ABSPATH')) {
                 <div class="ei_block">
                     <div class="ei_settings_float_block ei_fixed">
                         <label for="enjoyinstagram_grid_rows">
-                            <?php _ex('Number of Rows', 'option label', 'enjoyinstagram'); ?>:
+                            <?php _ex('Number of Rows', 'option label', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?>:
                         </label>
                     </div>
                     <div class="ei_settings_float_block">
@@ -170,11 +170,11 @@ if (!defined('ABSPATH')) {
     </table>
     <hr/>
     <p>
-        <?php _e('<strong>Free version</strong>: Only 20 images allowed.', 'enjoyinstagram'); ?>
+        <?php _e('<strong>Free version</strong>: Only 20 images allowed.', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?>
     </p>
     <input type="submit" class="button-primary" id="button_enjoyinstagram_advanced"
            name="button_enjoyinstagram_advanced"
-           value="<?php _e('Save Settings', 'enjoyinstagram'); ?>">
+           value="<?php _e('Save Settings', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?>">
 </form>
 <div class="wrap" style="
     float: left;
@@ -183,8 +183,8 @@ if (!defined('ABSPATH')) {
     padding: 20px;
     margin-top: 20px;
     border: 2px solid green;">
-    <h3><?php _e('Shortocodes to use', 'enjoyinstagram'); ?>:</h3>
-    <b>[enjoyinstagram_mb]</b> -> <?php _e('Carousel View', 'enjoyinstagram'); ?><br/>
-    <b>[enjoyinstagram_mb_grid]</b> -> <?php _e('Grid View', 'enjoyinstagram'); ?>
+    <h3><?php _e('Shortocodes to use', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?>:</h3>
+    <b>[enjoyinstagram_mb]</b> -> <?php _e('Carousel View', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?><br/>
+    <b>[enjoyinstagram_mb_grid]</b> -> <?php _e('Grid View', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?>
 </div>
 

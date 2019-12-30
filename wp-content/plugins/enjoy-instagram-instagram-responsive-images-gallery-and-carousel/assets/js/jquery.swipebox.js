@@ -8,7 +8,6 @@
 		var ui,
 			defaults = {
 				useCSS : true,
-				useSVG : true,
 				initialIndexOnArray : 0,
 				removeBarsOnMobile : true,
 				hideCloseButtonOnMobile : false,

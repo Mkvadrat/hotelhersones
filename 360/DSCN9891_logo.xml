@@ -1,0 +1,17 @@
+<krpano version="1.16">
+	
+	<include url="skin/crimea_skin.xml" />
+	
+	<view hlookat="0" vlookat="0" fovmin="40" fovmax="110" limitview="auto" />
+	<autorotate enabled="true" waittime="7"  speed="4.0" tofov="80" />	
+
+	<preview url="DSCN9891_logo.tiles/preview.jpg" />
+
+	<image>
+		<cube url="DSCN9891_logo.tiles/pano_%s.jpg" />
+		<mobile>
+			<cube url="DSCN9891_logo.tiles/mobile_%s.jpg" />
+		</mobile>
+	</image>
+
+</krpano>

@@ -18,8 +18,8 @@ class Grid_Widget extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			'Grid_Widget', // Base ID
-            __('EnjoyInstagram - Grid', 'enjoyinstagram'), // Name
-            array( 'description' => __( 'EnjoyInstagram Widget for Grid View', 'enjoyinstagram' ), ) // Args
+            __('EnjoyInstagram - Grid', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'), // Name
+            array( 'description' => __( 'EnjoyInstagram Widget for Grid View', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ), ) // Args
 		);
 	}
 
@@ -51,7 +51,7 @@ class Grid_Widget extends WP_Widget {
      */
     public function form( $instance ) {
 
-        $title = isset( $instance['title'] ) ? $instance['title'] : __( 'EnjoyInstagram', 'enjoyinstagram' );
+        $title = isset( $instance['title'] ) ? $instance['title'] : __( 'EnjoyInstagram', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' );
         $instance = wp_parse_args( (array) $instance, array(
             'number_cols_in_grid'       => '4',
             'number_rows_in_grid'       => '2',
@@ -60,12 +60,12 @@ class Grid_Widget extends WP_Widget {
 
         ?>
         <p>
-            <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _ex( 'Title:', 'option label', 'enjoyinstagram' ); ?></label>
+            <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _ex( 'Title:', 'option label', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
         </p>
         <p>
             <label for="<?php echo $this->get_field_id( 'number_cols_in_grid' ); ?>">
-                <?php _ex( 'Number of Columns', 'option label', 'enjoyinstagram' ); ?>:
+                <?php _ex( 'Number of Columns', 'option label', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?>:
             </label><br>
             <select name="<?php echo $this->get_field_name( 'number_cols_in_grid' ); ?>" id="<?php echo $this->get_field_id( 'number_cols_in_grid' ); ?>">
                 <?php for ($i = 1; $i <= 10; $i++) : ?>
@@ -77,7 +77,7 @@ class Grid_Widget extends WP_Widget {
         </p>
         <p>
             <label for="<?php echo $this->get_field_id( 'number_rows_in_grid' ); ?>">
-                <?php _ex( 'Number of Rows', 'option label', 'enjoyinstagram' ); ?>:
+                <?php _ex( 'Number of Rows', 'option label', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?>:
             </label><br>
             <select name="<?php echo $this->get_field_name( 'number_rows_in_grid' ); ?>" id="<?php echo $this->get_field_id( 'number_rows_in_grid' ); ?>">
                 <?php for ($i = 1; $i <= 10; $i++) : ?>
@@ -88,11 +88,11 @@ class Grid_Widget extends WP_Widget {
             </select>
         </p>
         <p>
-            <?php _e( 'Show pics', 'enjoyinstagram' ); ?>: <br />
+            <?php _e( 'Show pics', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?>: <br />
             <input type="radio" name="<?php echo $this->get_field_name( 'user_or_hashtag_in_grid' ); ?>" <?php checked( 'user', $instance['user_or_hashtag_in_grid'] ); ?> value="user">
-            <?php _e( 'of Your Profile', 'enjoyinstagram' ); ?><br>
+            <?php _e( 'of Your Profile', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?><br>
             <input type="radio" name="<?php echo $this->get_field_name( 'user_or_hashtag_in_grid' ); ?>" <?php checked( 'hashtag', $instance['user_or_hashtag_in_grid'] ); ?> value="hashtag">
-            <?php _e( 'by Hashtag', 'enjoyinstagram' ); ?><br>
+            <?php _e( 'by Hashtag', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?><br>
         </p>
         <?php
     }

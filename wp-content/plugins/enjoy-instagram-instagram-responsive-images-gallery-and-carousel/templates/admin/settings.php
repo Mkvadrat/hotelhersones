@@ -37,8 +37,8 @@ if( ! defined( 'ABSPATH' ) ) {
 
         <div id="buy_me_a_coffee" style="background:url(<?php echo  ENJOYINSTAGRAM_ASSETS_URL . '/images/buymeacoffee.png'; ?>)#fff no-repeat; ">
             <div class="pad_coffee">
-                <span class="coffee_title"><?php _e( 'Buy me a coffee!', 'enjoyinstagram' ); ?></span>
-                <p><span><?php _e( 'If you liked our work please consider to make a kind donation through Paypal.', 'enjoyinstagram' ); ?></span></p>
+                <span class="coffee_title"><?php _e( 'Buy me a coffee!', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?></span>
+                <p><span><?php _e( 'If you liked our work please consider to make a kind donation through Paypal.', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?></span></p>
                 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
                     <input type="hidden" name="cmd" value="_s-xclick">
                     <input type="hidden" name="hosted_button_id" value="8MXZ37DWHAX46">
@@ -53,11 +53,11 @@ if( ! defined( 'ABSPATH' ) ) {
         <div id="premium_release">
             <div class="pad_premium_release">
                 <span class="coffee_title">
-                    <?php printf( __( 'Discover interesting OFFERS and UPDATES for <a href="%s"> Premium Version</a> !', 'enjoyinstagram' ), 'http://www.mediabetaprojects.com/enjoy-instagram-premium/coupon-code-enjoy-instagram-premium/' ); ?>
+                    <?php printf( __( 'Discover interesting OFFERS and UPDATES for <a href="%s"> Premium Version</a> !', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ), 'http://www.mediabetaprojects.com/enjoy-instagram-premium/coupon-code-enjoy-instagram-premium/' ); ?>
                 </span>
                 <p>
                     <span style="color:#900; font-weight: bold;">
-                        <?php printf( __( 'Visit Now <a href="%s">ENJOY INSTAGRAM PREMIUM</a> to verify if a Coupon-Code is ready for you!', 'enjoyinstagram' ), 'http://www.mediabetaprojects.com/enjoy-instagram-premium/coupon-code-enjoy-instagram-premium/' ); ?>
+                        <?php printf( __( 'Visit Now <a href="%s">ENJOY INSTAGRAM PREMIUM</a> to verify if a Coupon-Code is ready for you!', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ), 'http://www.mediabetaprojects.com/enjoy-instagram-premium/coupon-code-enjoy-instagram-premium/' ); ?>
                     </span>
                 </p>
             </div>

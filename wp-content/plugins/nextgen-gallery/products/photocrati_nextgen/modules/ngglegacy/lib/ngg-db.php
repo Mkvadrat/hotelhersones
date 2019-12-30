@@ -266,7 +266,7 @@ class nggdb
             $album->name = __('Album overview','nggallery');
             $album->albumdesc  = __('Album overview','nggallery');
             $album->previewpic = 0;
-            $album->sortorder  =  serialize( $wpdb->get_col("SELECT gid FROM $wpdb->nggallery") );
+            $album->sortorder  = C_NextGen_Serializable::serialize( $wpdb->get_col("SELECT gid FROM $wpdb->nggallery") );
         } else {
             $album = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->nggalbum WHERE slug = %s", $id) );
         }
@@ -274,10 +274,8 @@ class nggdb
         // Unserialize the galleries inside the album
         if ( $album ) {
 
-	        $serializer = new Ngg_Serializable();
-
             if ( !empty( $album->sortorder ) )
-                $album->gallery_ids = $serializer->unserialize( $album->sortorder );
+                $album->gallery_ids = C_NextGen_Serializable::unserialize( $album->sortorder );
 
             // it was a bad idea to use a object, stripslashes_deep() could not used here, learn from it
             $album->albumdesc  = stripslashes($album->albumdesc);
@@ -525,40 +523,56 @@ class nggdb
     }
 
     /**
-    * Add an image to the database
-    *
-	* @since V1.4.0
-	* @param int $id ID of the gallery
-    * @param string $filename (optional)
-    * @param string $description (optional)
-    * @param string $alttext (optional)
-    * @param array $meta data (optional)
-    * @param int $post_id (required for sync with WP media lib) (optional)
-    * @param string $imagedate (optional)
-    * @param int $exclude (0 or 1) (optional)
-    * @param int $sortorder (optional)
-    * @return int Result of the ID of the inserted image
-    */
-    function add_image( $id = false, $filename = false, $description = '', $alttext = '', $meta_data = false, $post_id = 0, $imagedate = '0000-00-00 00:00:00', $exclude = 0, $sortorder = 0)
+     * Add an image to the database
+     *
+     * @since V1.4.0
+     * @param int|FALSE $id ID of the gallery
+     * @param string|FALSE $filename (optional)
+     * @param string $description (optional)
+     * @param string $alttext (optional)
+     * @param array|false $meta_data (optional)
+     * @param int $post_id (required for sync with WP media lib) (optional)
+     * @param string $imagedate (optional)
+     * @param int $exclude (0 or 1) (optional)
+     * @param int $sortorder (optional)
+     * @return int Result of the ID of the inserted image
+     */
+    function add_image($id = false, $filename = false, $description = '', $alttext = '', $meta_data = false, $post_id = 0, $imagedate = '0000-00-00 00:00:00', $exclude = 0, $sortorder = 0)
     {
         global $wpdb;
 
 		if ( is_array($meta_data) )
-			$meta_data = serialize($meta_data);
+			$meta_data = C_NextGen_Serializable::serialize($meta_data);
 
         // slug must be unique, we use the alttext for that
-        $slug = nggdb::get_unique_slug( sanitize_title( $alttext ), 'image' );
+        $slug = nggdb::get_unique_slug(sanitize_title( $alttext ), 'image');
 
 		// Add the image
-		if ( false === $wpdb->query( $wpdb->prepare("INSERT INTO $wpdb->nggpictures (image_slug, galleryid, filename, description, alttext, meta_data, post_id, imagedate, exclude, sortorder)
-													 VALUES (%s, %d, %s, %s, %s, %s, %d, %s, %d, %d)", $slug, $id, $filename, $description, $alttext, $meta_data, $post_id, $imagedate, $exclude, $sortorder ) ) ) {
-			return false;
+		if (FALSE === $wpdb->query(
+		    $wpdb->prepare(
+		        "INSERT INTO {$wpdb->nggpictures} (
+                            `image_slug`,
+                            `galleryid`,
+                            `filename`,
+                            `description`,
+                            `alttext`,
+                            `meta_data`,
+                            `post_id`,
+                            `imagedate`,
+                            `exclude`,
+                            `sortorder`
+                        ) VALUES (%s, %d, %s, %s, %s, %s, %d, %s, %d, %d)",
+                $slug, $id, $filename, $description, $alttext, $meta_data, $post_id, $imagedate, $exclude, $sortorder)))
+		{
+			return FALSE;
 		}
 
-		$imageID = (int) $wpdb->insert_id;
+		$imageID = (int)$wpdb->insert_id;
+
+        C_Gallery_Mapper::get_instance()->set_preview_image($id, $imageID, TRUE);
 
 		// Remove from cache the galley, needs to be rebuild now
-	    wp_cache_delete( $id, 'ngg_gallery');
+	    wp_cache_delete($id, 'ngg_gallery');
 
 		//and give me the new id
 		return $imageID;
@@ -903,15 +917,12 @@ class nggdb
     {
         global $wpdb;
 
-        // XXX nggdb is used statically, cannot inherit from Ngg_Serializable
-	    $serializer = new Ngg_Serializable();
-
         // Query database for existing values
         // Use cache object
         $old_values = $wpdb->get_var( $wpdb->prepare( "SELECT meta_data FROM $wpdb->nggpictures WHERE pid = %d ", $id ) );
-        $old_values = $serializer->unserialize( $old_values);
+        $old_values = C_NextGen_Serializable::unserialize( $old_values);
         $meta = array_merge( (array)$old_values, (array)$new_values );
-        $serialized_meta = $serializer->serialize($meta);
+        $serialized_meta = C_NextGen_Serializable::serialize($meta);
         $result = $wpdb->query( $wpdb->prepare("UPDATE $wpdb->nggpictures SET meta_data = %s WHERE pid = %d", $serialized_meta, $id) );
 
         do_action('ngg_updated_image_meta', $id, $meta);

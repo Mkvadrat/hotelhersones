@@ -156,7 +156,7 @@ get_header();
 
 								<p class="white-title-underline">Оставьте Ваш отзыв</p>
 
-								<a href="#" class="button-transparent">оставить отзыв</a>
+								<a href="/reviews-star-guest/" class="button-transparent">оставить отзыв</a>
 
 							</div>
 

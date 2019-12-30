@@ -7,3 +7,6 @@ Description: Тема для сайта http://hotelhersones.ru/
 Version: 1.0
 */
 
+.header-slider-block .description-block .title-slider, .header-slider-block .description-block p,.owl-item .button-transparent {
+    text-shadow: 4px 4px 5px rgba(0, 0, 0, 1);
+}

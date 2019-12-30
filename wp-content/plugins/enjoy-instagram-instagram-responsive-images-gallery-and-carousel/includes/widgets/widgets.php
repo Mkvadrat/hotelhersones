@@ -17,8 +17,8 @@ class Slider_Widget extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			'Slider_Widget', // Base ID
-			__('EnjoyInstagram - Carousel', 'enjoyinstagram'), // Name
-			array( 'description' => __( 'EnjoyInstagram Widget for Carousel View', 'enjoyinstagram' ), ) // Args
+			__('EnjoyInstagram - Carousel', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'), // Name
+			array( 'description' => __( 'EnjoyInstagram Widget for Carousel View', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ), ) // Args
 		);
 	}
 
@@ -51,7 +51,7 @@ class Slider_Widget extends WP_Widget {
      */
 	public function form( $instance ) {
 
-        $title = isset( $instance['title'] ) ? $instance['title'] : __( 'EnjoyInstagram', 'enjoyinstagram' );
+        $title = isset( $instance['title'] ) ? $instance['title'] : __( 'EnjoyInstagram', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' );
         $instance = wp_parse_args( (array) $instance, array(
             'number_images_in_slide'    => '4',
             'navigation_y_n'            => 'false',
@@ -60,12 +60,12 @@ class Slider_Widget extends WP_Widget {
 		?>
 
 		<p>
-		    <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _ex( 'Title:', 'option label', 'enjoyinstagram' ); ?></label>
+		    <label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _ex( 'Title:', 'option label', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?></label>
             <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>">
 		</p>
         <p>
 		    <label for="<?php echo $this->get_field_id( 'number_images_in_slide' ); ?>">
-                <?php _ex( 'Images displayed at a time', 'option label', 'enjoyinstagram' ); ?>:
+                <?php _ex( 'Images displayed at a time', 'option label', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?>:
             </label><br />
             <select name="<?php echo $this->get_field_name( 'number_images_in_slide' ); ?>" id="<?php echo $this->get_field_id( 'number_images_in_slide' ); ?>">
                 <?php for ($i = 1; $i <= 10; $i++) : ?>
@@ -77,23 +77,23 @@ class Slider_Widget extends WP_Widget {
         </p>
         <p>
 		    <label for="<?php echo $this->get_field_id( 'navigation_y_n' ); ?>">
-                <?php _ex( 'Navigation buttons', 'option label', 'enjoyinstagram' ); ?>:
+                <?php _ex( 'Navigation buttons', 'option label', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?>:
             </label><br />
             <select name="<?php echo $this->get_field_name( 'navigation_y_n' ); ?>" id="<?php echo $this->get_field_id( 'navigation_y_n' ); ?>">
                 <option value="true" <?php selected( 'true', $instance['navigation_y_n'] ); ?>>
-                    <?php _e( 'Yes', 'enjoyinstagram' ); ?>
+                    <?php _e( 'Yes', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?>
                 </option>
                 <option value="false" <?php selected( 'false', $instance['navigation_y_n'] ); ?>>
-                    <?php _e( 'No', 'enjoyinstagram' ); ?>
+                    <?php _e( 'No', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?>
                 </option>
             </select>
 		</p>
         <p>
-            <?php _e( 'Show pics', 'enjoyinstagram' ); ?>: <br />
+            <?php _e( 'Show pics', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?>: <br />
             <input type="radio" name="<?php echo $this->get_field_name( 'user_or_hashtag' ); ?>" <?php checked( 'user', $instance['user_or_hashtag'] ); ?> value="user">
-            <?php _e( 'of Your Profile', 'enjoyinstagram' ); ?><br>
+            <?php _e( 'of Your Profile', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?><br>
             <input type="radio" name="<?php echo $this->get_field_name( 'user_or_hashtag' ); ?>" <?php checked( 'hashtag', $instance['user_or_hashtag'] ); ?> value="hashtag">
-            <?php _e( 'by Hashtag', 'enjoyinstagram' ); ?><br>
+            <?php _e( 'by Hashtag', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?><br>
         </p>
 		<?php
 	}

@@ -29,6 +29,7 @@ if( ! defined( 'ABSPATH' ) ) {
         jQuery("#owl-<?php echo "{$id}"; ?>").owlCarousel({
             items: <?php echo "{$n}"; ?>,
             navigation: <?php echo "{$n_y_n}"; ?>,
+            autoPlay: true,
             afterAction: callback_height
         });
         function callback_height() {

@@ -149,7 +149,8 @@ class Mixin_Validation extends Mixin
      * Validates the length of a property's value
      * @param string $property
      * @param int $length
-     * @param string $msg
+     * @param string $comparison_operator ===, !=, <, >, <=, or >=
+     * @param bool|string $msg
      */
     function validates_length_of($property, $length, $comparison_operator = '=', $msg = FALSE)
     {
@@ -160,28 +161,28 @@ class Mixin_Validation extends Mixin
             switch ($comparison_operator) {
                 case '=':
                 case '==':
-                    $valid = strlen($value) == $comparison;
+                    $valid = strlen($value) == $length;
                     $default_msg = $this->_get_default_error_message_for('validates_equals');
                     break;
                 case '!=':
                 case '!':
-                    $valid = strlen($value) != $comparison;
+                    $valid = strlen($value) != $length;
                     $default_msg = $this->_get_default_error_message_for('validates_equals');
                     break;
                 case '<':
-                    $valid = strlen($value) < $comparion;
+                    $valid = strlen($value) < $length;
                     $default_msg = $this->_get_default_error_message_for('validates_less_than');
                     break;
                 case '>':
-                    $valid = strlen($value) > $comparison;
+                    $valid = strlen($value) > $length;
                     $default_msg = $this->_get_default_error_message_for('validates_greater_than');
                     break;
                 case '<=':
-                    $valid = strlen($value) <= $comparison;
+                    $valid = strlen($value) <= $length;
                     $default_msg = $this->_get_default_error_message_for('validates_less_than');
                     break;
                 case '>=':
-                    $valid = strlen($value) >= $comparion;
+                    $valid = strlen($value) >= $length;
                     $default_msg = $this->_get_default_error_message_for('validates_greater_than');
                     break;
             }
@@ -292,23 +293,17 @@ class Mixin_Validation extends Mixin
         if (!is_array($property)) {
             $property = array($property);
         }
-        // A pattern could be the name of a default pattern, or a regex pattern
-        $default_pattern = $this->get_default_pattern_for($pattern);
-        if ($default_pattern) {
-            $default_pattern = $pattern;
-        }
         foreach ($property as $prop) {
-            // We do not validate blank values - we rely on "validates_presense_of"
-            // for that
+            // We do not validate blank values - we rely on "validates_presense_of" for that
             if (!$this->is_empty($this->object->{$prop})) {
                 // If it doesn't match, then it's an error
-                if (!preg_match($pattern, $property)) {
+                if (!preg_match($pattern, $this->object->{$prop})) {
                     // Get default message
                     if (!$msg) {
                         $msg = $this->_get_default_error_message_for(__METHOD__);
                         $msg = sprintf($msg, $this->humanize_string($property));
                     }
-                    $this->add_error($msg, $property);
+                    $this->add_error($msg, $prop);
                 }
             }
         }

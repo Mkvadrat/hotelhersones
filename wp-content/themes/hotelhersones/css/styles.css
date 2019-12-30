@@ -25,7 +25,9 @@ body {
 }
 
 /* Nikitas 12.01.2018 */
-
+i {
+  font-style: italic;
+}
 a {
   color: #690907;
   text-decoration: underline;
@@ -188,7 +190,7 @@ p strong {
   padding: 5px;
   position: fixed;
   bottom: 30px;
-  right: 20px;
+  left: 20px;
   cursor: pointer;
   display: none;
   z-index: 1000;
@@ -593,12 +595,12 @@ p strong {
   position: fixed;
   top: 50%;
   margin-top: -187px;
-  right: 0px;
+  left: 0px;
   z-index: 1000;
   width: 47px;
   height: 372px;
   background-color: rgba(0, 0, 0, 0.6);
-  border-radius: 5px 0px 0px 5px;
+  border-radius: 0 5px 5px 0;
   text-align: center;
   height: auto;
 }
@@ -1516,6 +1518,9 @@ p strong {
   margin-top: 10px;
   margin-right: 15px;
   text-align: right;
+    background: url(../images/whatsapp.png)no-repeat left top 2px,url(../images/viber.png)no-repeat left 35px top 2px;
+    background-size: auto 40%;
+    padding-left: 65px;
 }
 
 .header-page .right-block .phones-block a {
@@ -2115,7 +2120,7 @@ p strong {
   text-transform: uppercase;
   letter-spacing: 7px;
   font-family: "LoraRegular";
-  font-size: 36px;
+  font-size: 24px;
   font-weight: 400;
   line-height: 40px;
   color: #fff;
@@ -4415,12 +4420,14 @@ aside.sidebar {
   color: #fff;
 }
 
-.main-standart ul {
+.main-standart ul,
+.main-paradiz ul {
   padding-bottom: 23px;
   padding-left: 20px;
 }
 
-.main-standart ul li {
+.main-standart ul li,
+.main-paradiz ul li {
   position: relative;
   padding-left: 15px;
   padding-bottom: 0px;
@@ -4431,7 +4438,8 @@ aside.sidebar {
   color: #292929;
 }
 
-.main-standart ul li::before {
+.main-standart ul li::before,
+.main-paradiz ul li::before {
   content: "";
   position: absolute;
   top: 14px;
@@ -5518,7 +5526,7 @@ div.img-with-decimal-img .galery {
   color: #FFF !important;
 }
 
-.button-transparent:visited.:hover {
+.button-transparent:visited:hover {
   color: #690907;
 }
 
@@ -5583,17 +5591,17 @@ div.img-with-decimal-img .galery {
   color: #fff;
 }
 
-.komandirovochniy-krasniy-block>div>.row:nth-child(3)>div:nth-child(1) {
+.komandirovochniy-krasniy-block>div>.row:nth-child(4)>div:nth-child(1) {
   padding-right: 0;
   border-right: 1px solid #fff;
 }
 
-.komandirovochniy-krasniy-block>div>.row:nth-child(3)>div:nth-child(2) {
+.komandirovochniy-krasniy-block>div>.row:nth-child(4)>div:nth-child(2) {
   padding: 0;
   border-right: 1px solid #fff;
 }
 
-.komandirovochniy-krasniy-block>div>.row:nth-child(3)>div:nth-child(3) {
+.komandirovochniy-krasniy-block>div>.row:nth-child(4)>div:nth-child(3) {
   padding-left: 0;
 }
 
@@ -5610,7 +5618,7 @@ div.img-with-decimal-img .galery {
   border-bottom: 1px solid #fff;
 }
 
-.komandirovochniy-krasniy-block>div>.row:nth-child(3)>div a {
+.komandirovochniy-krasniy-block>div>.row:nth-child(4)>div a {
   padding: 20px 10px 60px;
   height: 420px;
   box-sizing: border-box;
@@ -5644,74 +5652,74 @@ div.img-with-decimal-img .galery {
   text-align: center;
 }
 
-.komandirovochniy-krasniy-block>div>.row:nth-child(4) {
+.komandirovochniy-krasniy-block>div>.row:nth-child(3) {
   margin: 0;
   padding: 20px 0;
-  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
   text-align: right;
 }
 
-.komandirovochniy-krasniy-block>div>.row:nth-child(4) img {
+.komandirovochniy-krasniy-block>div>.row:nth-child(3) img {
   display: inline-block;
   vertical-align: middle;
   line-height: normal;
 }
 
-.komandirovochniy-krasniy-block>div>.row:nth-child(4) p {
+.komandirovochniy-krasniy-block>div>.row:nth-child(3) p {
   color: #fff;
   text-align: left;
   margin: 0;
 }
 
-.komandirovochniy-krasniy-block>div>.row:nth-child(4) a {
+.komandirovochniy-krasniy-block>div>.row:nth-child(3) a {
   color: #fff;
   text-align: left;
   line-height: 31px;
 }
 
-.komandirovochniy-krasniy-block>div>.row:nth-child(4) a:hover {
+.komandirovochniy-krasniy-block>div>.row:nth-child(3) a:hover {
   background-color: inherit;
   text-decoration: underline;
 }
 
-.komandirovochniy-krasniy-block>div>.row:nth-child(4) div:first-child {
+.komandirovochniy-krasniy-block>div>.row:nth-child(3) div:first-child {
   height: 180px;
   line-height: 180px;
 }
 
 @media (min-width: 992px) {
-  .komandirovochniy-krasniy-block>div>.row:nth-child(3)>div a {
+  .komandirovochniy-krasniy-block>div>.row:nth-child(4)>div a {
     height: 450px;
   }
 }
 
 @media (min-width: 1200px) {
-  .komandirovochniy-krasniy-block>div>.row:nth-child(3)>div a {
+  .komandirovochniy-krasniy-block>div>.row:nth-child(4)>div a {
     height: 400px;
   }
 }
 
 @media (max-width: 991px) {
-  .komandirovochniy-krasniy-block>div>.row:nth-child(3)>div:nth-child(1), .komandirovochniy-krasniy-block>div>.row:nth-child(3)>div:nth-child(2), .komandirovochniy-krasniy-block>div>.row:nth-child(3)>div:nth-child(3) {
+  .komandirovochniy-krasniy-block>div>.row:nth-child(4)>div:nth-child(1), .komandirovochniy-krasniy-block>div>.row:nth-child(4)>div:nth-child(2), .komandirovochniy-krasniy-block>div>.row:nth-child(4)>div:nth-child(3) {
     padding: 0 15px;
     border: none;
   }
-  .komandirovochniy-krasniy-block>div>.row:nth-child(3)>div a {
+  .komandirovochniy-krasniy-block>div>.row:nth-child(4)>div a {
     height: auto;
     border-top: 1px solid #fff;
   }
-  .komandirovochniy-krasniy-block>div>.row:nth-child(3)>div:first-child a {
+  .komandirovochniy-krasniy-block>div>.row:nth-child(4)>div:first-child a {
     border: none;
   }
-  .komandirovochniy-krasniy-block>div>.row:nth-child(4) div:first-child {
+  .komandirovochniy-krasniy-block>div>.row:nth-child(3) div:first-child {
     text-align: center;
     height: 110px;
     line-height: 110px;
   }
-  .komandirovochniy-krasniy-block>div>.row:nth-child(4) p {
+  .komandirovochniy-krasniy-block>div>.row:nth-child(3) p {
     text-align: center;
   }
-  .komandirovochniy-krasniy-block>div>.row:nth-child(4) a {
+  .komandirovochniy-krasniy-block>div>.row:nth-child(3) a {
     width: 120px;
     margin: 0 auto;
   }
@@ -6612,4 +6620,133 @@ a.unactive-link span {
   text-align: center;
   font-size: 14px;
   line-height: 24px;
+}
+/*04.03.19*/
+.price-table tr:first-child td{
+	    height: auto;
+    padding: 30px 5px;
+}
+.price-table tr:nth-child(2) td{
+	    height: auto;
+    padding: 20px 5px;
+}
+.price-table td.price-col{
+	padding: 10px 5px;
+}
+
+.header-slider-block .description-block .title-slider, .header-slider-block .description-block p,.owl-item .button-transparent {
+    text-shadow: 3px 3px 15px rgba(0, 0, 0, 1);
+}
+
+/*04.03.19*/
+
+/*Рекламный беннер*/
+
+.booking__banner{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #AC0014;
+	z-index: 9999;
+}
+.booking__banner .text{
+    font-weight: 400;
+    font-size: 18px;
+    text-align: left;
+    color: #fff;
+    font-family: "Myriad Pro", sans-serif;
+}
+.booking__banner a{
+    width: 310px;
+    height: 41px;
+    background: #f9ac42;
+    font-family: "Myriad Pro", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: 0.1em;
+    text-align: center;
+    color: #69090b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    flex: none;
+}
+.booking__banner .banner__inner{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+}
+.booking__banner .close{
+	    text-shadow: none;
+    color: #fff;
+    opacity: 1;
+    font-weight: 400;
+    font-family: sans-serif;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}
+@media screen and (max-width: 980px){
+	.booking__banner .banner__inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 75px;
+    flex-wrap: wrap;
+}
+.booking__banner .close{
+    bottom: auto;
+    position: absolute;
+    top: 15px;
+}
+.booking__banner .text {
+    text-align: center;
+}
+.booking__banner .text {
+    margin-bottom: 10px;
+}
+}
+@media screen and (max-width: 560px){
+.booking__banner a {
+    max-width: 100%;
+    padding: 8px 10px;
+    height: auto;
+    flex-wrap: wrap;
+    flex: none;
+    white-space: pre-wrap;
+}
+}
+.booking__banner a {
+    width: auto;
+    padding: 0 10px;
+}
+.newrow .block-photo-description {
+    position: relative;
+    margin-bottom: 25px;
+}
+.newrow .block-photo-description img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+.newrow .block-photo-description p {
+    position: absolute;
+    left: 0;
+    margin-right: 0;
+    padding: 10px 15px;
+    margin-bottom: 0px;
+    letter-spacing: 0.5px;
+    background-color: rgba(105, 9, 7, 0.9);
+    font-family: "LoraRegular";
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 22px;
+    color: #fff;
+    bottom: 0;
+    margin-bottom: 0!important;
 }

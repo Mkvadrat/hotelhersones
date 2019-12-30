@@ -251,7 +251,7 @@
 					++loaded;
 					var video = $img.parent().attr('data-video');
 					if(video==="yes"){
-						$img.parent().parent().css( 'background-image', 'url(' + GridRotator.pluginsUrl + '/enjoy-instagram-instagram-responsive-images-gallery-and-carousel/img/play_overlay.png' + ')' );
+						$img.parent().parent().css( 'background-image', 'url(' + GridRotator.pluginsUrl + '/enjoy-instagram-instagram-responsive-images-gallery-and-carousel/images/play_overlay.png' + ')' );
 						$img.parent().parent().css( 'background-size', 'cover');
 						$img.parent().css(  'background-image', 'url(' + src + ')' );
 						$img.parent().css( 'opacity', '0.45');
@@ -731,7 +731,7 @@
 			var video = $inA.attr('data-video');
 			var bg = $inA.attr('style');
 			if(video==="yes"){
-				$inA.parent().css( 'background-image', 'url(' + GridRotator.pluginsUrl + '/enjoy-instagram-instagram-responsive-images-gallery-and-carousel/img/play_overlay.png' + ')' );
+				$inA.parent().css( 'background-image', 'url(' + GridRotator.pluginsUrl + '/enjoy-instagram-instagram-responsive-images-gallery-and-carousel/images/play_overlay.png' + ')' );
 				$inA.parent().css( 'background-size', 'cover' );
 				$inA.css( 'opacity', '0.45');
 			}

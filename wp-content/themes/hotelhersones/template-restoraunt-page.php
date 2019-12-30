@@ -38,7 +38,7 @@ get_header();
 		
 		<!-- start panorama-block -->
 		<?php if(get_post_meta( get_the_ID(), 'enable_panorama_block_a_hotels_paradiz_page', $single = true ) == 'yes'){ ?>
-		<?php $panorama_image_a = getImageLink('image_panorama_block_a_hotels_paradiz_page'); ?>
+		<?php $panorama_image_a = getImageLink(get_the_ID(), 'image_panorama_block_a_hotels_paradiz_page'); ?>
 		
 		<div class="container-fluid panorama-block" style="background-image: url( '<?php echo $panorama_image_a ? $panorama_image_a : esc_url( get_template_directory_uri() ) . '/images/sevastopol-bg.jpg'; ?>' );">
 			<div class="container">
@@ -102,7 +102,7 @@ get_header();
 		
 		<!-- start panorama-block -->
 		<?php if(get_post_meta( get_the_ID(), 'enable_panorama_block_b_hotels_paradiz_page', $single = true ) == 'yes'){ ?>
-		<?php $panorama_image_b = getImageLink('image_panorama_block_b_hotels_paradiz_page'); ?>
+		<?php $panorama_image_b = getImageLink(get_the_ID(), 'image_panorama_block_b_hotels_paradiz_page'); ?>
 		
 		<div class="container-fluid panorama-block conference-service" style="background-image: url( '<?php echo $panorama_image_b ? $panorama_image_b : esc_url( get_template_directory_uri() ) . '/images/wedding-bg.jpg'; ?>' );">
 			<div class="container">
@@ -137,25 +137,25 @@ get_header();
 		<div class="container services-block">
 			<div class="row">
 				<div class="col-md-8">
-					<?php $services_image_a = getImageLink('image_services_block_b_dot_a_hotels_paradiz_page'); ?>
+					<?php $services_image_a = getImageLink(get_the_ID(), 'image_services_block_b_dot_a_hotels_paradiz_page'); ?>
 					<div class="horizontal-services service-part" style="background-image: url( '<?php echo $services_image_a ? $services_image_a : esc_url( get_template_directory_uri() ) . '/images/paradiz-10.jpg'; ?>' );">
 						<?php echo get_post_meta( get_the_ID(), 'text_services_block_b_dot_a_hotels_paradiz_page', $single = true ); ?>
 					</div>
 				</div>
 				<div class="col-md-4">
-					<?php $services_image_b = getImageLink('image_services_block_b_dot_b_hotels_paradiz_page'); ?>
+					<?php $services_image_b = getImageLink(get_the_ID(), 'image_services_block_b_dot_b_hotels_paradiz_page'); ?>
 					<div class="horizontal-services service-part" style="background-image: url( '<?php echo $services_image_b ? $services_image_b : esc_url( get_template_directory_uri() ) . '/images/paradiz-11.jpg'; ?>' );">
 						<?php echo get_post_meta( get_the_ID(), 'text_services_block_b_dot_b_hotels_paradiz_page', $single = true ); ?>
 					</div>
 				</div>
 				<div class="col-md-4">
-					<?php $services_image_c = getImageLink('image_services_block_b_dot_c_hotels_paradiz_page'); ?>
+					<?php $services_image_c = getImageLink(get_the_ID(), 'image_services_block_b_dot_c_hotels_paradiz_page'); ?>
 					<div class="horizontal-small-services service-part" style="background-image: url( '<?php echo $services_image_c ? $services_image_c : esc_url( get_template_directory_uri() ) . '/images/paradiz-12.jpg'; ?>' );">
 						<?php echo get_post_meta( get_the_ID(), 'text_services_block_c_dot_b_hotels_paradiz_page', $single = true ); ?>
 					</div>
 				</div>
 				<div class="col-md-8">
-					<?php $services_image_d = getImageLink('image_services_block_b_dot_d_hotels_paradiz_page'); ?>
+					<?php $services_image_d = getImageLink(get_the_ID(), 'image_services_block_b_dot_d_hotels_paradiz_page'); ?>
 					<div class="horizontal-small-services service-part" style="background-image: url( '<?php echo $services_image_d ? $services_image_d : esc_url( get_template_directory_uri() ) . '/images/paradiz-13.jpg'; ?>' );">
 						<?php echo get_post_meta( get_the_ID(), 'text_services_block_c_dot_d_hotels_paradiz_page', $single = true ); ?>
 					</div>
@@ -167,7 +167,7 @@ get_header();
 		
 		<!-- start arrival-date-block -->
 		
-		<?php $booking_form_image = getImageLink('image_block_booking_form_hotels_paradiz_page'); ?>
+		<?php $booking_form_image = getImageLink(get_the_ID(), 'image_block_booking_form_hotels_paradiz_page'); ?>
 		<div class="container-fluid arrival-date-block" style="background-image: url( '<?php echo $booking_form_image ? $booking_form_image : esc_url( get_template_directory_uri() ) . '/images/arrival-date-bg.jpg'; ?>' );">
 			<div class="container">
 				<div class="row">

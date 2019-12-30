@@ -132,30 +132,18 @@ get_header();
 					</ul>
 
 					<?php } ?>
-
 					
-
 					<?php echo get_post_meta( get_the_ID(), 'virtual_tour_number_room_single_page', $single = true ); ?>
-
-					
 
 					<?php echo get_post_meta( get_the_ID(), 'text_block_reviews_star_guest_page', $single = true ); ?>
 
-					
-
 					<?php
-
 						$reviews_stars = getProductsMeta(get_the_ID(), 'reviews_room_number_room_single_page');
-
 					?>
-
-					
 
 					<?php if($reviews_stars){ ?>
 
 					<p class="title-italic">Отзывы</p>
-
-					
 
 					<ul class="list-reviews">
 
@@ -220,20 +208,22 @@ get_header();
 					<?php } ?>
 
 					</ul>
-
-										
+					
+					<div class="col-md-12 hide col-md-show">
+						<aside class="sidebar">
+							<div class="form-block form-block-room">
+								<?php echo get_post_meta( get_the_ID(), 'price__number_room_single_page', $single = true ); ?>
+								<a href="/booking-page/?room-type=<?php echo get_post_meta( get_the_ID(), 'room_type', $single = true ); ?>" class="button-yellow">Забронировать</a>
+							</div>
+						</aside>
+					</div>
 
 					<?php
-
 						$prev = mod_get_adjacent_post('prev', array('booking-rooms'));
-
 						$next = mod_get_adjacent_post('next', array('booking-rooms'));
-
 					?>
 
-					
-
-					<ul class="prev-next-room">
+					<ul class="prev-next-room col-md-12">
 
 						<?php if($next){ ?>
 
@@ -255,8 +245,7 @@ get_header();
 
 						<?php } ?>
 
-					</ul>			
-
+					</ul>
 				</div>
 
 				
@@ -308,9 +297,8 @@ get_header();
 						<?php } ?>
 
 				</aside>
-
+				
 				</div>
-
 			</div>
 
 		</div>

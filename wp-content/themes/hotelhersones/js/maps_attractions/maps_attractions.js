@@ -14,7 +14,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/1.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/1.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -30,7 +30,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/2.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/2.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -47,7 +47,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/3.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/3.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -64,7 +64,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/4.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/4.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -81,7 +81,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/5.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/5.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -98,7 +98,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/6.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/6.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -116,7 +116,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/7.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/7.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -134,7 +134,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/8.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/8.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -152,7 +152,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/9.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/9.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -169,7 +169,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/10.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/10.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -186,7 +186,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/11.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/11.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -202,7 +202,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/12.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/12.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -218,7 +218,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/13.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/13.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -234,7 +234,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/14.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/14.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -251,7 +251,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/15.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/15.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -267,7 +267,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/16.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/16.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -284,7 +284,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/17.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/17.png',
             // Размеры метки.
             iconImageSize: [53, 53],
             // Смещение левого верхнего угла иконки относительно
@@ -301,7 +301,7 @@ ymaps.ready(function () {
             // Необходимо указать данный тип макета.
             iconLayout: 'default#image',
             // Своё изображение иконки метки.
-            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hersones/js/maps_attractions/images/her.png',
+            iconImageHref: 'http://hotelhersones.ru/wp-content/themes/hotelhersones/js/maps_attractions/images/her.png',
             // Размеры метки.
             iconImageSize: [67, 53],
             // Смещение левого верхнего угла иконки относительно

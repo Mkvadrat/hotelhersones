@@ -31,5 +31,6 @@ get_header();
       display: none !important;
     }
   </style>
+ 
 
 <?php get_footer(); ?>

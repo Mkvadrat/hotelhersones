@@ -37,94 +37,6 @@ class A_Display_Settings_Page extends Mixin
         return $this->call_parent('setup');
     }
 }
-class A_Displayed_Gallery_Renderer_Random extends Mixin
-{
-    /**
-     * @param C_Displayed_Gallery $displayed_gallery
-     * @param bool $return
-     * @param mixed $mode
-     * @return string
-     */
-    function render($displayed_gallery, $return = FALSE, $mode = null)
-    {
-        $entity = $displayed_gallery->get_entity();
-        // Duplicated from the parent render() method but it's necessary to have for this code to work
-        if (is_null($displayed_gallery->id())) {
-            $displayed_gallery->id(md5(json_encode($entity)));
-        }
-        if (in_array($displayed_gallery->source, array('random', 'random_images')) && empty($displayed_gallery->entity_ids)) {
-            // Check if the ID selection has been cached
-            $key = C_Photocrati_Transient_Manager::create_key('random_displayed_gallery_entity_ids', $entity);
-            $image_ids = C_Photocrati_Transient_Manager::fetch($key, FALSE);
-            if (empty($image_ids)) {
-                $image_ids = $this->get_random_ids_for_cache($displayed_gallery);
-                // Store our retrieved IDs
-                C_Photocrati_Transient_Manager::update($key, json_encode($image_ids), 86400);
-            } else {
-                // Convert the stored JSON to an array
-                $image_ids = json_decode($image_ids, TRUE);
-            }
-            // Final step: assign the cached IDs to the $displayed_gallery and return control to the parent
-            if (is_array($image_ids)) {
-                $displayed_gallery->entity_ids = $image_ids;
-            }
-        }
-        return $this->call_parent('render', $displayed_gallery, $return, $mode);
-    }
-    public function query_random_ids_for_cache($limit = 10)
-    {
-        global $wpdb;
-        $mod = rand(3, 9);
-        return $wpdb->get_col("SELECT pictures.pid from {$wpdb->nggpictures} pictures\n                    JOIN (SELECT CEIL(MAX(pid) * RAND()) AS pid FROM {$wpdb->nggpictures}) AS x ON pictures.pid >= x.pid\n                    WHERE pictures.pid MOD {$mod} = 0\n                    LIMIT {$limit}");
-    }
-    /**
-     * @param C_Displayed_Gallery $displayed_gallery
-     * @return int[]
-     */
-    public function get_random_ids_for_cache($displayed_gallery)
-    {
-        global $wpdb;
-        $image_ids = array();
-        // Impose a reasonable hard limit
-        if ($displayed_gallery->maximum_entity_count > 500) {
-            $displayed_gallery->maximum_entity_count = 500;
-        }
-        // Some hosts and/or users prefer to not use or choose to disable mySQL's ORDER BY RAND() feature. For them
-        // we provide an alternative where we generate some random numbers and check if they exist as image ID and
-        // continue to do so until our requested cache has filled.
-        if (defined('NGG_DISABLE_ORDER_BY_RAND') && NGG_DISABLE_ORDER_BY_RAND) {
-            // Prevent infinite loops: retrieve the image count and if needed just pull in every image available
-            $total = $wpdb->get_var("SELECT COUNT(`pid`) FROM {$wpdb->nggpictures}");
-            if ($total <= $displayed_gallery->maximum_entity_count) {
-                $image_ids = $wpdb->get_col("SELECT pictures.pid from {$wpdb->nggpictures} pictures LIMIT {$total}");
-            } else {
-                // Start retrieving random ID from the DB and hope they exist; continue looping until our count is full
-                $segments = ceil($displayed_gallery->maximum_entity_count / 4);
-                while (count($image_ids) < $displayed_gallery->maximum_entity_count) {
-                    $newID = $this->query_random_ids_for_cache($segments);
-                    $image_ids = array_merge(array_unique($image_ids), $newID);
-                }
-            }
-            // Prevent overflow
-            if (count($image_ids) > $displayed_gallery->maximum_entity_count) {
-                array_splice($image_ids, $displayed_gallery->maximum_entity_count);
-            }
-            // Give things an extra shake
-            shuffle($image_ids);
-        } else {
-            // Default logic; most users will rely on this method
-            $sql = "SELECT DISTINCT `pid` FROM `{$wpdb->nggpictures}` WHERE `exclude` = 0";
-            if (!empty($displayed_gallery->exclusions)) {
-                $sql .= sprintf(" AND `pid` NOT IN (%s)", implode(',', $displayed_gallery->exclusions));
-            }
-            $sql .= " ORDER BY RAND() LIMIT {$displayed_gallery->maximum_entity_count}";
-            foreach ($wpdb->get_results($sql, ARRAY_N) as $res) {
-                $image_ids[] = reset($res);
-            }
-        }
-        return $image_ids;
-    }
-}
 /**
  * Class A_Displayed_Gallery_Trigger_Element
  * @mixin C_MVC_View
@@ -405,6 +317,17 @@ class Mixin_Display_Type_Controller extends Mixin
     {
         // This script provides common JavaScript among all display types
         wp_enqueue_script('ngg_common');
+        wp_add_inline_script('ngg_common', '
+            var nggLastTimeoutVal = 1000;
+
+			var nggRetryFailedImage = function(img) {
+				setTimeout(function(){
+					img.src = img.src;
+				}, nggLastTimeoutVal);
+			
+				nggLastTimeoutVal += 500;
+			}
+        ');
         // Enqueue the display type library
         wp_enqueue_script($displayed_gallery->display_type, $this->object->_get_js_lib_url($displayed_gallery), array(), NGG_SCRIPT_VERSION);
         // Add "galleries = {};"
@@ -899,6 +822,12 @@ class Mixin_Displayed_Gallery_Validation extends Mixin
 }
 class Mixin_Displayed_Gallery_Queries extends Mixin
 {
+    // The "alternative" approach to using "ORDER BY RAND()" works by finding X image PID in a kind of shotgun-blast
+    // like scattering in a second query made via $wpdb that is then fed into the query built by _get_image_entities().
+    // This variable is used to cache the results of that inner quasi-random PID retrieval so that multiple calls
+    // to $displayed_gallery->get_entities() don't return different results for each invocation. This is important
+    // for NextGen Pro's galleria module in order to 'localize' the results of get_entities() to JSON.
+    protected static $_random_image_ids_cache = array();
     function get_entities($limit = FALSE, $offset = FALSE, $id_only = FALSE, $returns = 'included')
     {
         $retval = array();
@@ -930,11 +859,20 @@ class Mixin_Displayed_Gallery_Queries extends Mixin
     {
         // TODO: This method is very long, and therefore more difficult to read
         // Find a way to minimalize or segment
+        $settings = C_NextGen_Settings::get_instance();
         $mapper = C_Image_Mapper::get_instance();
         $image_key = $mapper->get_primary_key_column();
         $select = $id_only ? $image_key : $mapper->get_table_name() . '.*';
-        $sort_direction = $this->object->order_direction;
-        $sort_by = $this->object->order_by;
+        if (strtoupper($this->object->order_direction) == 'DSC') {
+            $this->object->order_direction = 'DESC';
+        }
+        $sort_direction = in_array(strtoupper($this->object->order_direction), array('ASC', 'DESC')) ? $this->object->order_direction : $settings->galSortDir;
+        $sort_by = in_array(strtolower($this->object->order_by), array_merge(C_Image_Mapper::get_instance()->get_column_names(), array('rand()'))) ? $this->object->order_by : $settings->galSort;
+        // Quickly sanitize
+        global $wpdb;
+        $this->object->container_ids = $this->object->container_ids ? array_map(array($wpdb, '_escape'), $this->object->container_ids) : array();
+        $this->object->entity_ids = $this->object->entity_ids ? array_map(array($wpdb, '_escape'), $this->object->entity_ids) : array();
+        $this->object->exclusions = $this->object->exclusions ? array_map(array($wpdb, '_escape'), $this->object->exclusions) : array();
         // Here's what this method is doing:
         // 1) Determines what results need returned
         // 2) Determines from what container ids the results should come from
@@ -1056,16 +994,67 @@ class Mixin_Displayed_Gallery_Queries extends Mixin
             $sort_direction = 'DESC';
             $sort_by = 'imagedate';
         } elseif ($this->object->source == 'random_images' && empty($this->object->entity_ids)) {
+            // A gallery with source=random and a non-empty entity_ids is treated as being source=images & image_ids=(entity_ids)
+            // In this case however source is random but no image ID are pre-filled.
+            //
+            // Here we must transform our query from "SELECT * FROM ngg_pictures WHERE gallery_id = X" into something
+            // like "SELECT * FROM ngg_pictures WHERE pid IN (SELECT pid FROM ngg_pictures WHERE gallery_id = X ORDER BY RAND())"
             $table_name = $mapper->get_table_name();
             $where_clauses = array();
-            $sub_where_sql = '';
+            $old_where_sql = '';
+            // $this->get_entities_count() works by calling count(get_entities()) which means that for random galleries
+            // there will be no limit passed to this method -- adjust the $limit now based on the maximum_entity_count
+            $max = $this->object->get_maximum_entity_count();
+            if (!$limit || is_numeric($limit) && $limit > $max) {
+                $limit = $max;
+            }
             foreach ($mapper->_where_clauses as $where) {
                 $where_clauses[] = '(' . $where . ')';
             }
             if ($where_clauses) {
-                $sub_where_sql = 'WHERE ' . implode(' AND ', $where_clauses);
+                $old_where_sql = 'WHERE ' . implode(' AND ', $where_clauses);
             }
-            $mapper->_where_clauses = array(" /*NGG_NO_EXTRAS_TABLE*/ `{$image_key}` IN (SELECT `{$image_key}` FROM (SELECT `{$image_key}` FROM `{$table_name}` i {$sub_where_sql} ORDER BY RAND() LIMIT {$this->object->maximum_entity_count}) o) /*NGG_NO_EXTRAS_TABLE*/");
+            $noExtras = '/*NGG_NO_EXTRAS_TABLE*/';
+            // TODO: remove this constant. It was only introduced for a short period of time before the setting was
+            // TODO: added to Other Options > Misc to allow users easier configuration.
+            if (C_NextGen_Settings::get_instance()->use_alternate_random_method || defined('NGG_DISABLE_ORDER_BY_RAND') && NGG_DISABLE_ORDER_BY_RAND) {
+                // Check if the random image PID have been cached and use them (again) if already found
+                $id = $this->object->ID();
+                if (!empty(self::$_random_image_ids_cache[$id])) {
+                    $image_ids = self::$_random_image_ids_cache[$id];
+                } else {
+                    global $wpdb;
+                    // Prevent infinite loops: retrieve the image count and if needed just pull in every image available
+                    $total = $wpdb->get_var("SELECT COUNT(`pid`) FROM {$wpdb->nggpictures} {$old_where_sql}");
+                    $image_ids = array();
+                    if ($total <= $limit) {
+                        $image_ids = $wpdb->get_col("SELECT `pictures`.`pid` FROM {$wpdb->nggpictures} `pictures` {$old_where_sql} LIMIT {$total}");
+                    } else {
+                        // Start retrieving random ID from the DB and hope they exist; continue looping until our count is full
+                        $segments = ceil($limit / 4);
+                        while (count($image_ids) < $limit) {
+                            $newID = $this->_query_random_ids_for_cache($segments, $old_where_sql);
+                            $image_ids = array_merge(array_unique($image_ids), $newID);
+                        }
+                    }
+                    // Prevent overflow
+                    if (count($image_ids) > $limit) {
+                        array_splice($image_ids, $limit);
+                    }
+                    // Give things an extra shake
+                    shuffle($image_ids);
+                    // Cache these ID in memory so that any attempts to call get_entities() more than once will result
+                    // in the same images being retrieved for the duration of that page execution.
+                    self::$_random_image_ids_cache[$id] = $image_ids;
+                }
+                $image_ids = implode(',', $image_ids);
+                // Replace the existing WHERE clause with one where aready retrieved "random" PID are included
+                $mapper->_where_clauses = array(" {$noExtras} `{$image_key}` IN ({$image_ids}) {$noExtras}");
+            } else {
+                // Replace the existing WHERE clause with one that selects from a sub-query that is randomly ordered
+                $sub_where = "SELECT `{$image_key}` FROM `{$table_name}` i {$old_where_sql} ORDER BY RAND() LIMIT {$limit}";
+                $mapper->_where_clauses = array(" {$noExtras} `{$image_key}` IN (SELECT `{$image_key}` FROM ({$sub_where}) o) {$noExtras}");
+            }
         }
         // Apply a sorting order
         if ($sort_by) {
@@ -1081,6 +1070,20 @@ class Mixin_Displayed_Gallery_Queries extends Mixin
         }
         $results = $mapper->run_query();
         return $results;
+    }
+    /**
+     * @param int $limit
+     * @param string $where_sql Must be the full "WHERE x=y" string
+     * @return int[]
+     */
+    public function _query_random_ids_for_cache($limit = 10, $where_sql = '')
+    {
+        global $wpdb;
+        $mod = rand(3, 9);
+        if (empty($where_sql)) {
+            $where_sql = 'WHERE 1=1';
+        }
+        return $wpdb->get_col("SELECT `pictures`.`pid` from {$wpdb->nggpictures} `pictures`\n                    JOIN (SELECT CEIL(MAX(`pid`) * RAND()) AS `pid` FROM {$wpdb->nggpictures}) AS `x` ON `pictures`.`pid` >= `x`.`pid`\n                    {$where_sql}\n                    AND `pictures`.`pid` MOD {$mod} = 0\n                    LIMIT {$limit}");
     }
     /**
      * Gets all gallery and album entities from albums specified, if any
@@ -1698,7 +1701,7 @@ class Mixin_Displayed_Gallery_Renderer extends Mixin
         $settings = C_NextGen_Settings::get_instance();
         // Configure the arguments
         $defaults = array('id' => NULL, 'ids' => NULL, 'source' => '', 'src' => '', 'container_ids' => array(), 'gallery_ids' => array(), 'album_ids' => array(), 'tag_ids' => array(), 'display_type' => '', 'display' => '', 'exclusions' => array(), 'order_by' => $settings->galSort, 'order_direction' => $settings->galSortOrder, 'image_ids' => array(), 'entity_ids' => array(), 'tagcloud' => FALSE, 'returns' => 'included', 'slug' => NULL, 'sortorder' => array());
-        $args = shortcode_atts($defaults, $params);
+        $args = shortcode_atts($defaults, $params, 'ngg');
         // Are we loading a specific displayed gallery that's persisted?
         $mapper = C_Displayed_Gallery_Mapper::get_instance();
         if (!is_null($args['id'])) {
@@ -1825,28 +1828,33 @@ class Mixin_Displayed_Gallery_Renderer extends Mixin
      * To retrieve a tag cloud
      * [ngg tagcloud=yes display_type='photocrati-nextgen_basic_tagcloud']
      *
-     * @param array $params
+     * @param array|C_Displayed_Gallery $params_or_dg
      * @param null|string $inner_content (optional)
      * @param bool|null $mode (optional)
      * @return string
      */
-    function display_images($params, $inner_content = NULL, $mode = NULL)
+    function display_images($params_or_dg, $inner_content = NULL, $mode = NULL)
     {
         $retval = '';
-        // Validate the displayed gallery
-        if ($displayed_gallery = $this->object->params_to_displayed_gallery($params)) {
-            if ($displayed_gallery->validate()) {
-                // Display!
-                $retval = $this->object->render($displayed_gallery, TRUE, $mode);
-            } else {
-                if (C_NextGEN_Bootstrap::$debug) {
-                    $retval = __('We cannot display this gallery', 'nggallery') . $this->debug_msg($displayed_gallery->get_errors()) . $this->debug_msg($displayed_gallery->get_entity());
-                } else {
-                    $retval = __('We cannot display this gallery', 'nggallery');
-                }
-            }
+        // Convert the array of parameters into a displayed gallery
+        if (is_array($params_or_dg)) {
+            $params = $params_or_dg;
+            $displayed_gallery = $this->object->params_to_displayed_gallery($params);
+        } elseif (is_object($params_or_dg) && get_class($params_or_dg) === 'C_Displayed_Gallery') {
+            $displayed_gallery = $params_or_dg;
         } else {
-            $retval = __('We cannot display this gallery', 'nggallery');
+            $displayed_gallery = NULL;
+        }
+        // Validate the displayed gallery
+        if ($displayed_gallery && $displayed_gallery->validate()) {
+            // Display!
+            $retval = $this->object->render($displayed_gallery, TRUE, $mode);
+        } else {
+            if (C_NextGEN_Bootstrap::$debug) {
+                $retval = __('We cannot display this gallery', 'nggallery') . $this->debug_msg($displayed_gallery->get_errors()) . $this->debug_msg($displayed_gallery->get_entity());
+            } else {
+                $retval = __('We cannot display this gallery', 'nggallery');
+            }
         }
         return $retval;
     }
@@ -1914,6 +1922,8 @@ class Mixin_Displayed_Gallery_Renderer extends Mixin
             $lookup = FALSE;
         } elseif ($displayed_gallery->source == 'albums' && $controller->param('gallery') or $controller->param('album')) {
             $lookup = FALSE;
+        } elseif (in_array($displayed_gallery->source, array('random', 'random_images'))) {
+            $lookup = FALSE;
         } elseif ($controller->param('show')) {
             $lookup = FALSE;
         } elseif ($controller->is_cachable() === FALSE) {
@@ -1947,23 +1957,19 @@ class Mixin_Displayed_Gallery_Renderer extends Mixin
             // Try getting the rendered HTML from the cache
             $key = C_Photocrati_Transient_Manager::create_key('displayed_gallery_rendering', $key_params);
             $html = C_Photocrati_Transient_Manager::fetch($key, FALSE);
-            // Output debug messages
-            if ($html) {
-                $retval .= $this->debug_msg("HIT!");
-            } else {
-                $retval .= $this->debug_msg("MISS!");
-            }
-            // TODO: This is hack. We need to figure out a more uniform way of detecting dynamic image urls
-            if (strpos($html, C_Photocrati_Settings_Manager::get_instance()->dynamic_thumbnail_slug . '/') !== FALSE) {
-                $html = FALSE;
-                // forces the cache to be re-generated
-            }
         } else {
             $retval .= $this->debug_msg("Not looking up in cache as per rules");
         }
-        // If we're displaying a variant, I want to know it
-        if (isset($displayed_gallery->variation) && is_numeric($displayed_gallery->variation) && $displayed_gallery->variation > 0) {
-            $retval .= $this->debug_msg("Using variation #{$displayed_gallery->variation}!");
+        // TODO: This is hack. We need to figure out a more uniform way of detecting dynamic image urls
+        if (strpos($html, C_Photocrati_Settings_Manager::get_instance()->dynamic_thumbnail_slug . '/') !== FALSE) {
+            $html = FALSE;
+            // forces the cache to be re-generated
+        }
+        // Output debug messages
+        if ($html) {
+            $retval .= $this->debug_msg("HIT!");
+        } else {
+            $retval .= $this->debug_msg("MISS!");
         }
         // If a cached version doesn't exist, then create the cache
         if (!$html) {
@@ -2539,33 +2545,14 @@ class Mixin_Display_Type_Form extends Mixin
     }
     function _render_thumbnail_override_settings_field($display_type)
     {
-        $hidden = !(isset($display_type->settings['override_thumbnail_settings']) ? $display_type->settings['override_thumbnail_settings'] : FALSE);
-        $override_field = $this->_render_radio_field($display_type, 'override_thumbnail_settings', __('Override thumbnail settings', 'nggallery'), isset($display_type->settings['override_thumbnail_settings']) ? $display_type->settings['override_thumbnail_settings'] : FALSE, __("This does not affect existing thumbnails; overriding the thumbnail settings will create an additional set of thumbnails. To change the size of existing thumbnails please visit 'Manage Galleries' and choose 'Create new thumbnails' for all images in the gallery.", 'nggallery'));
-        $dimensions_field = $this->object->render_partial('photocrati-nextgen_gallery_display#thumbnail_settings', array('display_type_name' => $display_type->name, 'name' => 'thumbnail_dimensions', 'label' => __('Thumbnail dimensions', 'nggallery'), 'thumbnail_width' => isset($display_type->settings['thumbnail_width']) ? intval($display_type->settings['thumbnail_width']) : 0, 'thumbnail_height' => isset($display_type->settings['thumbnail_height']) ? intval($display_type->settings['thumbnail_height']) : 0, 'hidden' => $hidden ? 'hidden' : '', 'text' => ''), TRUE);
-        /*
-        $qualities = array();
-        for ($i = 100; $i > 40; $i -= 5) { $qualities[$i] = "{$i}%"; }
-        $quality_field = $this->_render_select_field(
-            $display_type,
-            'thumbnail_quality',
-            __('Thumbnail quality', 'nggallery'),
-            $qualities,
-            isset($display_type->settings['thumbnail_quality']) ? $display_type->settings['thumbnail_quality'] : 100,
-            '',
-            $hidden
-        );
-        */
-        $crop_field = $this->_render_radio_field($display_type, 'thumbnail_crop', __('Thumbnail crop', 'nggallery'), isset($display_type->settings['thumbnail_crop']) ? $display_type->settings['thumbnail_crop'] : FALSE, '', $hidden);
-        /*
-        $watermark_field = $this->_render_radio_field(
-            $display_type,
-            'thumbnail_watermark',
-            __('Thumbnail watermark', 'nggallery'),
-            isset($display_type->settings['thumbnail_watermark']) ? $display_type->settings['thumbnail_watermark'] : FALSE,
-            '',
-            $hidden
-        );
-        */
+        $enabled = isset($display_type->settings['override_thumbnail_settings']) ? $display_type->settings['override_thumbnail_settings'] : FALSE;
+        $hidden = !$enabled;
+        $width = $enabled && isset($display_type->settings['thumbnail_width']) ? intval($display_type->settings['thumbnail_width']) : 0;
+        $height = $enabled && isset($display_type->settings['thumbnail_height']) ? intval($display_type->settings['thumbnail_height']) : 0;
+        $crop = $enabled && isset($display_type->settings['thumbnail_crop']) ? $display_type->settings['thumbnail_crop'] : FALSE;
+        $override_field = $this->_render_radio_field($display_type, 'override_thumbnail_settings', __('Override thumbnail settings', 'nggallery'), $enabled, __("This does not affect existing thumbnails; overriding the thumbnail settings will create an additional set of thumbnails. To change the size of existing thumbnails please visit 'Manage Galleries' and choose 'Create new thumbnails' for all images in the gallery.", 'nggallery'));
+        $dimensions_field = $this->object->render_partial('photocrati-nextgen_gallery_display#thumbnail_settings', array('display_type_name' => $display_type->name, 'name' => 'thumbnail_dimensions', 'label' => __('Thumbnail dimensions', 'nggallery'), 'thumbnail_width' => $width, 'thumbnail_height' => $height, 'hidden' => $hidden ? 'hidden' : '', 'text' => ''), TRUE);
+        $crop_field = $this->_render_radio_field($display_type, 'thumbnail_crop', __('Thumbnail crop', 'nggallery'), $crop, '', $hidden);
         $everything = $override_field . $dimensions_field . $crop_field;
         return $everything;
     }

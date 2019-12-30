@@ -62,7 +62,7 @@ get_header();
 
         <?php if(get_post_meta( get_the_ID(), 'enable_panorama_block_a_main_page', $single = true ) == 'yes'){ ?>
 
-        <?php $panorama_image_a = getImageLink('image_panorama_block_a_main_page'); ?>
+        <?php $panorama_image_a = getImageLink(get_the_ID(), 'image_panorama_block_a_main_page'); ?>
 
     
 
@@ -112,7 +112,7 @@ get_header();
 
                 <div class="col-md-6">
 
-                    <?php $image_our_number_a = getImageLink('image_a_our_number_main_page'); ?>
+                    <?php $image_our_number_a = getImageLink(get_the_ID(), 'image_a_our_number_main_page'); ?>
 
                     
 
@@ -126,7 +126,7 @@ get_header();
 
                 <div class="col-md-6">
 
-                    <?php $image_our_number_b = getImageLink('image_b_our_number_main_page'); ?>
+                    <?php $image_our_number_b = getImageLink(get_the_ID(), 'image_b_our_number_main_page'); ?>
 
                     
 
@@ -138,7 +138,7 @@ get_header();
 
                     
 
-                    <?php $image_our_number_c = getImageLink('image_c_our_number_main_page'); ?>
+                    <?php $image_our_number_c = getImageLink(get_the_ID(), 'image_c_our_number_main_page'); ?>
 
                     
 
@@ -172,7 +172,7 @@ get_header();
 
         <?php if(get_post_meta( get_the_ID(), 'enable_panorama_block_b_main_page', $single = true ) == 'yes'){ ?>
 
-        <?php $panorama_image_b = getImageLink('image_panorama_block_b_main_page'); ?>
+        <?php $panorama_image_b = getImageLink(get_the_ID(), 'image_panorama_block_b_main_page'); ?>
 
         
 
@@ -228,7 +228,7 @@ get_header();
 
         <?php if(get_post_meta( get_the_ID(), 'enable_panorama_block_c_main_page', $single = true ) == 'yes'){ ?>
 
-        <?php $panorama_image_c = getImageLink('image_panorama_block_c_main_page'); ?>
+        <?php $panorama_image_c = getImageLink(get_the_ID(), 'image_panorama_block_c_main_page'); ?>
 
         
 
@@ -298,7 +298,7 @@ get_header();
 
         <?php if(get_post_meta( get_the_ID(), 'enable_panorama_block_d_main_page', $single = true ) == 'yes'){ ?>
 
-        <?php $panorama_image_d = getImageLink('image_panorama_block_d_main_page'); ?>
+        <?php $panorama_image_d = getImageLink(get_the_ID(), 'image_panorama_block_d_main_page'); ?>
 
         
 
@@ -402,7 +402,7 @@ get_header();
 
         <?php if(get_post_meta( get_the_ID(), 'enable_panorama_block_e_main_page', $single = true ) == 'yes'){ ?>
 
-        <?php $panorama_image_e = getImageLink('image_panorama_block_e_main_page'); ?>
+        <?php $panorama_image_e = getImageLink(get_the_ID(), 'image_panorama_block_e_main_page'); ?>
 
         
 
@@ -438,7 +438,7 @@ get_header();
 
         <?php if(get_post_meta( get_the_ID(), 'enable_good_services_block_main_page', $single = true ) == 'yes'){ ?>
 
-        <?php $image_good_services = getImageLink('image_block_good_services_main_page'); ?>
+        <?php $image_good_services = getImageLink(get_the_ID(), 'image_block_good_services_main_page'); ?>
 
         <div class="container services-block">
 
@@ -464,7 +464,7 @@ get_header();
 
         
 
-        <?php $booking_form_image = getImageLink('image_block_good_services_main_page'); ?>
+        <?php $booking_form_image = getImageLink(get_the_ID(), 'image_block_good_services_main_page'); ?>
 
         <div class="container-fluid arrival-date-block" style="background-image: url( '<?php echo $booking_form_image ? $booking_form_image : esc_url( get_template_directory_uri() ) . '/images/arrival-date-bg.jpg'; ?>' )">
 

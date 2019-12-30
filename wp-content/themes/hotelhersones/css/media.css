@@ -642,7 +642,7 @@
 
 	.left-block .adress {
 		position: relative;
-    	bottom: 24px;
+    	/*bottom: 24px;*/
 	}
 
 	.main-rooms .list-vip-rooms .big-block-number {
@@ -907,7 +907,7 @@
 
 	.header-slider {
 
-		display: none !important;
+		/*display: none !important;*/
 
 	}
 
@@ -915,9 +915,15 @@
 
 	.header-page-main {
 
-		height: 560px;
-
-		background-image: url(../images/header-slider-1m.jpg);
+		/*height: 560px;*/
+		
+		height: auto;
+		
+		padding-bottom: 20px;
+		
+		/*background-image: url(../images/header-slider-1m.jpg);*/
+		
+		background-image: url(../images/header-slider-2m.jpg);
 
 		background-repeat: no-repeat;
 
@@ -936,6 +942,42 @@
 		margin-bottom: 10px;
 
 	}
+
+.header-slider-block .description-block {
+top: 0;
+    width: 94%;
+    left: 3%;
+    margin-left: 0;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+}
+.header-slider-block .description-block .title-slider {
+    font-size: 4vw;
+    line-height: normal;
+}
+.header-slider-block .description-block p:not(.title-slider) {
+font-size: 2vw;
+    line-height: normal;
+}
+.booking__banner .banner__inner {
+    padding: 20px 40px;
+}
+.header-slider-block .owl-nav {
+    width: 100%;
+    left: 0;
+    margin-left: 0px;
+    margin-top: -20px!important;
+}
+
+
+
+
+
 
 
 
@@ -1345,19 +1387,24 @@
 
 		        flex-wrap: wrap;
 
-		-webkit-flex-direction: row;
+		-webkit-flex-direction: column;
 
-		    -ms-flex-direction: row;
+		    -ms-flex-direction: column;
 
-		        flex-direction: row;
+		        flex-direction: column;
 
 	}
 
-
-
+.header-page .right-block .phones-block {
+    padding-left: 58px;
+}
+.header-page .right-block .phones-block {
+    padding-top: 0;
+}
+.header-page .left-block {
+    margin-bottom: 30px;
+}
 	.header-page .right-block .phones-block {
-
-		width: 100%;
 
 		text-align: center;
 
@@ -1412,6 +1459,9 @@
 /* Extra Small Devices, Phones */
 
 @media only screen and (max-width : 480px) {
+	.header-slider-block .description-block p:not(.title-slider) {
+display:none;
+}
 	.icon-table>div,
 	.main-room .appliances.next-appliances li:nth-child(n) {
 		width: 100%;
@@ -1955,7 +2005,7 @@
 
 @media only screen and (min-width : 992px) {
 
-
+.col-md-show{display: block!important;}
 
 }
 

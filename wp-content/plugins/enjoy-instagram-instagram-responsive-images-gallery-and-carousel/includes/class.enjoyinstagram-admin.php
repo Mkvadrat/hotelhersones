@@ -74,8 +74,8 @@ class EnjoyInstagram_Admin {
     protected function init(){
         // init tabs
         $this->_tabs = apply_filters( 'enjoyinstagram_plugin_admin_tabs', array(
-            'enjoyinstagram_general_settings'   => __( 'Profile', 'enjoyinstagram' ),
-            'enjoyinstagram_advanced_settings'  => __( 'Settings', 'enjoyinstagram' )
+            'enjoyinstagram_general_settings'   => __( 'Profile', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ),
+            'enjoyinstagram_advanced_settings'  => __( 'Settings', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' )
         ) );
 
         if( file_exists( ENJOYINSTAGRAM_DIR . 'plugin-options/options.php' ) ) {
@@ -122,8 +122,8 @@ class EnjoyInstagram_Admin {
      */
     public function add_admin_menus() {
         add_options_page(
-            __( 'Enjoy Plugin for Instagram', 'enjoyinstagram' ),
-            __( 'Enjoy Plugin for Instagram', 'enjoyinstagram' ),
+            __( 'Enjoy Plugin for Instagram', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ),
+            __( 'Enjoy Plugin for Instagram', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ),
             'manage_options',
             $this->_options_page,
             array( $this, 'output_options_page' ) );
@@ -137,9 +137,9 @@ class EnjoyInstagram_Admin {
      * @return string
      */
     public function settings_link( $links ){
-        $links[]  = '<a href="options-general.php?page=' .$this->_options_page.'">' . __( 'Settings', 'enjoyinstagram' ) . '</a>';
-        $links[]  = '<a href="widgets.php">' . __( 'Widgets', 'enjoyinstagram' ) . '</a>';
-        $links[]  = '<a href="http://www.mediabeta.com/enjoy-instagram/">' . __( 'Premium Version', 'enjoyinstagram' ) . '</a>';
+        $links[]  = '<a href="options-general.php?page=' .$this->_options_page.'">' . __( 'Settings', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ) . '</a>';
+        $links[]  = '<a href="widgets.php">' . __( 'Widgets', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ) . '</a>';
+        $links[]  = '<a href="http://www.mediabeta.com/enjoy-instagram/">' . __( 'Premium Version', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ) . '</a>';
 
         return $links;
     }
@@ -222,9 +222,7 @@ class EnjoyInstagram_Admin {
         if( ! isset( $_GET['access_token'] ) || ! isset( $_GET['page'] ) || $_GET['page'] != $this->_options_page ){
             return;
         }
-
-
-
+        
         $user = EnjoyInstagram_Api_Connection()->get_user_info( $_GET['access_token'] );
         if( empty( $user ) ) {
             return;
@@ -277,7 +275,7 @@ class EnjoyInstagram_Admin {
     public function get_instagram_login_url(){
         $return_url = admin_url("options-general.php?page={$this->_options_page}");
         $state_url = admin_url("options-general.php?page-{$this->_options_page}");
-        return "https://instagram.com/oauth/authorize/?client_id=cac0b53396ee466293d81c8fb86835fe&scope=public_content&redirect_uri=http://www.mediabetaprojects.com/put_access_token.php&response_type=token&state={$state_url}";
+        return "https://instagram.com/oauth/authorize/?client_id=cac0b53396ee466293d81c8fb86835fe&hl=en&redirect_uri=http://www.mediabetaprojects.com/put_access_token.php&response_type=token&state={$state_url}";
     }
 }
 

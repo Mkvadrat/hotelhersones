@@ -16,7 +16,7 @@ global $wp_scripts;
 
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title><?php _e( 'EnjoyInstagram', 'enjoyinstagram' ); ?></title>
+        <title><?php _e( 'EnjoyInstagram', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?></title>
         <meta http-equiv="Content-Type" content="<?php bloginfo('html_type'); ?>; charset=<?php echo get_option('blog_charset'); ?>" />
         <script language="javascript" type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/tinymce/tiny_mce_popup.js"></script>
         <script language="javascript" type="text/javascript" src="<?php echo site_url(); ?>/wp-includes/js/tinymce/utils/form_utils.js"></script>
@@ -29,24 +29,24 @@ global $wp_scripts;
         <form name="enjoyinstagram" action="#">
             <table border="0" cellpadding="4" cellspacing="0" style="margin:0 auto;">
                 <tr>
-                    <td colspan="2"><?php _e( 'Insert Enjoy Plugin for Instagram Shortcode', 'enjoyinstagram' ); ?></td>
+                    <td colspan="2"><?php _e( 'Insert Enjoy Plugin for Instagram Shortcode', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?></td>
                 </tr>
                 <tr>
                     <td colspan="2" style="height:100px;">
                         <input type="radio" name="newshortcode" id="id_shortcode_carousel" value="enjoyinstagram_mb" checked/>
-                        <label for="id_shortcode_carousel" ><?php _e( 'Carousel View', 'enjoyinstagram' ); ?></label>
+                        <label for="id_shortcode_carousel" ><?php _e( 'Carousel View', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?></label>
                         <br />
                         <input type="radio" name="newshortcode" id="id_shortcode_grid" value="enjoyinstagram_mb_grid"/>
-                        <label for="id_shortcode_grid" ><?php _e( 'Grid View', 'enjoyinstagram' ); ?></label>
+                        <label for="id_shortcode_grid" ><?php _e( 'Grid View', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?></label>
                     </td>
                 </tr>
                 <tr>
                     <td style="text-align:center;">
-                        <input type="submit" id="insert" name="insert" value="<?php _e("Insert", 'enjoyinstagram'); ?>"
+                        <input type="submit" id="insert" name="insert" value="<?php _e("Insert", 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?>"
                                onClick="insertenjoyinstagramshortcode();" />
                     </td>
                     <td style="text-align:center;">
-                        <input type="button" id="cancel" name="cancel" value="<?php _e("Cancel", 'enjoyinstagram'); ?>"
+                        <input type="button" id="cancel" name="cancel" value="<?php _e("Cancel", 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel'); ?>"
                                onClick="tinyMCEPopup.close();" />
                     </td>
                 </tr>

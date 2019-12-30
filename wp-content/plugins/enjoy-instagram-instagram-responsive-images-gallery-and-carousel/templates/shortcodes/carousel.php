@@ -34,6 +34,7 @@ if( ! defined( 'ABSPATH' ) ) {
             itemsTablet: [768,<?php echo $items_num ?>],
             itemsMobile: [479,<?php echo $items_num ?>],
             stopOnHover: true,
+            autoPlay: true,
             navigation: <?php echo $nav ?>,
             afterAction: callback_height
         });

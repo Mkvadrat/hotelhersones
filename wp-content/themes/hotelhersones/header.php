@@ -19,80 +19,27 @@ Version: 1.0
 <!--[if !(IE 7) & !(IE 8)]><!-->
 <html <?php language_attributes(); ?>>
 <head>
+  <title><?php echo hotelhersones_wp_title('', '', true, 'right');?></title>
+   
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>
-    <?php
-      $page_main_search = parse_url($_SERVER['REQUEST_URI']);
-      if (strpos($page_main_search['path'],"/booking-page") !== false) : ?>
-        Бронирование номеров в бутик отеле Апартаменты Херсонес, г. Севастополь - официальный сайт
-    <?php else : ?>
-      <?php echo hotelhersones_wp_title('', '', true, 'right');?>
-    <?php endif; ?></title>
-
-  <meta name="description" content="краткое описание страницы">
-
-  <meta name="keywords" CONTENT="краткое описание страницы">
-
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
-
-  <!-- Bootstrap -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-
-  <!-- MMENU -->
-  <link type="text/css" rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/css/demo.css"/>
-
-  <!-- STYLE -->
-  <link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/css/reset.css">
-  <link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/css/fonts.css">
-  <link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/css/styles.css">
-  <link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/css/media.css">
-  <!-- HTML5 for IE -->
-  <!--[if IE]>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
+ 
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-136506875-1"></script>
   
-  <!-- Bootstrap -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
   
-  <!-- Font awesome -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-
-  <!-- OWL-CAROUSEL -->
-  <script src="<?php echo esc_url(get_template_directory_uri()); ?>/js/owl.carousel.min.js"></script>
-  <link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/css/owl.carousel.min.css">
-  <link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/css/owl.theme.default.min.css">
-  
-  <!-- SWEETALERT -->
-  <link rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/css/sweetalert.css">
-  <script src="<?php echo esc_url(get_template_directory_uri()); ?>/js/sweetalert.min.js"></script>
-
-
-  <!-- FANCYBOX -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.css"/>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js"></script>
-
-  <!-- MMENU -->
-  <link type="text/css" rel="stylesheet" href="<?php echo esc_url(get_template_directory_uri()); ?>/css/jquery.mmenu.all.css"/>
-  <script type="text/javascript" src="<?php echo esc_url(get_template_directory_uri()); ?>/js/jquery.mmenu.all.js"></script>
-
-  <!-- common js -->
-  <script src="<?php echo esc_url(get_template_directory_uri()); ?>/js/common.js"></script>
-  
-  <!-- reviews js -->
-  <script src="<?php echo esc_url(get_template_directory_uri()); ?>/js/reviews.js"></script>
-
-  <!-- MASK -->
-  <script src="<?php echo esc_url(get_template_directory_uri()); ?>/js/mask.js"></script>
-
-  <!-- MAPS -->
-  <script src="http://api-maps.yandex.ru/2.0/?load=package.full&lang=ru-RU" type="text/javascript"></script>
+    gtag('config', 'UA-136506875-1');
+  </script>  
   
   <?php wp_head(); ?>
   
-  <script src="//cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js"></script>
+  <script src="route_panel_control.js" type="text/javascript"></script>
+
   <!-- start TL head script -->
   <script type="text/javascript">
     (function(w){
@@ -105,6 +52,7 @@ Version: 1.0
   </script>
   <!-- end TL head script -->
   <?php
+  $page_main_search = parse_url($_SERVER['REQUEST_URI']);
   if (strpos($page_main_search['path'],"/booking-page") !== false) : ?>
     <!-- start TL Booking form script -->
     <script type="text/javascript">
@@ -173,7 +121,7 @@ Version: 1.0
     </a>
   </div> -->
   <?php
-  $action_image = getImageLink('action_image_main_page');
+  $action_image = getImageLink(12, 'action_image_main_page');
   $link_action = getMeta('link_action_main_page');
   ?>
   
@@ -218,7 +166,7 @@ Version: 1.0
                 <dl>
                   <dd>
                     <address>УЛ. ДРЕВНЯЯ, 34<br>
-                      Г. СЕВАСТОПОЛЬ, АР КРЫМ<br>
+                      Г. СЕВАСТОПОЛЬ, КРЫМ<br>
                       Работаем 24/7
                     </address>
                   </dd>
@@ -272,7 +220,7 @@ Version: 1.0
       <div class="owl-carousel owl-theme header-slider">
         <?php
         global $nggdb;
-        $ngg_id = getNextGallery('123', 'slider_main_page');
+        $ngg_id = getNextGallery('12', 'slider_main_page');
         $ngg_image = $nggdb->get_gallery($ngg_id[0]["ngg_id"], 'sortorder', 'ASC', false, 0, 0);
         if ($ngg_image) {
           foreach ($ngg_image as $image) {
@@ -347,7 +295,7 @@ Version: 1.0
                   <div class="col-md-12">
                     <div class="title-header-block">
                       <?php
-                      $action_image = getImageLink('action_image_main_page');
+                      $action_image = getImageLink(12, 'action_image_main_page');
                       $link_action = getMeta('link_action_main_page');
                       ?>
                       <p class="title"><?php get_title(); ?></p>
