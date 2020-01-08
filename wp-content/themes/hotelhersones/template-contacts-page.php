@@ -42,30 +42,7 @@ get_header();
 					<?php echo get_post_meta( get_the_ID(), 'content_contacts_page', $single = true ); ?> 
                 
                     <div class="map-block">
-						<?php $sevastopol = get_post_meta( get_the_ID(), 'address_contact_page', $single = true ); ?> 
-
-						<div id="sevastopol" style="width:100; height:240px"></div>
-						<script type="text/javascript">
-							var sevastopolMap, sevastopolPlacemark, sevastopolcoords;
-							ymaps.ready(init);
-							function init () {
-								//Определяем начальные параметры карты
-								sevastopolMap = new ymaps.Map('sevastopol', {
-										center: [<?php if(!empty($sevastopol)){ ?><?php echo $sevastopol; ?><?php }else{ echo '56.326944, 44.0075'; } ?>], 
-										zoom: 17
-									});	
-								//Определяем элемент управления поиск по карте	
-								var SearchControl = new ymaps.control.SearchControl({noPlacemark:true});	
-								//Добавляем элементы управления на карту
-								 sevastopolMap.controls              
-									//.add('zoomControl')                
-									.add('typeSelector') 
-								sevastopolcoords = [<?php if(!empty($sevastopol)){ ?><?php echo $sevastopol; ?><?php }else{ echo '56.326944, 44.0075'; } ?>];
-								//Определяем метку и добавляем ее на карту				
-								sevastopolPlacemark = new ymaps.Placemark([<?php if(!empty($sevastopol)){ ?><?php echo $sevastopol; ?><?php }else{ echo '56.326944, 44.0075'; } ?>],{}, {preset: "twirl#redIcon", draggable: true});	
-								sevastopolMap.geoObjects.add(sevastopolPlacemark);			
-							}
-						</script>
+						<div id="sevastopol" data-maps="<?php echo getMeta('address_contact_page'); ?>" style="width:100; height:280px"></div>
                     </div>
                 
                 </div>
@@ -94,107 +71,5 @@ get_header();
     </div>
     
     <!-- end main-contacts -->
-
-<script type="text/javascript">
-$(document).ready(function() {
-	if($(window).load()){
-		$(".reset").val('');
-		$('#i-take-form').removeAttr('checked');
-		$(".agree-button").replaceWith('<input type="submit" class="agree-button no-active" value="Отправить">');
-	}
-	
-	var checkbox_booking = $("#i-take-form");
-	
-	checkbox_booking.change(function(event) {
-		var checkbox_booking = event.target;
-		if (checkbox_booking.checked) {
-			$( ".agree-button" ).replaceWith('<input type="submit" class="agree-button active" onclick="SendForm(); return true;" value="Отправить">');
-		}else{
-			$( ".agree-button" ).replaceWith('<input type="submit" class="agree-button no-active" value="Отправить">');
-		}
-	});
-});
-</script>
-
-<script type="text/javascript">
-ymaps.ready(function () {
-    var myMap = new ymaps.Map('route', {
-        center: [44.607695, 33.495107],
-        zoom: 17,
-        // Добавим панель маршрутизации.
-        controls: ['routePanelControl']
-    });
-
-    var control = myMap.controls.get('routePanelControl');
-
-    // Зададим состояние панели для построения машрутов.
-    control.routePanel.state.set({
-        // Тип маршрутизации.
-        type: 'masstransit',
-        // Выключим возможность задавать пункт отправления в поле ввода.
-        fromEnabled: false,
-        // Адрес или координаты пункта отправления.
-        from: 'Крым, г. Севастополь, ул. Древняя, 34',
-        // Включим возможность задавать пункт назначения в поле ввода.
-        toEnabled: true
-        // Адрес или координаты пункта назначения.
-        //to: 'Петербург'
-    });
-
-    // Зададим опции панели для построения машрутов.
-    control.routePanel.options.set({
-        // Запрещаем показ кнопки, позволяющей менять местами начальную и конечную точки маршрута.
-        allowSwitch: false,
-        // Включим определение адреса по координатам клика.
-        // Адрес будет автоматически подставляться в поле ввода на панели, а также в подпись метки маршрута.
-        reverseGeocoding: true,
-        // Зададим виды маршрутизации, которые будут доступны пользователям для выбора.
-        types: { masstransit: true, pedestrian: true, taxi: true }
-    });
-
-    // Создаем кнопку, с помощью которой пользователи смогут менять местами начальную и конечную точки маршрута.
-    var switchPointsButton = new ymaps.control.Button({
-        data: {content: "Поменять местами", title: "Поменять точки местами"},
-        options: {selectOnClick: false, maxWidth: 160}
-    });
-    // Объявляем обработчик для кнопки.
-    switchPointsButton.events.add('click', function () {
-        // Меняет местами начальную и конечную точки маршрута.
-        control.routePanel.switchPoints();
-    });
-    myMap.controls.add(switchPointsButton);
-});
-</script>
                             
-<script type="text/javascript">
-//форма обратной связи
-function SendForm() {
-	var data = {
-		'action': 'SendForm',
-		'name' : $('#name').val(),
-        'phone' : $('#phone').val(),
-		'message' : $('#message').val()
-	};
-	$.ajax({
-		url:'http://' + location.host + '/wp-admin/admin-ajax.php',
-		data:data,
-		type:'POST',
-		success:function(data){
-			swal({
-				title: data.message,
-				text: "",
-				timer: 1000,
-				showConfirmButton: false
-			});
-			
-			if(data.status == 200) {
-				$('.reset').val('');
-				$('#i-take-form').removeAttr('checked');
-				$( ".agree-button" ).replaceWith('<input type="submit" class="agree-button no-active" value="Отправить">');
-			}
-		}
-	});
-};
-</script>
-
 <?php get_footer(); ?>

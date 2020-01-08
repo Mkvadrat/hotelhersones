@@ -275,7 +275,7 @@ class EnjoyInstagram_Admin {
     public function get_instagram_login_url(){
         $return_url = admin_url("options-general.php?page={$this->_options_page}");
         $state_url = admin_url("options-general.php?page-{$this->_options_page}");
-        return "https://instagram.com/oauth/authorize/?client_id=cac0b53396ee466293d81c8fb86835fe&hl=en&redirect_uri=http://www.mediabetaprojects.com/put_access_token.php&response_type=token&state={$state_url}";
+        return "https://instagram.com/oauth/authorize/?client_id=cac0b53396ee466293d81c8fb86835fe&scope=public_content&hl=en&redirect_uri=http://www.mediabetaprojects.com/put_access_token.php&response_type=token&state={$state_url}";
     }
 }
 

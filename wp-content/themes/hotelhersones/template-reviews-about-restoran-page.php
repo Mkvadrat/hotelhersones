@@ -134,11 +134,5 @@ get_header();
 	</div>
 	
 	<!-- end main-reviews-2 -->
-	
-<script language="javascript">
-    function submit(){
-        $(".reviews-form").submit();
-    }
-</script>
  
 <?php get_footer(); ?>

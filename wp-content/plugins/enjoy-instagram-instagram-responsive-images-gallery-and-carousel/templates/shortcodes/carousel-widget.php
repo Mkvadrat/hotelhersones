@@ -29,6 +29,7 @@ if( ! defined( 'ABSPATH' ) ) {
         jQuery("#owl-<?php echo "{$id}"; ?>").owlCarousel({
             items: <?php echo "{$n}"; ?>,
             navigation: <?php echo "{$n_y_n}"; ?>,
+            dots: false,
             autoPlay: true,
             afterAction: callback_height
         });
@@ -39,7 +40,7 @@ if( ! defined( 'ABSPATH' ) ) {
         jQuery("#owl-<?php echo "{$id}"; ?>").fadeIn('slow');
     });
 </script>
-<div id="owl-<?php echo "{$id}"; ?>" class="owl-example enjoy-instagram-carousel">
+<div id="owl-<?php echo "{$id}"; ?>" class="owl-example owl-carousel enjoy-instagram-carousel">
     <?php foreach( $result as $entry ) :
         $url = ($n > 3) ? $entry['images']['thumbnail']['url'] : $entry['images']['standard_resolution']['url'];
         $link_style = "style=\"background-image: url('{$entry['images']['standard_resolution']['url']}'); background-size: cover; display: block; opacity: 1;\"";

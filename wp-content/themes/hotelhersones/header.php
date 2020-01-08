@@ -10,6 +10,12 @@ Version: 1.0
 ?>
 
 <!DOCTYPE html>
+<!-- HelloPreload http://hello-site.ru/preloader/ -->
+<style type="text/css">#hellopreloader>p{display:none;}#hellopreloader_preload{display: block;position: fixed;z-index: 99999;top: 0;left: 0;width: 100%;height: 100%;min-width: 1000px;background: #32343a url(http://hello-site.ru//main/images/preloads/tail-spin.svg) center center no-repeat;background-size:102px;}</style>
+<div id="hellopreloader"><div id="hellopreloader_preload"></div><p><a href="http://hello-site.ru">Hello-Site.ru. Бесплатный конструктор сайтов.</a></p></div>
+<script type="text/javascript">var hellopreloader = document.getElementById("hellopreloader_preload");function fadeOutnojquery(el){el.style.opacity = 1;var interhellopreloader = setInterval(function(){el.style.opacity = el.style.opacity - 0.05;if (el.style.opacity <=0.05){ clearInterval(interhellopreloader);hellopreloader.style.display = "none";}},16);}window.onload = function(){setTimeout(function(){fadeOutnojquery(hellopreloader);},0);};</script>
+<!-- HelloPreload http://hello-site.ru/preloader/ -->
+
 <!--[if IE 7]>
 <html class="ie ie7" <?php language_attributes(); ?>>
 <![endif]-->
@@ -19,7 +25,7 @@ Version: 1.0
 <!--[if !(IE 7) & !(IE 8)]><!-->
 <html <?php language_attributes(); ?>>
 <head>
-  <title><?php echo hotelhersones_wp_title('', '', true, 'right');?></title>
+  <title><?php echo hotelhersones_wp_title('', '', false, 'right');?></title>
    
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">

@@ -92,58 +92,5 @@ get_header();
 	</div>
 	
 	<!-- end main-standart -->
-
-<script type="text/javascript">
-$(document).ready(function() {
-	if($(window).load()){
-		$(".reset").val('');
-		$('#i-take-form').removeAttr('checked');
-		$(".agree-button").replaceWith('<input type="submit" class="agree-button no-active" value="Отправить">');
-	}
 	
-	var checkbox_booking = $("#i-take-form");
-	
-	checkbox_booking.change(function(event) {
-		var checkbox_booking = event.target;
-		if (checkbox_booking.checked) {
-			$( ".agree-button" ).replaceWith('<input type="submit" class="agree-button active" onclick="SendForm(); return true;" value="Отправить">');
-		}else{
-			$( ".agree-button" ).replaceWith('<input type="submit" class="agree-button no-active" value="Отправить">');
-		}
-	});
-});
-</script>
-
-<script type="text/javascript">
-//форма обратной связи
-function SendForm() {
-	var data = {
-		'action': 'SendForm',
-		'name' : $('#name').val(),
-        'phone' : $('#phone').val(),
-		'message' : $('#message').val()
-	};
-	$.ajax({
-		url:'http://' + location.host + '/wp-admin/admin-ajax.php',
-		data:data,
-		type:'POST',
-		success:function(data){
-			swal({
-				title: data.message,
-				text: "",
-				timer: 1000,
-				showConfirmButton: false
-			});
-			
-			if(data.status == 200) {
-				$('.reset').val('');
-				$('#i-take-form').removeAttr('checked');
-				$( ".agree-button" ).replaceWith('<input type="submit" class="agree-button no-active" value="Отправить">');
-			}
-		}
-	});
-};
-</script>
-
-
 <?php get_footer(); ?>

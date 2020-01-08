@@ -15,7 +15,7 @@ get_header();
 	<!-- start main-reservation -->
 	
 	<div class="main-reservation">
-
+		<script src="https://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js" type="text/javascript"></script>
 		<!-- OtelMS -->
 		<script>
 			var is_safari = navigator.userAgent.indexOf("Safari") > -1; // safari detection
@@ -130,121 +130,5 @@ get_header();
 	</div>
 	
 	<!-- end modal-form -->
-
-<script type="text/javascript">
-$(document).ready(function() {
-	if($(window).load()){
-		$(".reset").val('');
-		$(".clear").val('');
-		$('#i-take-form').removeAttr('checked');
-		$('#i-take-callbackform').removeAttr('checked');
-		$(".agree-booking").replaceWith('<input type="submit" class="agree-booking no-active" value="Отправить">');
-		$( ".agree-callbackform" ).replaceWith('<input type="submit" class="agree-callbackform no-active" value="Перезвоните мне">');
-	}
-	
-	var checkbox_booking = $("#i-take-form");
-	
-	checkbox_booking.change(function(event) {
-		var checkbox_booking = event.target;
-		if (checkbox_booking.checked) {
-			$( ".agree-booking" ).replaceWith('<input type="submit" class="agree-booking active" onclick="lightBooking(); return true;" value="Отправить">');
-		}else{
-			$( ".agree-booking" ).replaceWith('<input type="submit" class="agree-booking no-active" value="Отправить">');
-		}
-	});
-});
-</script>
-
-<script type="text/javascript">
-$(document).ready(function() {
-	var checkbox_callbackform = $("#i-take-callbackform");
-	
-	checkbox_callbackform.change(function(event) {
-		var checkbox_callbackform = event.target;
-		if (checkbox_callbackform.checked) {
-			$( ".agree-callbackform" ).replaceWith('<input type="submit" class="agree-callbackform active" onclick="SendMini(); return true;" value="Перезвоните мне">');
-		}else{
-			$( ".agree-callbackform" ).replaceWith('<input type="submit" class="agree-callbackform no-active" value="Перезвоните мне">');
-		}
-	});
-});
-</script>
-	
-<script type="text/javascript">
-//форма обратной связи
-function lightBooking() {
-	var data = {
-	  'action': 'lightBooking',
-	  'name' : $('#name_light_booking').val(),
-	  'email' : $('#email_light_booking').val(),
-	  'phone' : $('#phone_light_booking').val(),
-	  'arrival' : $('#arrival_light_booking').val(),
-	  'departure' : $('#departure_light_booking').val(),
-	};
-	$.ajax({
-	  url:'http://' + location.host + '/wp-admin/admin-ajax.php',
-	  data:data, // данные
-	  type:'POST', // тип запроса
-	  success:function(data){
-		  swal({
-			  title: data.message,
-			  text: "",
-			  timer: 1000,
-			  showConfirmButton: false
-		  });
-		  
-		  if(data.status == 200) {
-			  $('.reset').val('');
-			  $('#i-take-form').removeAttr('checked');
-			  $( ".agree-booking" ).replaceWith('<input type="submit" class="agree-booking no-active" value="Отправить">');
-		  }
-		  
-		  $.fancybox.close();
-	  }
-	});
-};
-
-function clearFields(){
-	$('.reset').val('');
-	$('#i-take-form').removeAttr('checked');
-	$( ".agree-booking" ).replaceWith('<input type="submit" class="agree-booking no-active" value="Отправить">');
-}
-</script>
-
-<script type="text/javascript">
-//форма обратной связи
-function SendMini() {
-	var data = {
-		'action': 'SendMini',
-		'name' : $('#name_callbackform').val(),
-		'phone' : $('#phone_callbackform').val()
-	};
-	$.ajax({
-	  url:'http://' + location.host + '/wp-admin/admin-ajax.php',
-	  data:data, // данные
-	  type:'POST', // тип запроса
-	  success:function(data){
-		  swal({
-			  title: data.message,
-			  text: "",
-			  timer: 1000,
-			  showConfirmButton: false
-		  });
-		  
-		  if(data.status == 200) {
-			$('.clear').val('');
-			$('#i-take-callbackform').removeAttr('checked');
-			$( ".agree-callbackform" ).replaceWith('<input type="submit" class="agree-callbackform no-active" value="Перезвоните мне">');
-		  }
-	  }
-	});
-};
-</script>
-
-<script type="text/javascript">
-$(document).ready(function() {
-	$(".phone-mask").mask("+7(999) 999-9999");
-});
-</script>
 
 <?php get_footer(); ?>

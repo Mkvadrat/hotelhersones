@@ -83,7 +83,8 @@ Version: 1.0
                             <li><a href="https://www.booking.com/hotel/xc/hersones.ru.html"><img src="/wp-content/themes/hotelhersones/images/soc-8.png" alt=""></a></li>
                             <li><a href="http://tophotels.ru/main/hotel/al38091/rating/"><img src="/wp-content/themes/hotelhersones/images/soc-9.png" alt=""></a></li>
                         </ul></noindex>
-<?php if(function_exists('the_ratings')) { the_ratings(); } ?>
+                        
+                        <?php if(function_exists('the_ratings')) { the_ratings(); } ?>
                     </div>
 
                     <div class="col-md-4">

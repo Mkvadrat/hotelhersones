@@ -2,13 +2,13 @@
 /**
  * Plugin Name: Enjoy Plugin for Instagram
  * Description: Instagram Responsive Images Gallery and Carousel, works with Shortcodes and Widgets.
- * Version: 4.0.7
+ * Version: 9.9.9
  * Author: Mediabeta Srl
  * Text Domain: enjoy-instagram-instagram-responsive-images-gallery-and-carousel
  * Author URI: http://www.mediabeta.com/team/
  */
 
-! defined( 'ENJOYINSTAGRAM_VERSION' ) && define( 'ENJOYINSTAGRAM_VERSION', '4.0.7' );
+! defined( 'ENJOYINSTAGRAM_VERSION' ) && define( 'ENJOYINSTAGRAM_VERSION', '4.0.6' );
 ! defined( 'ENJOYINSTAGRAM_FILE' ) && define( 'ENJOYINSTAGRAM_FILE', __FILE__ );
 ! defined( 'ENJOYINSTAGRAM_URL' ) && define( 'ENJOYINSTAGRAM_URL', plugin_dir_url( __FILE__ ) );
 ! defined( 'ENJOYINSTAGRAM_DIR' ) && define( 'ENJOYINSTAGRAM_DIR', plugin_dir_path( __FILE__ ) );
