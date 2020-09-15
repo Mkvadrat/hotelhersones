@@ -66,6 +66,7 @@ class Swift_Performance_Setup {
 
 		// Deactivation
 		if (isset($_GET['subpage']) && $_GET['subpage'] == 'deactivate'){
+			set_current_screen('swift-performance_deactivate');
 			if (defined('SWIFT_PERFORMANCE_WHITELABEL') && SWIFT_PERFORMANCE_WHITELABEL){
 				include_once SWIFT_PERFORMANCE_SETUP_DIR . 'templates/deactivate-whitelabel.tpl.php';
 			}
@@ -76,6 +77,7 @@ class Swift_Performance_Setup {
 		}
 		// Setup
 		else {
+			set_current_screen('swift-performance_setup');
 			if (defined('SWIFT_PERFORMANCE_WHITELABEL') && SWIFT_PERFORMANCE_WHITELABEL){
 				include_once SWIFT_PERFORMANCE_SETUP_DIR . 'templates/wizard-whitelabel.tpl.php';
 			}

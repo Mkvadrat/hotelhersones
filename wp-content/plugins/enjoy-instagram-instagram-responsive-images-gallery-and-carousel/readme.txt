@@ -1,42 +1,51 @@
-=== Enjoy Instagram feed with Widget and Shortcode on Wordpress website ===
+=== Enjoy Social Feed plugin for WordPress website ===
 Contributors: mediabeta
 Donate link: https://www.google.com/url?q=https%3A%2F%2Fwww.paypal.com%2Fcgi-bin%2Fwebscr%3Fcmd%3D_s-xclick%26hosted_button_id%3D8MXZ37DWHAX46&sa=D&sntz=1&usg=AFQjCNFHixLdowdc2AAEXDYmM9tQBl-TXQ
-Tags: Instagram, Instagram feed, Instagram Widget, Instagram grid, Instagram carousel, Embed Instagram, Embed Instagram feed, Instagram feed on website, responsive carousel, WordPress carousel, Instagram gallery, Instagram WordPress, Instagram pictures
+Tags: social feed, instagram carousel, social media feed, instagram widget, instagram feed
 Requires at least: 4.0
-Tested up to: 5.2
-Version: 4.0.6
-Stable tag: 4.0.6
+Tested up to: 5.4
+Version: 5.0.8
+Stable tag: 5.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Instagram feed on website by hashtag and profile. Instagram widget and shortcodes on posts, pages, sidebar.
+Formerly “Enjoy Instagram Feed”. Embed social feed on your WordPress website by hashtag and Instagram account. Widget and shortcodes on posts, pages, sidebar.
 
 == Description ==
 
-= Enjoy Instagram allows to display Instagram feed based on hashtag and public Instagram account with carousel and grid view. =
+= Embed Instagram feed on website by hashtag and public Instagram account. Add Social feed with Carousel and Grid view using simple shortcodes and widget.  =
 
-Only one plugin to publish, with widget and shortcode, Instagram pictures and Instagram videos in your pages, posts and sidebars.
-Each Instagram photo can be shown in Carousel and Grid mode with Lightbox effect.
-Enjoy Instagram is responsive and optimized for mobile devices.
+== Important ==
+Since June 29, 2020 Instagram changed its API.
+Our plugin has already moved to the new stable Instagram API: Basic Display API for Personal account and Graph API for Business one.
+DOWNLOAD AND INSTALL OUR LATEST VERSION.
 
-Once you have installed our plugin Enjoy Instagram, thanks to the presence of Enjoy Instagram icon on the editor, you are able to use shortcodes to embed feed in just one single line.
 
-= Here is Live Demo for Enjoy Instagram: = [http://www.mediabetaprojects.com/enjoy-instagram-premium/instagram-feeds-in-your-website-enjoy-instagram-free/](http://www.mediabetaprojects.com/enjoy-instagram-premium/instagram-feeds-in-your-website-enjoy-instagram-free/)
+== FEATURES - ENJOY SOCIAL FEED PLUGIN FOR WORDPRESS==
 
-= Enjoy Plugin for Instagram basic allows Instagram video visualization for browser supporting HTML5 =
+Only one plugin to publish Instagram feed on your pages, posts and sidebars with widgets and shortcodes.
+Each Instagram photo can be shown in Carousel and Grid VIEW with Lightbox effect.
+Enjoy Social Feed Plugin for WordPress is responsive and optimized for mobile devices.
 
-= Enjoy Instagram Basic Features =
+Once you have installed our plugin Enjoy Social Feed Plugin for WordPress, thanks to the presence of the icon on the editor, you are able to use shortcodes and to embed feed in just one single line.
 
-* Hashtag-based Instagram feed to show photos by Instagram hashtag
+= Here is Live Demo for Enjoy Social Feed Plugin for WordPress: = [http://www.mediabetaprojects.com/enjoy-instagram-premium/instagram-feeds-in-your-website-enjoy-instagram-free/](http://www.mediabetaprojects.com/enjoy-instagram-premium/instagram-feeds-in-your-website-enjoy-instagram-free/)
+
+= Enjoy Social Feed Plugin for WordPress allows Instagram video visualization for browser supporting HTML5 =
+
+== BASIC FEATURES ==
+
+* NEW TEMPLATE for INSTAGRAM CAROUSEL FEED: Showcase and Polaroid
+* NEW —> Display Instagram feed for Personal or Business Instagram account
+* NEW —> Hashtag-based Instagram feed to show photos by Instagram hashtag, also public hashtag
 * Profile-based Instagram feed to show photos by Instagram profiles
-* Instagram video visualization
 * Instagram Widget for sidebars to publish Instagram feed with carousel and grid visualization
 * Instagram Carousel feed and Instagram Grid feed to add with Shortcode
 * Shortcode button in the editor page and post
 
 
 * Pictures Transition for carousel: one picture / more pictures at a time
-* Option for activating Navigation in carousel view (yes/no)
+* Option for activating Navigation in Carousel view (yes/no)
 * Customization for Number of Instagram pictures to see in the same time
 
 * Number of columns and rows customizable
@@ -50,20 +59,20 @@ Once you have installed our plugin Enjoy Instagram, thanks to the presence of En
 * Completely responsive and Optimized for Mobile Devices
 * Instagram pictures with squared format supported
 
-* One click set up.
+* One click set up
 * Php 7 compatible
 
-= Very Simple Installation and Configuration for Enjoy Instagram =
+= Very Simple Installation and Configuration for Enjoy Social Feed Plugin for WordPress =
 
 [http://www.mediabetaprojects.com/enjoy-instagram-premium/install-enjoy-instagram-wordpress-plugin/](http://www.mediabetaprojects.com/enjoy-instagram-premium/install-enjoy-instagram-wordpress-plugin/)
 
-= Enjoy Instagram PREMIUM VERSION =
+= Enjoy Social Feed Plugin for WordPress PREMIUM VERSION =
 
-Enjoy Instagram is the only Wordpress plugin with a MODERATION PANEL which allows you to display or not the images in the pages, posts and sidebars.
+Enjoy Social Feed Plugin for WordPress is the only Wordpress plugin with a MODERATION PANEL which allows you to display or not the images in the pages, posts and sidebars.
 The last plugin version now supports multi hashtags and profiles, pictures with square format, grid view with a border between pictures.
 
 
-= Features supported in Enjoy Instagram Premium version =
+== PREMIUM FEATURES in Enjoy Social Feed Plugin for WordPress ==
 
 * More shortcodes in the same page or post to display multiple instagram feeds
 * More shortcodes for different hashtags or profiles in the same page or post
@@ -76,6 +85,9 @@ The last plugin version now supports multi hashtags and profiles, pictures with 
 * Instagram Carousel, Instagram Grid, Instagram Polaroid, Instagram Album and Badge view
 * On click, Pictures of different views can be redirected to Instagram page, to a particular website or opened in a Lightbox
 * The Lightbox displays Instagram pictures as a slideshow with media caption
+
+* MODERATION PANEL to approve or reject, in real time, some pictures on your Instagram Feed
+
 * NEW - Performance improved
 * NEW - Cleaned and optimizated code
 * NEW - Improved css and js loading
@@ -88,14 +100,14 @@ For Lightbox you can set:
 * to Show Likes Count
 * to Show author
 
-<strong>Instagram Widget feature</strong>
-Instagram Widget is one feature of Enjoy Instagram plugin for WordPress.
+<strong>INSTAGRAM WIDGET FEATURE</strong>
+Instagram Widget is one feature of Social Feed Plugin for WordPress.
 Once you installed it, you will be able to use Carousel and Grid widget in the dedicated Section.
 
-You will have only to drag the widget “Enjoy Instagram” in the sidebar you want to customize. To arrange the Widget within the Sidebar, click, drag and drop the widget in the order you want.
+You will have only to drag the widget in the sidebar you want to customize. To arrange the Widget within the Sidebar, click, drag and drop the widget in the order you want.
 [DEMO for Instagram Widget on website WordPress](https://www.mediabetaprojects.com/enjoy-instagram-premium/widget-instagram-on-your-website-how-to/)
 
-= For Instagram Carousel feed view you can set: =
+= FOR INSTAGRAM CAROUSEL FEED you can set: =
 * images displayed at a time
 * animation in / animation out
 * show different number of images for different screen resolution
@@ -104,7 +116,7 @@ You will have only to drag the widget “Enjoy Instagram” in the sidebar you w
 
 [DEMO for Instagram Carousel feed on website WordPress](https://www.mediabetaprojects.com/enjoy-instagram-premium/carousel-view-instagram-wordpress-plugin/)
 
-= For Instagram Grid feed view you can set: =
+= FOR INSTAGRAM GRID FEED you can set: =
 * the number of rows and columns for the different shortcodes
 * the number of images that are replaced at the same time
 * interval the images will be replaced
@@ -113,7 +125,7 @@ You will have only to drag the widget “Enjoy Instagram” in the sidebar you w
 
 [DEMO for Instagram Grid feed on website WordPress](https://www.mediabetaprojects.com/enjoy-instagram-premium/grid-view-instagram-plugin/)
 
-= For Polaroid Instagram feed view you can set: =
+= FOR INSTAGRAM POLAROID FEED you can set: =
 * to show info (caption) on back
 * color background, border width, border color
 
@@ -130,12 +142,12 @@ See Also demo for:
 = See LIVE PREVIEW: =
 [http://www.mediabetaprojects.com/enjoy-instagram-premium/](http://www.mediabetaprojects.com/enjoy-instagram-premium/)
 
-= Other features: =
+= OTHER FEATURES: =
 
 * Instagram Album View to show your pictures organized for Instagram username and or Instagram hashtags
 * Instagram Badge View that will help you link to and promote your Instagram web profile
 * Autoreload Stream of Instagram Photos
-* Moderation Panel: In real time you can moderate new Instagram photos and decide to approve and to publish or to rejected (Watch how it works:
+* MODERATION PANEL: In real time you can moderate new Instagram photos and decide to approve and to publish or to rejected (Watch how it works:
 [youtube https://www.youtube.com/watch?v=W6gNqlghbLE]
 * Autoplay
 * Loop
@@ -147,29 +159,29 @@ See Also demo for:
 
 and many others features..
 
-= LIVE PREMIUM VERSION DEMO for Enjoy Instagram: =
+= LIVE PREMIUM VERSION DEMO for Enjoy Social Feed Plugin for WordPress: =
 [http://www.mediabetaprojects.com/enjoy-instagram-premium/](http://www.mediabetaprojects.com/enjoy-instagram-premium/)
 
-Contributors:
-F.Prestipino, F.Di Pane Masi, A.Nucita and F.Micali
+
 
 == Installation ==
 
 Installation and Configuration are very simple :
 
-1. After you have installed and activated the plugin , go to Settings - > Enjoy Instagram and follow the instructions on the screen.
-2. To add shortcode to editor click on the  Enjoy Instagram icon and choose where include a Carousel View or a Grid View.
+1. After you have installed and activated the plugin , go to Settings and follow the instructions on the screen.
+2. To add shortcode to editor click on the plugin icon and choose where include a Carousel View or a Grid View.
 3. Configure the display of your shortcodes from the plugin settings page
-4. To add to the Sidebar Enjoy Instagram go to Appearance - > Widgets and configure to your liking widgets Enjoy Instagram
+4. To add to the Sidebar Social Feed Plugin for WordPress go to Appearance - > Widgets and configure.
+
 
 
 == Frequently Asked Questions ==
 
-= “Important: "Instagram has changed its API. You need to install the latest version of our plugin and then, necessarily, you'll have to disconnect and then reconnect your Instagram account (from the "settings" page) in order to keep your Enjoy Plugin Instagram functioning after the 1st of June ". =
+= “Important: Instagram is changing its APIs and access to its old ones it will be, permanently, blocked on June 29, 2020.” =
 
 —————
 
-= How to Install Enjoy Instagram WordPress Plugin =
+= How to Install Enjoy Social Feed Plugin for WordPress on your WordPress Website =
 [https://www.mediabetaprojects.com/enjoy-instagram-premium/install-enjoy-instagram-wordpress-plugin/](https://www.mediabetaprojects.com/enjoy-instagram-premium/install-enjoy-instagram-wordpress-plugin/)
 
 
@@ -178,7 +190,7 @@ Sometimes, when you upgrade the plugin you need also to hook again your Instagra
 
 
 = Where can i find ShortCodes ? =
-The shortcodes are automatically generated by clicking the “Enjoy Instagram Button” that you can see on text editor of posts and pages.
+The shortcodes are automatically generated by clicking the “Enjoy Button” that you can see on text editor of posts and pages.
 If you do not see the button of shortcodes, ​you can use these ​shortcode​s​ to:
 
 [enjoyinstagram_mb] -> Instagram Carousel View
@@ -189,8 +201,8 @@ In the Setting section yon can customize grid and/or Carousel view
 
 == Screenshots ==
 
-1. Enjoy Instagram settings page
-2. Enjoy Instagram settings page2
+1. Enjoy Social Feed Plugin for WordPress settings page
+2. Enjoy Social Feed Plugin for WordPress settings page2
 3. Your Instagram Profile
 4. Control Panel for Grid View and Carousel View Settings
 5. Front End View Example
@@ -200,6 +212,26 @@ In the Setting section yon can customize grid and/or Carousel view
 
 == Changelog ==
 
+= 5.0.8 =
+* Add Showcase and Polaroid templates for Instagram Carousel feed
+= 5.0.7 =
+* Bug fix 
+= 5.0.6 =
+* Low thumbnail size and Bug fixing
+= 5.0.5 =
+* Bug fixing and Improvments (Add a debug TAB)
+= 5.0.4 =
+* Bug Fix
+= 5.0.3 =
+* Bug Fix
+= 5.0.2 =
+* Bug Fix
+= 5.0.1 =
+* Fix bug video
+= 5.0 =
+* Compatibility with the new Instagram API's: Basic Display API and Graph API
+= 4.0.7 =
+* Removed useless param scope from authorization url
 = 4.0.6 =
 * Fix missing overlay icons
 = 4.0.5 =
@@ -226,19 +258,19 @@ In the Setting section yon can customize grid and/or Carousel view
 = 3.4.2 =
 * Bug Fix
 = 3.4.1 =
-* NB: Enjoy Instagram feed on website Wordpress is Php 7 compatible
+* NB: Enjoy Social Feed Plugin for WordPress feed on website Wordpress is Php 7 compatible
 = 3.4 =
-* Bux fixing: Instagram feed on website Wordpress full compatibility with DIVI theme  
+* Bux fixing: Instagram feed on website Wordpress full compatibility with DIVI theme
 = 3.3 =
 * New: Video Instagram feed visualization for browser supporting HTML5
 * Fixed: Minor issues
 = 3.2 =
-* New: Enjoy Instagram feed with squared format supported
+* New: Social Feed Plugin for WordPress with squared format supported
 * Fixed: Minor issues
 = 3.1 =
 * Fixed: Minor issues
 = 3.0 =
-* New: Enjoy Instagram feed on website full compatible with New Instagram Api Implementation
+* New: Enjoy Social Feed Plugin for WordPress on website full compatible with New Instagram Api Implementation
 = 2.1.3 =
 * Add Shortcakes Info
 = 2.1.2 =
@@ -262,7 +294,7 @@ In the Setting section yon can customize grid and/or Carousel view
 = 1.6 =
 * Add support for https protocol
 = 1.5.3 =
-* Support for swedish specific characters on captions of Instagram feed on website 
+* Support for swedish specific characters on captions of Instagram feed on website
 = 1.5.2 =
 * Bug for utf8 4-byte (mobile emoticon) Fixed
 = 1.5.1 =
@@ -280,4 +312,4 @@ In the Setting section yon can customize grid and/or Carousel view
 = 1.01 =
 * Bux Fix
 = 1.0 =
-* Initial Version of Enjoy Instagram feed on website
+* Initial Version of Enjoy Social Feed Plugin for WordPress feed on website

@@ -1,4 +1,4 @@
-/*! Swipebox v1.3.0.2 | Constantin Saguin csag.co | MIT License | github.com/brutaldesign/swipebox */
+/*! Swipebox v1.4.4 | Constantin Saguin csag.co | MIT License | github.com/brutaldesign/swipebox */
 
 ;( function ( window, document, $, undefined ) {
 
@@ -8,6 +8,7 @@
 		var ui,
 			defaults = {
 				useCSS : true,
+				useSVG : true,
 				initialIndexOnArray : 0,
 				removeBarsOnMobile : true,
 				hideCloseButtonOnMobile : false,
@@ -17,17 +18,19 @@
 				beforeOpen: null,
 				afterOpen: null,
 				afterClose: null,
+				afterMedia: null,
+				nextSlide: null,
+				prevSlide: null,
 				loopAtEnd: false,
 				autoplayVideos: false,
 				queryStringData: {},
-                toggleClassOnLoad: ''
+				toggleClassOnLoad: ''
 			},
 
 			plugin = this,
 			elements = [], // slides array [ { href:'...', title:'...' }, ...],
 			$elem,
 			selector = elem.selector,
-			$selector = $( selector ),
 			isMobile = navigator.userAgent.match( /(iPad)|(iPhone)|(iPod)|(Android)|(PlayBook)|(BB10)|(BlackBerry)|(Opera Mini)|(IEMobile)|(webOS)|(MeeGo)/i ),
 			isTouch = isMobile !== null || document.createTouch !== undefined || ( 'ontouchstart' in window ) || ( 'onmsgesturechange' in window ) || navigator.msMaxTouchPoints,
 			supportSVG = !! document.createElementNS && !! document.createElementNS( 'http://www.w3.org/2000/svg', 'svg').createSVGRect,
@@ -89,12 +92,12 @@
 					}
 
 					elements = [];
-					var index , relType, relVal;
+					var index, relType, relVal;
 
 					// Allow for HTML5 compliant attribute before legacy use of rel
 					if ( ! relVal ) {
 						relType = 'data-rel';
-						relVal  = $( this ).attr( relType );
+						relVal = $( this ).attr( relType );
 					}
 
 					if ( ! relVal ) {
@@ -103,7 +106,7 @@
 					}
 
 					if ( relVal && relVal !== '' && relVal !== 'nofollow' ) {
-						$elem = $selector.filter( '[' + relType + '="' + relVal + '"]' );
+						$elem = $( selector ).filter( '[' + relType + '="' + relVal + '"]' );
 					} else {
 						$elem = $( selector );
 					}
@@ -154,7 +157,7 @@
 				this.preloadMedia( index+1 );
 				this.preloadMedia( index-1 );
 				if ( plugin.settings.afterOpen ) {
-					plugin.settings.afterOpen();
+					plugin.settings.afterOpen(index);
 				}
 			},
 
@@ -684,9 +687,17 @@
 					$this.loadMedia( src, function() {
 						slide.removeClass( 'slide-loading' );
 						slide.html( this );
+
+						if ( plugin.settings.afterMedia ) {
+							plugin.settings.afterMedia( index );
+						}
 					} );
 				} else {
 					slide.html( $this.getVideo( src ) );
+
+					if ( plugin.settings.afterMedia ) {
+						plugin.settings.afterMedia( index );
+					}
 				}
 
 			},
@@ -717,7 +728,7 @@
 			isVideo : function ( src ) {
 
 				if ( src ) {
-					if ( src.match( /youtube\.com\/watch\?v=([a-zA-Z0-9\-_]+)/) || src.match( /vimeo\.com\/([0-9]*)/ ) || src.match( /youtu\.be\/([a-zA-Z0-9\-_]+)/ ) ||  src.match( /mp4/ )) {
+					if ( src.match( /(youtube\.com|youtube-nocookie\.com)\/watch\?v=([a-zA-Z0-9\-_]+)/) || src.match( /vimeo\.com\/([0-9]*)/ ) || src.match( /youtu\.be\/([a-zA-Z0-9\-_]+)/ ) ) {
 						return true;
 					}
 
@@ -742,8 +753,10 @@
 				a.href = decodeURIComponent( uri );
 
 				// QueryString to Object
-				qs = JSON.parse( '{"' + a.search.toLowerCase().replace('?','').replace(/&/g,'","').replace(/=/g,'":"') + '"}' );
-
+				if ( a.search ) {
+					qs = JSON.parse( '{"' + a.search.toLowerCase().replace('?','').replace(/&/g,'","').replace(/=/g,'":"') + '"}' );
+				}
+				
 				// Extend with custom data
 				if ( $.isPlainObject( customData ) ) {
 					qs = $.extend( qs, customData, plugin.settings.queryStringData ); // The dev has always the final word
@@ -762,29 +775,37 @@
 			/**
 			 * Get video iframe code from URL
 			 */
-			 getVideo : function( url ) {
- 				var iframe = '',
- 					youtubeUrl = url.match( /watch\?v=([a-zA-Z0-9\-_]+)/ ),
- 					youtubeShortUrl = url.match(/youtu\.be\/([a-zA-Z0-9\-_]+)/),
- 					vimeoUrl = url.match( /vimeo\.com\/([0-9]*)/ );
- 					instagramUrl = url.match(/cdninstagram\.com\/([a-zA-Z0-9\-_\-.\--]+)\/([a-zA-Z0-9\-_\-.\--]+)/);
- 				if ( youtubeUrl || youtubeShortUrl) {
- 					if ( youtubeShortUrl ) {
- 						youtubeUrl = youtubeShortUrl;
- 					}
- 					iframe = '<iframe width="560" height="315" src="//www.youtube.com/embed/' + youtubeUrl[1] + '" frameborder="0" allowfullscreen></iframe>';
+			getVideo : function( url ) {
+				var iframe = '',
+					youtubeUrl = url.match( /((?:www\.)?youtube\.com|(?:www\.)?youtube-nocookie\.com)\/watch\?v=([a-zA-Z0-9\-_]+)/ ),
+					youtubeShortUrl = url.match(/(?:www\.)?youtu\.be\/([a-zA-Z0-9\-_]+)/),
+					vimeoUrl = url.match( /(?:www\.)?vimeo\.com\/([0-9]*)/ ),
+					qs = '';
+				if ( youtubeUrl || youtubeShortUrl) {
+					if ( youtubeShortUrl ) {
+						youtubeUrl = youtubeShortUrl;
+					}
+					qs = ui.parseUri( url, {
+						'autoplay' : ( plugin.settings.autoplayVideos ? '1' : '0' ),
+						'v' : ''
+					});
+					iframe = '<iframe width="560" height="315" src="//' + youtubeUrl[1] + '/embed/' + youtubeUrl[2] + '?' + qs + '" frameborder="0" allowfullscreen></iframe>';
 
- 				} else if ( vimeoUrl ) {
+				} else if ( vimeoUrl ) {
+					qs = ui.parseUri( url, {
+						'autoplay' : ( plugin.settings.autoplayVideos ? '1' : '0' ),
+						'byline' : '0',
+						'portrait' : '0',
+						'color': plugin.settings.vimeoColor
+					});
+					iframe = '<iframe width="560" height="315"  src="//player.vimeo.com/video/' + vimeoUrl[1] + '?' + qs + '" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
 
- 					iframe = '<iframe width="560" height="315"  src="//player.vimeo.com/video/' + vimeoUrl[1] + '?byline=0&amp;portrait=0&amp;color='+plugin.settings.vimeoColor+'" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>';
+				} else {
+					iframe = '<iframe width="560" height="315" src="' + url + '" frameborder="0" allowfullscreen></iframe>';
+				}
 
- 				}else if ( instagramUrl ) {
-
- 					iframe = '<video id="inst_video" controls allowfullscreen>  <source src=' + url + '> Your browser does not support HTML5 video</video>';
- 				}
-
- 				return '<div class="swipebox-video-container" style="max-width:' + plugin.settings.videomaxWidth + 'px"><div class="swipebox-video;">'+iframe+'</div></div>';
- 			},
+				return '<div class="swipebox-video-container" style="max-width:' + plugin.settings.videoMaxWidth + 'px"><div class="swipebox-video">' + iframe + '</div></div>';
+			},
 
 			/**
 			 * Load image
@@ -829,6 +850,9 @@
 					index++;
 					$this.setSlide( index );
 					$this.preloadMedia( index+1 );
+					if ( plugin.settings.nextSlide ) {
+						plugin.settings.nextSlide(index);
+					}
 				} else {
 
 					if ( plugin.settings.loopAtEnd === true ) {
@@ -838,6 +862,9 @@
 						$this.preloadMedia( index );
 						$this.setSlide( index );
 						$this.preloadMedia( index + 1 );
+						if ( plugin.settings.nextSlide ) {
+							plugin.settings.nextSlide(index);
+						}
 					} else {
 						$( '#swipebox-overlay' ).addClass( 'rightSpring' );
 						setTimeout( function() {
@@ -859,12 +886,23 @@
 					index--;
 					this.setSlide( index );
 					this.preloadMedia( index-1 );
+					if ( plugin.settings.prevSlide ) {
+						plugin.settings.prevSlide(index);
+					}
 				} else {
 					$( '#swipebox-overlay' ).addClass( 'leftSpring' );
 					setTimeout( function() {
 						$( '#swipebox-overlay' ).removeClass( 'leftSpring' );
 					}, 500 );
 				}
+			},
+			/* jshint unused:false */
+			nextSlide : function ( index ) {
+				// Callback for next slide
+			},
+
+			prevSlide : function ( index ) {
+				// Callback for prev slide
 			},
 
 			/**

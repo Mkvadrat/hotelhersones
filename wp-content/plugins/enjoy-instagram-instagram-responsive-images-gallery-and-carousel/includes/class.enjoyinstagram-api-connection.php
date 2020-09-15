@@ -1,234 +1,345 @@
 <?php
 /**
- * This class handles Instagram API connection
+ * This class handles API connection
  */
 
-if( ! defined( 'ABSPATH' ) ) {
-    exit; // exit if call directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // exit if call directly
 }
 
 class EnjoyInstagram_Api_Connection {
 
-    /**
-     * Single plugin instance
-     * @since 4.0.0
-     * @var \EnjoyInstagram_Api_Connection
-     */
-    protected static $instance;
+	/**
+	 * Single plugin instance
+	 * @since 9.0.0
+	 * @var EnjoyInstagram_Api_Connection
+	 */
+	protected static $instance;
 
-    /**
-     * String Access Token
-     * @var string
-     */
-    public $access_token = '';
+	/**
+	 * Last error during api calls
+	 *
+	 * @var string
+	 */
+	public $last_error = '';
 
-    /**
-     * Returns single instance of the class
-     *
-     * @return \EnjoyInstagram_Api_Connection
-     * @since 1.0.0
-     */
-    public static function get_instance(){
-        if( is_null( self::$instance ) ){
-            self::$instance = new self();
-        }
+	/**
+	 * Returns single instance of the class
+	 *
+	 * @return EnjoyInstagram_Api_Connection
+	 * @since 1.0.0
+	 */
+	public static function get_instance() {
+		if ( is_null( self::$instance ) ) {
+			self::$instance = new self();
+		}
 
-        return self::$instance;
-    }
+		return self::$instance;
+	}
 
-    /**
-     * Construct
-     *
-     * @return void
-     */
-    private function __construct(){
-        $this->access_token = get_option('enjoyinstagram_access_token', '');
-    }
+	/**
+	 * @param $segment
+	 * @param $access_token
+	 * @param $is_business
+	 *
+	 * @return array|bool
+	 */
+	public function get_user_profile( $segment, $access_token, $is_business ) {
 
-    /**
-     * Handle curl connection to API
-     *
-     * @since 4.0.0
-     * @param string $api_url
-     * @return mixed
-     */
-    private function _curl_connect( $api_url ){
-        try {
-            $connection_c = curl_init(); // initializing
-            curl_setopt( $connection_c, CURLOPT_URL, $api_url ); // API URL to connect
-            curl_setopt( $connection_c, CURLOPT_RETURNTRANSFER, true ); // return the result, do not print
-            curl_setopt( $connection_c, CURLOPT_TIMEOUT, 30 );
-            curl_setopt( $connection_c, CURLOPT_SSL_VERIFYPEER, false );
-            $json_return = curl_exec( $connection_c ); // connect and get json data
-            curl_close( $connection_c ); // close connection
-            return json_decode( $json_return, true ); // decode and return
-        }
-        catch( Exception $e ) {
-            return array();
-        }
-    }
+		$meta   = [];
+		$params = array(
+			'access_token' => $access_token,
+			'fields'       => $is_business ? 'media_count,username,website,name,profile_picture_url,biography' : 'id,media_count,username,account_type'
+		);
 
-    /**
-     * Get data
-     *
-     * @since 4.0.0
-     * @param string $url
-     * @param integer $count
-     * @param array $hashtags
-     * @return array
-     */
-    private function _get_data( $url, $count, $hashtags ) {
+		$response = $this->_get_remote_data( $segment, $params, $is_business );
 
-        $result         = $this->_curl_connect( $url );
-        $res            = $result;
-        $res['data']    = array(); // reset data
-        $hashtags       = array_filter( $hashtags ); // be sure to remove empty values
+		if ( is_wp_error( $response ) ) {
+			return false;
+		}
 
-        if( ! isset( $result['data'] ) ) {
-            return $res;
-        }
+		if ( $is_business ) {
+			$meta_params   = array(
+				'fields'       => 'followers_count,media_count,follows_count',
+				'access_token' => $access_token
+			);
+			$meta_response = $this->_get_remote_data( $response['id'], $meta_params, $is_business );
 
-        foreach( $result['data'] as $post ) {
-            if( ! empty( $hashtags ) ){
-                foreach( $hashtags as $hash ){
-                    if( in_array( $hash, $post["tags"] ) && ! in_array( $post, $res['data'] ) ){
-                        array_push( $res['data'], $post );
-                    }
-                }
-            } else{
-                array_push( $res['data'], $post );
-            }
-        }
+			if ( ! is_wp_error( $meta_response ) ) {
+				$meta = $meta_response;
+			}
+		}
 
-        if( count( $res['data'] ) < $count && isset( $result['pagination']['next_url'] ) ){
+		return array(
+			'business'        => $is_business,
+			'username'        => $response['username'],
+			'website'         => $is_business && isset( $response['website'] ) ? $response['website'] : '',
+			'profile_picture' => $is_business && isset( $response['profile_picture_url'] ) ? $response['profile_picture_url'] : '',
+			'bio'             => $is_business && isset( $response['biography'] ) ? $response['biography'] : '',
+			'full_name'       => $is_business && isset( $response['name'] ) ? $response['name'] : '',
+			'id'              => $response['id'],
+			'count'           => $response['media_count'],
+			'meta'            => $meta
+		);
+	}
 
-            do {
+	/**
+	 * Get user profiles
+	 *
+	 * @param string $access_token
+	 * @param bool $is_business_profile
+	 *
+	 * @return array|false
+	 * @author Giulio Ganci
+	 * @since 11.0.0
+	 */
+	public function get_user_accounts( $access_token, $is_business_profile ) {
 
-                if( empty( $result['pagination']['next_url'] ) ) {
-                    break;
-                }
+		$params['access_token'] = $access_token;
+		$accounts               = [];
+		$profiles               = [];
 
-                $result = $this->_curl_connect( $result['pagination']['next_url'] );
-                if( empty( $result['data'] ) ) {
-                    break;
-                }
+		if ( $is_business_profile ) {
+			// check is the profile is a real business user
+			$accounts = $this->get_business_accounts( $access_token );
 
-                foreach( $result['data'] as $post ) {
+			if ( empty( $accounts ) ) {
+				$this->last_error = __( 'There was an error with account connection; please, make sure to be a business account and try again!',
+					'enjoyinstagram' );
 
-                    if( count( $res['data'] ) == $count ) {
-                        break;
-                    }
+				return false;
+			}
+		}
 
-                    if( ! empty( $hashtags ) ){
-                        foreach( $hashtags as $hash ){
-                            if( in_array( $hash, $post["tags"] ) && ! in_array( $post, $res['data'] ) ){
-                                array_push( $res['data'], $post );
-                            }
-                        }
-                    } else {
-                        array_push( $res['data'], $post );
-                    }
-                }
-            } while( count( $res['data'] ) < $count );
-        }
+		// for basic display api users
+		if ( empty( $accounts ) ) {
+			$accounts[] = [ 'id' => 'me', 'access_token' => $access_token ];
+		}
 
-        return $res;
-    }
+		foreach ( $accounts as $acc ) {
 
-    /**
-     * Get user info
-     *
-     * @since 4.0.0
-     * @param string $user
-     * @param string $access_token
-     * @return array
-     */
-    public function get_user_info( $access_token = '', $user = '' ){
-        if( ! $access_token  ) {
-            return array();
-        }
+			$profile = $this->get_user_profile( $acc['id'], $acc['access_token'], $is_business_profile );
+			if ( $profile ) {
+				$profile['access_token'] = $acc['access_token'];
+				$profiles[]              = $profile;
+			}
+		}
 
-        $url = 'https://api.instagram.com/v1/users/self/?access_token='.$access_token;
-        return $this->_curl_connect( $url );
-    }
+		return $profiles;
+	}
 
-    /**
-     * Get user
-     *
-     * @since 4.0.0
-     * @param string $user
-     * @param integer $count
-     * @param string $hashtag
-     * @return array|boolean
-     */
-    public function get_user( $user, $count = 20, $hashtag = "" ){
-        $hashtags       = explode( ',', $hashtag );
-        $url            = 'https://api.instagram.com/v1/users/self/media/recent?count='.$count.'&access_token='.$this->access_token;
+	/**
+	 * Returns the IG user media files
+	 *
+	 * @param $user
+	 * @param int $limit
+	 * @param string $next
+	 *
+	 * @return array
+	 * @author Giulio Ganci
+	 * @since 11.0.0
+	 */
+	public function get_user_media( $user, $limit = 20, $next = '' ) {
 
-        return $this->_get_data( $url, $count, $hashtags );
-    }
+		$limit  = min( $limit, 200 );
+		$return = [ 'data' => [], 'next' => '' ];
 
-    /**
-     * Get hashtag media
-     *
-     * @since 4.0.0
-     * @param integer $count
-     * @param string $hashtags
-     * @return array|boolean
-     */
-    public function get_hash( $hashtags, $count = 20 ){
-        $hashtags       = str_replace( '#', '', $hashtags );
-        $hashtags       = explode( ',', $hashtags );
-        $url            = 'https://api.instagram.com/v1/users/self/media/recent?count=1&access_token='.$this->access_token;
+		if ( empty( $next ) ) {
+			$response = $this->_get_remote_data( "{$user['id']}/media", array(
+				'fields'       => 'media_url,thumbnail_url,caption,id,media_type,timestamp,username,permalink,like_count,children{media_url,id,media_type,timestamp,permalink,thumbnail_url}',
+				'access_token' => $user['access_token'],
+				'limit'        => $limit
+			), $user['business'] );
+		} else {
+			$response = $this->_get_remote_data( $next );
+		}
 
-        return $this->_get_data( $url, $count, $hashtags );
-    }
+		if ( is_wp_error( $response ) ) {
+			return $return;
+		}
 
-    /**
-     * Get user code
-     *
-     * @since 4.0.0
-     * @param string $user
-     * @param integer $count
-     * @return string
-     */
-    public function get_user_code( $user, $count ){
+		$return['data'] = $this->map_media( $response['data'] );
 
-        if( ! $this->access_token ) {
-            return '';
-        }
+		if ( isset( $response['paging'] ) && isset( $response['paging']['next'] ) && ! empty( $response['paging']['next'] ) ) {
+			$return['next'] = $response['paging']['next'];
+		}
 
-        $url            = 'https://api.instagram.com/v1/users/self/media/recent?count='.$count.'&access_token='.$this->access_token;
-        $result         = $this->_curl_connect( $url );
+		return $return;
+	}
 
-        return isset( $result['meta']['code'] ) ? $result['meta']['code'] : '';
-    }
+	/**
+	 * Fetch remote API data
+	 *
+	 * @param string $segment
+	 * @param array $params
+	 * @param bool $graph_api
+	 *
+	 * @return array|WP_Error
+	 * @author Giulio Ganci
+	 * @since 11.0.0
+	 */
+	private function _get_remote_data( $segment = '', $params = [], $graph_api = true ) {
 
-    /**
-     * Get a media
-     *
-     * @since 4.0.0
-     * @param string $user
-     * @param string $media
-     * @return array
-     */
-    public function get_media( $user, $media ){
+		if ( strpos( $segment, 'http' ) !== false ) {
+			$url = $segment;
+		} else {
+			$api_url = $graph_api ? 'https://graph.facebook.com/' : 'https://graph.instagram.com/';
+			$url     = $api_url . $segment . '?' . http_build_query( $params );
+		}
 
-       if( ! $this->access_token ) {
-           return array();
-       }
+		$args = array(
+			'timeout'   => 60,
+			'sslverify' => false
+		);
 
-       $url            = 'https://api.instagram.com/v1/media/'.$media.'?access_token='.$this->access_token;
-       return $this->_curl_connect( $url );
-    }
+		$this->last_error = '';
+		$response         = wp_remote_get( $url, $args );
+
+		if ( ! is_wp_error( $response ) ) {
+			// certain ways of representing the html for double quotes causes errors so replaced here.
+			$response = json_decode( str_replace( '%22', '&rdquo;', $response['body'] ), true );
+		}
+
+		if ( isset( $response['error'] ) ) {
+			$this->last_error = $response['error']['message'];
+			$response         = new WP_Error( $response['error']['code'], $response['error']['message'] );
+		}
+
+		return $response;
+	}
+
+	/**
+	 * Returns the id of each instagram account linked to the given access token
+	 *
+	 * @param string $access_token
+	 *
+	 * @return array
+	 * @since 11.0.1
+	 */
+	public function get_business_accounts( $access_token ) {
+
+		$data = $this->_get_remote_data( 'me/accounts', array(
+			'access_token' => $access_token,
+			'fields'       => 'instagram_business_account,access_token,name',
+			'limit'        => 500
+		), true );
+
+		$accounts = array();
+
+		if ( is_wp_error( $data ) || ! isset( $data['data'] ) ) {
+			return $accounts;
+		}
+
+		foreach ( $data['data'] as $account ) {
+
+			if ( empty( $account['instagram_business_account'] ) || empty( $account['instagram_business_account']['id'] ) ) {
+				continue;
+			}
+
+			$accounts[] = [
+				'id'           => $account['instagram_business_account']['id'],
+				'access_token' => $account['access_token']
+			];
+		}
+
+		return $accounts;
+	}
+
+	/**
+	 * Search business hashtag
+	 *
+	 * Get first the hashtag ID
+	 * GET graph.facebook.com/ig_hashtag_search?user_id=17841405309211844&q=bluebottle&access_token={access-token}
+	 * then get top media
+	 * GET graph.facebook.com/{hashtag-id}/top_media?user_id={user-id}&fields=id,media_type,comments_count,like_count&access_token={access-token}
+	 *
+	 * @param array $user
+	 * @param string $hashtag
+	 *
+	 * @return array
+	 * @since 11.0.0
+	 */
+	public function search_business_hashtag( $user, $hashtag ) {
+
+		$params       = array( 'user_id' => $user['id'], 'access_token' => $user['access_token'], 'q' => $hashtag );
+		$hashtag_data = $this->_get_remote_data( 'ig_hashtag_search', $params, true );
+		if ( empty( $hashtag_data['data'] ) ) {
+			return array();
+		}
+
+		$hashtag    = array_shift( $hashtag_data['data'] );
+		$hashtag_id = intval( $hashtag['id'] );
+		$params     = array(
+			'user_id'      => $user['id'],
+			'access_token' => $user['access_token'],
+			'fields'       => 'id,permalink,media_url,caption,like_count,media_type'
+		);
+		$medias     = $this->_get_remote_data( "{$hashtag_id}/top_media", $params, true );
+
+		if ( is_wp_error( $medias ) ) {
+			return array();
+		}
+
+		if ( empty( $medias['data'] ) ) {
+			return array();
+		}
+
+		$filtered_medias = [];
+		foreach ( $medias['data'] as $media ) {
+			if ( isset( $media['media_url'] ) && $media['media_url'] ) {
+				$filtered_medias[] = $media;
+			}
+		}
+
+		return $this->map_media( $filtered_medias );
+	}
+
+	/**
+	 * Map instagram media in a custom format
+	 *
+	 * @param array $data
+	 *
+	 * @return array
+	 * @since 11.0.0
+	 */
+	protected function map_media( $data ) {
+
+		$return = [];
+
+		foreach ( $data as $media ) {
+
+			$caption = isset( $media['caption'] ) ? sanitize_text_field( $media['caption'] ) : '';
+			$thumb   = null;
+
+			if ( isset( $media['thumbnail_url'] ) ) {
+				$thumb = $media['thumbnail_url'];
+			} else if ( $media['media_type'] === 'IMAGE' || $media['media_type'] === 'CAROUSEL_ALBUM' ) {
+				$thumb = $media['permalink'] . 'media?site=t';
+			}
+
+			$return[] = array(
+				'image_id'      => trim( $media['id'] ),
+				'image_link'    => $media['permalink'],
+				'image_url'     => $media['media_url'],
+				'thumbnail_url' => $thumb,
+				'user'          => isset( $media['username'] ) ? $media['username'] : '',
+				'caption'       => isset( $media['caption'] ) ? sanitize_text_field( $media['caption'] ) : '',
+				'likes'         => isset( $media['like_count'] ) ? $media['like_count'] : 0,
+				'tags'          => enjoyinstagram_extract_hashtags( $caption ),
+				'date'          => isset( $media['timestamp'] ) ? strtotime( $media['timestamp'] ) : ''
+			);
+		}
+
+		return $return;
+	}
 }
 
 /**
  * Unique access to instance of EnjoyInstagram_Api_Connection class
  *
- * @return \EnjoyInstagram_Api_Connection
+ * @return EnjoyInstagram_Api_Connection
  * @since 9.0.0
  */
 function EnjoyInstagram_Api_Connection() {
-    return EnjoyInstagram_Api_Connection::get_instance();
+	return EnjoyInstagram_Api_Connection::get_instance();
 }

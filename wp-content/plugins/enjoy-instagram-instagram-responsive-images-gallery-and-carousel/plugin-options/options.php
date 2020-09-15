@@ -32,5 +32,6 @@ return apply_filters( 'enjoyinstagram_main_array_options', array(
         'enjoyinstagram_grid_cols'                          => '5',
         'enjoyinstagram_hashtag'                            => '',
         'enjoyinstagram_user_or_hashtag'                    => 'user',
+		'enjoyinstagram_carousel_template'              	=> 'default',
     )
 ));

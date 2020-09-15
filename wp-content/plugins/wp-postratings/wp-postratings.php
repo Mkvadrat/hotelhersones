@@ -3,7 +3,7 @@
 Plugin Name: WP-PostRatings
 Plugin URI: https://lesterchan.net/portfolio/programming/php/
 Description: Adds an AJAX rating system for your WordPress site's content.
-Version: 1.87
+Version: 1.89
 Author: Lester 'GaMerZ' Chan
 Author URI: https://lesterchan.net
 Text Domain: wp-postratings
@@ -11,7 +11,7 @@ Text Domain: wp-postratings
 
 
 /*
-	Copyright 2019 Lester Chan (email: lesterchan@gmail.com)
+	Copyright 2020 Lester Chan (email: lesterchan@gmail.com)
 
 	This program is free software; you can redistribute it and/or modify
 	it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Plugin version
  * Set wp-postratings plugin version.
  */
-define( 'WP_POSTRATINGS_VERSION', '1.87' );
+define( 'WP_POSTRATINGS_VERSION', '1.89' );
 
 /**
  * Rating logs table name
@@ -108,7 +108,8 @@ function the_ratings($start_tag = 'div', $custom_id = 0, $display = true) {
 	// HTML Attributes
 	$ratings_options = get_option('postratings_options');
 	$ratings_options['richsnippet'] = isset( $ratings_options['richsnippet'] ) ? $ratings_options['richsnippet'] : 1;
-	if( is_singular() && $ratings_options['richsnippet'] ) {
+	$disable_richsnippet = apply_filters( 'wp_postratings_disable_richsnippet', false );
+	if( ! $disable_richsnippet && is_singular() && $ratings_options['richsnippet'] ) {
 		$itemtype = apply_filters('wp_postratings_schema_itemtype', 'itemscope itemtype="http://schema.org/Article"');
 		$attributes = 'id="post-ratings-'.$ratings_id.'" class="post-ratings" '.$itemtype;
 	} else {
@@ -1180,20 +1181,20 @@ function expand_ratings_template($template, $post_data, $post_ratings_data = nul
 
 	if ( strpos( $template, '%POST_EXCERPT%') !== false ) {
 		if ( get_the_ID() !== $post_id ) {
-			$post = &get_post($post_id);
+			$post = get_post($post_id);
 		}
 		$post_excerpt = ratings_post_excerpt( $post_id, $post->post_excerpt, $post->post_content );
 		$value = str_replace('%POST_EXCERPT%', $post_excerpt, $value );
 	}
 	if ( strpos( $template, '%POST_CONTENT%' ) !== false ) {
 		if ( get_the_ID() !== $post_id ) {
-			$post = &get_post( $post_id );
+			$post = get_post( $post_id );
 		}
 		$value = str_replace('%POST_CONTENT%', get_the_content(), $value );
 	}
 	if ( strpos( $template, '%POST_THUMBNAIL%') !== false ) {
 		if ( get_the_ID() !== $post_id ) {
-			$post = &get_post( $post_id );
+			$post = get_post( $post_id );
 		}
 		$value = str_replace( '%POST_THUMBNAIL%', get_the_post_thumbnail( $post, 'thumbnail' ), $value );
 	}
@@ -1201,7 +1202,9 @@ function expand_ratings_template($template, $post_data, $post_ratings_data = nul
 	// Google Rich Snippet
 	$google_structured_data = '';
 	$ratings_options['richsnippet'] = isset( $ratings_options['richsnippet'] ) ? $ratings_options['richsnippet'] : 1;
-	if ( $ratings_options['richsnippet'] && is_singular() && $is_main_loop ) {
+	$ratings_options['richsnippet_ratings'] = isset( $ratings_options['richsnippet_ratings'] ) ? $ratings_options['richsnippet_ratings'] : 1;
+	$disable_richsnippet = apply_filters( 'wp_postratings_disable_richsnippet', false );
+	if ( ! $disable_richsnippet && $ratings_options['richsnippet'] && is_singular() && $is_main_loop ) {
 		$itemtype = apply_filters( 'wp_postratings_schema_itemtype', 'itemscope itemtype="http://schema.org/Article"' );
 
 		if ( empty( $post_excerpt ) ) {
@@ -1254,7 +1257,7 @@ function expand_ratings_template($template, $post_data, $post_ratings_data = nul
 		$post_meta .= '</div>';
 
 		$ratings_meta = '';
-		if ( $post_ratings_average > 0 ) {
+		if ( $ratings_options['richsnippet_ratings']  && $post_ratings_average > 0 ) {
 			$ratings_meta .= '<div style="display: none;" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">';
 			$ratings_meta .= '<meta itemprop="bestRating" content="' . $ratings_max . '" />';
 			$ratings_meta .= '<meta itemprop="worstRating" content="1" />';
@@ -1266,5 +1269,5 @@ function expand_ratings_template($template, $post_data, $post_ratings_data = nul
 		$google_structured_data =  apply_filters( 'wp_postratings_google_structured_data', ( empty( $itemtype ) ? $ratings_meta : ( $post_meta . $ratings_meta ) ) );
 	}
 
-	return apply_filters( 'wp_postratings_expand_ratings_template', $value . $google_structured_data );
+	return apply_filters( 'wp_postratings_expand_ratings_template', $value . $google_structured_data, $post_id );
 }

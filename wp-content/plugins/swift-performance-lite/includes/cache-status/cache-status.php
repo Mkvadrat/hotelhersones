@@ -111,7 +111,8 @@ class Swift_Performance_Cache_Status_Table extends WP_List_Table
             }
 
             // Filtering
-            if (isset($_REQUEST['s']) && !empty($_REQUEST['s']) && strpos(strtolower($url['url']), strtolower($_REQUEST['s'])) === false) {
+            $filter = str_replace('%2f','/',strtolower(urlencode(trim($_REQUEST['s'], " \t\n\r\0\x0B/"))));
+            if (isset($filter) && !empty($filter) && strpos(strtolower($url['url']), $filter) === false) {
                 continue;
             }
             if (isset($_REQUEST['cache-status-filter']) && !empty($_REQUEST['cache-status-filter']) && $cache_status != $_REQUEST['cache-status-filter']) {

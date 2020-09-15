@@ -273,8 +273,10 @@ class Mixin_Attach_To_Post extends Mixin
             $this->object->_displayed_gallery = $mapper->find($id, TRUE);
         } else {
             if (isset($_REQUEST['shortcode'])) {
-                $params = str_replace('ngg_images', '', base64_decode($_REQUEST['shortcode']));
-                $params = str_replace('ngg', '', base64_decode($_REQUEST['shortcode']));
+                // Fetch the displayed gallery by shortcode
+                $shortcode = base64_decode($_REQUEST['shortcode']);
+                // $shortcode lacks the opening and closing brackets but still begins with 'ngg ' or 'ngg_images ' which are not parameters
+                $params = preg_replace('/^(ngg|ngg_images) /i', '', $shortcode, 1);
                 $params = stripslashes($params);
                 $params = str_replace(array('[', ']'), array('&#91;', '&#93;'), $params);
                 $params = shortcode_parse_atts($params);
@@ -525,7 +527,7 @@ class Mixin_Attach_To_Post extends Mixin
         wp_enqueue_style('ngg_attach_to_post', $this->get_static_url('photocrati-attach_to_post#attach_to_post.css'), array(), NGG_SCRIPT_VERSION);
         wp_dequeue_script('debug-bar-js');
         wp_dequeue_style('debug-bar-css');
-        $this->enqueue_display_tab_js();
+        $this->object->enqueue_display_tab_js();
         do_action('ngg_igw_enqueue_scripts');
         do_action('ngg_igw_enqueue_styles');
         $this->stop_resource_monitoring();

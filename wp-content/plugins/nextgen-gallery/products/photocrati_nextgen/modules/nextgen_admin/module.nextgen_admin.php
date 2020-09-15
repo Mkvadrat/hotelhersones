@@ -26,7 +26,7 @@ class M_NextGen_Admin extends C_Base_Module
             'photocrati-nextgen_admin',
             'NextGEN Administration',
             'Provides a framework for adding Administration pages',
-            '3.2.21',
+            '3.3.11',
             'https://www.imagely.com/wordpress-gallery-plugin/nextgen-gallery/',
             'Imagely',
             'https://www.imagely.com'
@@ -134,6 +134,13 @@ class M_NextGen_Admin extends C_Base_Module
             // enqueue calls
             do_action($enqueue_action, $slug);
         }
+
+        // Have the toplevel "NextGEN Gallery" link to the Manage Galleries page 
+        wp_add_inline_script('common', "jQuery(function($){
+            var parent = $('.toplevel_page_nextgen-gallery');
+            var manageGalleryUrl = parent.find('a[href*=\"manage-gallery\"]').attr('href');
+            parent.attr('href', manageGalleryUrl);
+        })");
     }
 
     // Enqueues static resources that should be enqueued in the FOOTER on a NextGEN Admin Page
@@ -232,6 +239,8 @@ class M_NextGen_Admin extends C_Base_Module
         $notices->add($review_notice_3->get_name(), $review_notice_3);
 
         $notices->add('nextgen.beginner.gallery_creation_igw', 'C_NextGen_First_Run_Notification_Wizard');
+
+        $notices->add('mailchimp_opt_in', 'C_Mailchimp_OptIn_Notice');
     }
 
     /**
@@ -410,9 +419,9 @@ class M_NextGen_Admin extends C_Base_Module
         return C_NextGen_Admin_Page_Manager::is_requested_post_type() ? "$classes ngg-post-type" : $classes;
     }
 
-    function remove_post_type_screen_options()
+    function remove_post_type_screen_options($show)
     {
-        return C_NextGen_Admin_Page_Manager::is_requested_post_type() ? FALSE : TRUE;
+        return C_NextGen_Admin_Page_Manager::is_requested_post_type() ? FALSE : $show;
     }
 
     /* Add common admin markup to top of custom post type pages */
@@ -496,35 +505,41 @@ class M_NextGen_Admin extends C_Base_Module
         $wizard->set_step_target('add_page_menu', '#menu-pages a[href*="post-new.php?post_type=page"]', 'right center', 'left center');
         $wizard->set_step_view('add_page_menu', '#menu-pages a[href*="post-new.php?post_type=page"]');
         
-        if ($this->is_block_editor()) {
+        if ($this->is_block_editor())
+        {
+            // Input page title
             $wizard->add_step('input_page_title');
             $wizard->set_step_text('input_page_title', __('Type in a title for your page.', 'nggallery'));
             $wizard->set_step_target('input_page_title', '.editor-post-title__input', 'bottom center', 'top center');
             $wizard->set_step_view('input_page_title', '.editor-post-title__input');
-            
+
+            // Add NextGen block
             $wizard->add_step('add_block');
             $wizard->set_step_text('add_block', __('Now click the button to insert a block.', 'nggallery'));
-            $wizard->set_step_target('add_block', 'button.editor-inserter__toggle', 'right center', 'left center');
-            $wizard->set_step_view('add_block', 'button.editor-inserter__toggle');
+            $wizard->set_step_target('add_block', 'button.block-editor-inserter__toggle', 'right center', 'left center');
+            $wizard->set_step_view('add_block', 'button.block-editor-inserter__toggle');
             $wizard->set_step_lazy('add_block', true);
 
+            // Search for NextGen block
             $wizard->add_step('search_nextgen');
             $wizard->set_step_text('search_nextgen', __('Type "nextgen" to search for the NextGEN block.', 'nggallery'));
-            $wizard->set_step_target('search_nextgen', 'input.editor-inserter__search', 'right center', 'left center');
-            $wizard->set_step_view('search_nextgen', 'input.editor-inserter__search');
+            $wizard->set_step_target( 'search_nextgen', 'input.block-editor-inserter__search', 'right center', 'left center');
+            $wizard->set_step_view( 'search_nextgen', 'input.block-editor-inserter__search');
             $wizard->set_step_lazy('search_nextgen', true);
 
+            // Select NextGen block
             $wizard->add_step('add_ngg_block');
-            $wizard->set_step_text('add_ngg_block', __('Click on the NextGEN block to add it.', 'nggallery'));
-            $wizard->set_step_target('add_ngg_block', 'button.editor-block-list-item-imagely-nextgen-gallery', 'right center', 'left center');
-            $wizard->set_step_view('add_ngg_block', 'button.editor-block-list-item-imagely-nextgen-gallery');
+            $wizard->set_step_text( 'add_ngg_block', __('Click on the NextGEN block to add it.', 'nggallery'));
+            $wizard->set_step_target( 'add_ngg_block', 'button.editor-block-list-item-imagely-nextgen-gallery', 'right center', 'left center');
+            $wizard->set_step_view( 'add_ngg_block', 'button.editor-block-list-item-imagely-nextgen-gallery');
             $wizard->set_step_lazy('add_ngg_block', true);
-            $wizard->set_step_condition('add_ngg_block', 'wait', '1500');
+            $wizard->set_step_condition( 'add_ngg_block', 'wait', '1500');
 
+            // Insert a NextGen Gallery
             $wizard->add_step('add-ngg-gallery');
-            $wizard->set_step_text('add-ngg-gallery', __('Now click the "Add Gallery" button to open NextGEN\'s Insert Gallery Window.', 'nggallery'));
-            $wizard->set_step_target('add-ngg-gallery', '.add-ngg-gallery', 'bottom center', 'top center');
-            $wizard->set_step_view('add-ngg-gallery', '.add-ngg-gallery');
+            $wizard->set_step_text( 'add-ngg-gallery', __('Now click the "Add Gallery" button to open NextGEN\'s Insert Gallery Window.', 'nggallery'));
+            $wizard->set_step_target( 'add-ngg-gallery', '.add-ngg-gallery', 'bottom center', 'top center');
+            $wizard->set_step_view( 'add-ngg-gallery', '.add-ngg-gallery');
             $wizard->set_step_lazy('add-ngg-gallery', true);            
         }
         else {
@@ -730,11 +745,12 @@ class M_NextGen_Admin extends C_Base_Module
             'C_Admin_Requirements_Manager'            => 'class.admin_requirements_manager.php',
             'C_Form'                                  => 'class.form.php',
             'C_Form_Manager'                          => 'class.form_manager.php',
+            'C_Mailchimp_OptIn_Notice'                => 'class.mailchimp_optin_notice.php',
             'C_NextGEN_Wizard_Manager'                => 'class.nextgen_wizard_manager.php',
             'C_NextGen_Admin_Page_Manager'            => 'class.nextgen_admin_page_manager.php',
+            'C_NextGen_First_Run_Notification_Wizard' => 'class.nextgen_first_run_notification_wizard.php',
             'C_Nextgen_Admin_Installer'               => 'class.nextgen_admin_installer.php',
-            'C_Nextgen_Admin_Page_Controller'         => 'class.nextgen_admin_page_controller.php',
-            'C_NextGen_First_Run_Notification_Wizard' => 'class.nextgen_first_run_notification_wizard.php'
+            'C_Nextgen_Admin_Page_Controller'         => 'class.nextgen_admin_page_controller.php'
         );
     }
 }

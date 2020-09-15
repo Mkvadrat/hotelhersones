@@ -53,17 +53,18 @@
 		threshold: 100
 	};
 
-	// http://www.hardcode.nl/subcategory_1/article_317-array-shuffle-function
-	Array.prototype.shuffle = function() {
-		var i=this.length,p,t;
-		while (i--) {
-			p = Math.floor(Math.random()*i);
-			t = this[i];
-			this[i]=this[p];
-			this[p]=t;
+	Object.defineProperty(Array.prototype, 'shuffle', {
+		value: function() {
+			var i=this.length,p,t;
+			while (i--) {
+				p = Math.floor(Math.random()*i);
+				t = this[i];
+				this[i]=this[p];
+				this[p]=t;
+			}
+			return this;
 		}
-		return this;
-	};
+	});
 
 	// HTML5 PageVisibility API
 	// http://www.html5rocks.com/en/tutorials/pagevisibility/intro/
@@ -251,11 +252,11 @@
 					++loaded;
 					var video = $img.parent().attr('data-video');
 					if(video==="yes"){
-						$img.parent().parent().css( 'background-image', 'url(' + GridRotator.pluginsUrl + '/enjoy-instagram-instagram-responsive-images-gallery-and-carousel/images/play_overlay.png' + ')' );
+						$img.parent().parent().css( 'background-image', 'url(' + GridRotator.assetsUrl + '/images/play_overlay.png' + ')' );
 						$img.parent().parent().css( 'background-size', 'cover');
 						$img.parent().css(  'background-image', 'url(' + src + ')' );
 						$img.parent().css( 'opacity', '0.45');
-						console.log($img.parent().attr('href'));
+
 					}else{
 						$img.parent().css( 'background-image', 'url(' + src + ')' );
 					}
@@ -731,7 +732,7 @@
 			var video = $inA.attr('data-video');
 			var bg = $inA.attr('style');
 			if(video==="yes"){
-				$inA.parent().css( 'background-image', 'url(' + GridRotator.pluginsUrl + '/enjoy-instagram-instagram-responsive-images-gallery-and-carousel/images/play_overlay.png' + ')' );
+				$inA.parent().css( 'background-image', 'url(' + GridRotator.assetsUrl + '/images/play_overlay.png' + ')' );
 				$inA.parent().css( 'background-size', 'cover' );
 				$inA.css( 'opacity', '0.45');
 			}

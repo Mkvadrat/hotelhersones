@@ -58,6 +58,7 @@ else {
 $active_plugins = get_option('active_plugins');
 $is_woocommerce_active = apply_filters('swift_performance_is_woocommerce_active', in_array('woocommerce/woocommerce.php', $active_plugins));
 
+
 $swift_countries = array();
 if ($is_woocommerce_active) {
     @$swift_countries = apply_filters('woocommerce_countries', include WP_PLUGIN_DIR . '/woocommerce/i18n/countries.php');
@@ -215,12 +216,16 @@ add_action('luv_framework_before_fields_init', function($that){
       $active_plugins = get_option('active_plugins');
       $is_woocommerce_active = apply_filters('swift_performance_is_woocommerce_active', in_array('woocommerce/woocommerce.php', $active_plugins));
       $is_cf7_active = apply_filters('swift_performance_is_wpcf7_active', in_array('contact-form-7/wp-contact-form-7.php', $active_plugins));
+      $is_elementor_active = apply_filters('swift_performance_is_elementor_active', in_array('elementor/elementor.php', $active_plugins));
 
       if (!$is_woocommerce_active) {
           unset($that->args['sections']['plugins']['subsections']['woocommerce']);
       }
       if (!$is_cf7_active) {
           unset($that->args['sections']['plugins']['subsections']['wpcf7']);
+      }
+      if (!$is_elementor_active){
+            unset($that->args['sections']['plugins']['subsections']['elementor']);
       }
 
       if (!isset($that->args['sections']['plugins']['subsections']) || empty($that->args['sections']['plugins']['subsections'])){
@@ -340,7 +345,7 @@ $luvoptions = Luv_Framework::fields('option', array(
 							'title'	=> __('Disable Cookies', 'swift-performance'),
 							'type'	=> 'switch',
 							'desc'	=> __('You can prevent Swift Performance to create cookies on frontend.', 'swift-performance'),
-							'info'	=> __('Regarding GDPR you can\'t use some cookies until the visitor approve them. In that case you can prevent Swift to create these cookies by default, and use swift_performance_cookies-disabled filter to override this option. Please note that Swift uses cookies for Google Analytics Bypass, and Appcache.', 'swift-performance'),
+							'info'	=> __('Regarding GDPR you can\'t use some cookies until the visitor approve them. In that case you can prevent Swift to create these cookies by default, and use swift_performance_cookies-disabled filter to override this option. Please note that Swift uses cookies for Google Analytics Bypass.', 'swift-performance'),
                                           'default'   => 0,
                                           'required'   => array('settings-mode', '=', 'advanced')
 						),
@@ -1434,6 +1439,18 @@ $luvoptions = Luv_Framework::fields('option', array(
                                                array('enable-caching', '=', 1)
                                          ),
 		                         ),
+                                     array(
+		                             'id'         => 'clear-cache-updater',
+		                             'type'       => 'switch',
+		                             'title'      => esc_html__('Clear Cache After Update', 'swift-performance'),
+                                         'desc'       => esc_html__('Clear all cache after core/plugin/theme has been updated.', 'swift-performance'),
+                                         'info'       => sprintf(__('If this option is disabled %s will show a notice to clear cache.', 'swift-performance'), 'Swift Performance'),
+                                         'default'    => 0,
+		                             'required'   => array(
+                                               array('settings-mode', '=', 'advanced'),
+                                               array('enable-caching', '=', 1)
+                                         ),
+		                         ),
 		                         array(
 		                             'id'          => 'enable-caching-logged-in-users',
 		                             'type'        => 'switch',
@@ -1783,165 +1800,6 @@ $luvoptions = Luv_Framework::fields('option', array(
 		                         ),
 		                  )
 		            ),
-                        'appcache' => array(
-		                   'title' => esc_html__('Appcache', 'swift-performance'),
-		                   'fields' => array(
-		                         array(
-		                               'id'         => 'appcache-desktop',
-		                               'type'	  => 'switch',
-		                               'title'      => esc_html__('Enable Appcache for Desktop', 'swift-performance'),
-		                               'default'    => 0,
-		                               'required'   => array(
-                                                array('settings-mode', '=', 'advanced'),
-                                                array('caching-mode', 'CONTAINS', 'disk_cache'),
-                                           ),
-		                         ),
-		                         array(
-		                            'id'            => 'appcache-desktop-mode',
-		                            'type'          => 'dropdown',
-		                            'title'         => esc_html__('Appcache Mode', 'swift-performance'),
-		                            'options'       => array(
-		                                  'full-site'      => esc_html__('Full site', 'swift-performance'),
-		                                  'specific-pages' => esc_html__('Specific pages only', 'swift-performance'),
-		                            ),
-		                            'default'       => 'full-site',
-		                            'required'      => array(
-		                                   array('appcache-desktop', '=', '1')
-		                            ),
-		                         ),
-		                         array(
-		                           'id'            => 'appcache-desktop-max',
-		                           'type'          => 'text',
-		                           'title'         => esc_html__('Desktop Max Size', 'swift-performance'),
-		                           'desc'      => esc_html__('Appcache maximum full size on desktop devices', 'swift-performance'),
-		                           'default'       => '104857600',
-		                           'required'      => array(
-		                                   array('appcache-desktop', '=', '1')
-		                           ),
-		                         ),
-		                         array(
-		                             'id'         => 'appcache-desktop-included-pages',
-		                             'type'       => 'dropdown',
-		                             'multiple'      => true,
-		                             'title'      => esc_html__('Include Pages', 'swift-performance'),
-		                             'desc'   => esc_html__('Select pages which should be cached with Appcache.', 'swift-performance'),
-		                             'required'   => array(
-		                                array('appcache-desktop', '=', 1),
-		                                array('appcache-desktop-mode', '=', 'specific-pages'),
-		                             ),
-		                             'options'    => $pages,
-		                         ),
-		                         array(
-		                             'id'         => 'appcache-desktop-included-strings',
-		                             'type'       => 'multi-text',
-		                             'title'      => esc_html__('Include Strings', 'swift-performance'),
-		                             'desc'   => esc_html__('Cache pages with Appcache only if one of these strings is found in the URL.', 'swift-performance'),
-		                             'required'   => array(
-		                                array('appcache-desktop', '=', 1),
-		                                array('appcache-desktop-mode', '=', 'specific-pages'),
-		                             ),
-		                         ),
-		                         array(
-		                             'id'         => 'appcache-desktop-excluded-pages',
-		                             'type'       => 'dropdown',
-		                             'multiple'      => true,
-		                             'title'      => esc_html__('Exclude Pages', 'swift-performance'),
-		                             'desc'   => esc_html__('Select pages which shouldn\'t be cached with Appcache.', 'swift-performance'),
-		                             'required'   => array(
-		                                array('appcache-desktop', '=', 1),
-		                                array('appcache-desktop-mode', '=', 'full-site'),
-		                             ),
-		                             'options'    => $pages,
-		                         ),
-		                         array(
-		                             'id'         => 'appcache-desktop-excluded-strings',
-		                             'type'       => 'multi-text',
-		                             'title'      => esc_html__('Exclude Strings', 'swift-performance'),
-		                             'desc'   => esc_html__('Exclude pages from Appcache if one of these strings is found in the URL.', 'swift-performance'),
-		                             'required'   => array(
-		                                array('appcache-desktop', '=', 1),
-		                                array('appcache-desktop-mode', '=', 'full-site'),
-		                             ),
-		                         ),
-		                         array(
-		                              'id'         => 'appcache-mobile',
-		                              'type'	      => 'switch',
-		                              'title'      => esc_html__('Enable Appcache for Mobile', 'swift-performance'),
-		                              'default'    => 0,
-		                              'required'   => array(
-                                                array('settings-mode', '=', 'advanced'),
-                                                array('caching-mode', 'contains', 'disk_cache')
-                                          )
-		                         ),
-		                         array(
-		                            'id'            => 'appcache-mobile-mode',
-		                            'type'          => 'dropdown',
-		                            'title'         => esc_html__('Appcache Mode', 'swift-performance'),
-		                            'options'       => array(
-		                                  'full-site'      => esc_html__('Full site', 'swift-performance'),
-		                                  'specific-pages' => esc_html__('Specific pages only', 'swift-performance'),
-		                            ),
-		                            'default'       => 'full-site',
-		                            'required'      => array(
-		                                   array('appcache-mobile', '=', '1')
-		                            ),
-		                         ),
-		                         array(
-		                           'id'            => 'appcache-mobile-max',
-		                           'type'          => 'text',
-		                           'title'         => esc_html__('Mobile Max Size', 'swift-performance'),
-		                           'desc'      => esc_html__('Appcache maximum full size on desktop devices', 'swift-performance'),
-		                           'default'       => '5242880',
-		                           'required'      => array(
-		                                   array('appcache-mobile', '=', '1')
-		                           ),
-		                         ),
-		                         array(
-		                             'id'         => 'appcache-mobile-included-pages',
-		                             'type'       => 'dropdown',
-		                             'multiple'      => true,
-		                             'title'      => esc_html__('Include Pages', 'swift-performance'),
-		                             'desc'   => esc_html__('Select pages which should be cached with Appcache.', 'swift-performance'),
-		                             'required'   => array(
-		                                array('appcache-mobile', '=', 1),
-		                                array('appcache-mobile-mode', '=', 'specific-pages'),
-		                             ),
-		                             'options'    => $pages,
-		                         ),
-		                         array(
-		                             'id'         => 'appcache-mobile-included-strings',
-		                             'type'       => 'multi-text',
-		                             'title'      => esc_html__('Include Strings', 'swift-performance'),
-		                             'desc'   => esc_html__('Cache pages with Appcache only if one of these strings is found in the URL.', 'swift-performance'),
-		                             'required'   => array(
-		                                array('appcache-mobile', '=', 1),
-		                                array('appcache-mobile-mode', '=', 'specific-pages'),
-		                             ),
-		                         ),
-		                         array(
-		                             'id'         => 'appcache-mobile-excluded-pages',
-		                             'type'       => 'dropdown',
-		                             'multiple'      => true,
-		                             'title'      => esc_html__('Exclude Pages', 'swift-performance'),
-		                             'desc'   => esc_html__('Select pages which shouldn\'t be cached with Appcache.', 'swift-performance'),
-		                             'required'   => array(
-		                                array('appcache-mobile', '=', 1),
-		                                array('appcache-mobile-mode', '=', 'full-site'),
-		                             ),
-		                             'options'    => $pages,
-		                         ),
-		                         array(
-		                             'id'         => 'appcache-mobile-excluded-strings',
-		                             'type'       => 'multi-text',
-		                             'title'      => esc_html__('Exclude Strings', 'swift-performance'),
-		                             'desc'   => esc_html__('Exclude pages from Appcache if one of these strings is found in the URL.', 'swift-performance'),
-		                             'required'   => array(
-		                                array('appcache-mobile', '=', 1),
-		                                array('appcache-mobile-mode', '=', 'full-site'),
-		                             ),
-		                         ),
-		                  )
-		            ),
 			)
 		),
             'plugins' => array(
@@ -1957,6 +1815,23 @@ $luvoptions = Luv_Framework::fields('option', array(
                                          'action'     => 'premium-only',
                                          'title'      => esc_html__('Smart Enqueue Assets', 'swift-performance'),
                                          'desc'       => esc_html__('Load Contact Form 7 CSS and JS only, if current page contains a contact form.', 'swift-performance'),
+                                         'default'    => 0,
+                                         'class'	=> 'should-clear-cache',
+                                         'required'   => array(
+                                               array('settings-mode', '=', 'advanced'),
+                                         )
+                                   ),
+                             )
+                        ),
+                        'elementor' => array(
+                              'title' => esc_html__('Elementor', 'swift-performance'),
+                              'fields' => array(
+                                   array(
+                                         'id'         => 'elementor-lazyload-yt-background',
+                                         'type'       => 'custom',
+                                         'action'     => 'premium-only',
+                                         'title'      => esc_html__('Lazyload Youtube Background', 'swift-performance'),
+                                         'desc'       => esc_html__('Use lazyload for Youtube background videos', 'swift-performance'),
                                          'default'    => 0,
                                          'class'	=> 'should-clear-cache',
                                          'required'   => array(
@@ -2075,9 +1950,9 @@ $luvoptions = Luv_Framework::fields('option', array(
                                    array(
                                                'id'	=> 'enable-cdn-ssl',
                                                'type'	=> 'switch',
-                                               'title'	=> esc_html__('Enable CDN on SSL', 'swift-performance'),
+                                               'title'	=> esc_html__('Use Different Hostname for SSL', 'swift-performance'),
                                                'default' => 0,
-                                               'desc' => esc_html__('You can specify different hostname(s) for SSL, or leave them blank for use the same host on HTTP and SSL', 'swift-performance'),
+                                               'desc' => esc_html__('You can specify different hostname(s) for SSL', 'swift-performance'),
                                                'required' => array('enable-cdn', '=', 1),
                                                'class' => 'should-clear-cache'
                                    ),
@@ -2111,6 +1986,16 @@ $luvoptions = Luv_Framework::fields('option', array(
                                                'title'	=> esc_html__('CDN Custom File Types', 'swift-performance'),
                                                'desc'       => esc_html__('Use CDN for custom file types. Specify file extensions, eg: pdf', 'swift-performance'),
                                                'required'   => array('enable-cdn', '=', 1),
+                                               'class'      => 'should-clear-cache'
+                                   ),
+                                   array(
+                                               'id'         => 'exclude-cdn-file-types',
+                                               'type'       => 'custom',
+                                               'action'     => 'premium-only',
+                                               'title'	=> esc_html__('Exclude File Types from CDN', 'swift-performance'),
+                                               'desc'       => esc_html__('Disable CDN for custom file types. Specify file extensions, eg: pdf', 'swift-performance'),
+                                               'required'   => array('enable-cdn', '=', 1),
+                                               'class'      => 'should-clear-cache'
                                    ),
                              )
 

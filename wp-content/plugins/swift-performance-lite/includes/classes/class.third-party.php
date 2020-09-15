@@ -74,6 +74,20 @@ class Swift_Performance_Third_Party {
             if (function_exists('sg_cachepress_purge_cache')) {
                   sg_cachepress_purge_cache();
             }
+            
+            // Nginx helper support
+            do_action('rt_nginx_helper_purge_all');
+
+            // Runcache
+            if (class_exists('RunCache_Purger')){
+                  RunCache_Purger::flush_home();
+            }
+
+            // WSA_Cachepurge_WP
+            if (method_exists('WSA_Cachepurge_WP', 'purge_cache')){
+                  WSA_Cachepurge_WP::purge_cache();
+            }
+
       }
 
       /**

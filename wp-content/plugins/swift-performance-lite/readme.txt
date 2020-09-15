@@ -122,6 +122,16 @@ Quick Setup, Page Cache, Cache Preloading, Gzip Compression, Browser Caching, Re
 
 == Changelog ==
 
+= 2.1.3 - 2020.05.15.
+[FIX] Search in Warmup Table
+[IMPROVE] Runcache support
+[IMPROVE] Prevent double GZIP issues
+[IMPROVE] Minor Improvements
+[IMPROVE] Compatibility Improvements
+[NEW] Clear cache automatically after update process
+[DEPRECATED] Remove Appcache
+
+
 = 2.1.2 - 2019.12.02 =
 [FIX] Remove Summer Sale ad
 [IMPROVE] Improve WPML compatibility

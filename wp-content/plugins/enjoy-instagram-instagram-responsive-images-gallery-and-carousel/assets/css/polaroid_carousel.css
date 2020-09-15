@@ -1,0 +1,39 @@
+/*! Polaroid V.1.2*/
+
+.owl-stage {
+	display: flex;
+	}
+.owl-carousel .owl-item {
+    padding: 20px 0px 20px 0px;
+    border: 1px solid ;
+    border-color:#D2D2D2;
+	flex:1;
+}
+.enjoy-instagram-ig-picture-wrapper, .enjoy-instagram-ig-username-wrapper {float:left}
+.enjoy-instagram-ig-picture-wrapper {margin-right:10px}
+.enjoy-instagram-heart-wrapper { float:left; margin-right:10px}
+.enjoy-instagram-text-wrapper {font-size:14px; line-height: 1.3em;}
+.enjoy-instagram-feed-user {float:left; padding-left:10px; padding-bottom:20px}
+.enjoy-instagram-icon-wrapper {float:right; padding-right:10px; padding-bottom:20px}
+.user-ig {font-size:12px; font-weight:bold; font-family: -apple-system, BlinkMacSystemFont, Roboto, Open Sans, Helvetica Neue, sans-serif;}
+.user-ig {color:#000}
+
+.bottom-polaroid{
+  font-size:14px;
+  padding:30px 0 0 0;
+}
+
+.owl-carousel .owl-item a:hover  {opacity: 0.5;}
+
+.bottom-polaroid .enjoy-instagram-like-wrapper { margin-bottom:5px}
+.enjoy-instagram-ig-username-wrapper {
+font-family: -apple-system, BlinkMacSystemFont, Roboto, Open Sans, Helvetica Neue, sans-serif;
+}
+.enjoy-instagram-text-wrapper span {
+	font-family: -apple-system, BlinkMacSystemFont, Roboto, Open Sans, Helvetica Neue, sans-serif;
+}
+
+.fadein img{
+opacity:0.5;
+transition: 1s ease;
+}

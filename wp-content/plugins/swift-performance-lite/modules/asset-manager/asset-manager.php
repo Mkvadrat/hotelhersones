@@ -53,7 +53,7 @@ class Swift_Performance_Asset_Manager {
                               $fire = 'requestAnimationFrame(ll)';
                         }
 
-                        echo "<script data-dont-merge=\"\">(function(){function iv(a){if(typeof a.getBoundingClientRect!=='function'){return false}var b=a.getBoundingClientRect();return(b.bottom+50>=0&&b.right+50>=0&&b.top-50<=(window.innerHeight||document.documentElement.clientHeight)&&b.left-50<=(window.innerWidth||document.documentElement.clientWidth))}function ll(){var a=document.querySelectorAll('[data-swift-image-lazyload]');for(var i in a){if(iv(a[i])){a[i].onload=function(){window.dispatchEvent(new Event('resize'));};a[i].setAttribute('src',(typeof a[i].dataset.src != 'undefined' ? a[i].dataset.src : a[i].src));a[i].setAttribute('srcset',a[i].dataset.srcset);a[i].setAttribute('style',a[i].dataset.style);a[i].removeAttribute('data-swift-image-lazyload')}}requestAnimationFrame(ll)}{$fire}})();</script>";
+                        echo "<script data-dont-merge=\"\">(function(){function iv(a){if(typeof a.getBoundingClientRect!=='function'){return false}var b=a.getBoundingClientRect();return(b.bottom+50>=0&&b.right+50>=0&&b.top-50<=(window.innerHeight||document.documentElement.clientHeight)&&b.left-50<=(window.innerWidth||document.documentElement.clientWidth))}function ll(){var a=document.querySelectorAll('[data-swift-image-lazyload]');for(var i in a){if(iv(a[i])){a[i].onload=function(){window.dispatchEvent(new Event('resize'));};a[i].setAttribute('src',(typeof a[i].dataset.src != 'undefined' ? a[i].dataset.src : a[i].src));a[i].setAttribute('srcset',a[i].dataset.srcset);a[i].setAttribute('sizes',a[i].dataset.sizes);a[i].setAttribute('style',a[i].dataset.style);a[i].removeAttribute('data-swift-image-lazyload')}}requestAnimationFrame(ll)}{$fire}})();</script>";
                   },PHP_INT_MAX);
             }
 
@@ -296,7 +296,7 @@ class Swift_Performance_Asset_Manager {
  						}
 
  	                              // Avoid mixed content (fonts, etc)
- 	                              $_css = preg_replace('~(?<!(xmlns|xlink)=(\'|"))https?:~', '', $_css);
+ 	                              $_css = preg_replace('~(?<!(xmlns|xlink)=(\'|"))|(?<!\/)http:~', '', $_css);
 
  						// Normalize font URIs
  						if (Swift_Performance_Lite::check_option('normalize-static-resources',1)){
@@ -346,7 +346,7 @@ class Swift_Performance_Asset_Manager {
  						}
 
  						// Avoid mixed content (fonts, etc)
- 						$_css = preg_replace('~(?<!(xmlns|xlink)=(\'|"))https?:~', '', $_css);
+ 						$_css = preg_replace('~(?<!(xmlns|xlink)=(\'|"))|(?<!\/)http:~', '', $_css);
 
  						// Normalize font URIs
  						if (Swift_Performance_Lite::check_option('normalize-static-resources',1)){
@@ -704,7 +704,7 @@ class Swift_Performance_Asset_Manager {
  					}
 
  	                        // Avoid mixed content (fonts, etc)
- 	                        $_css = preg_replace('~https?:~', '', $_css);
+ 	                        $_css = preg_replace('~(?<!(xmlns|xlink)=(\'|"))|(?<!\/)http:~', '', $_css);
 
  					// Remove BOM
  					$_css = str_replace('ï»¿', '', $_css);

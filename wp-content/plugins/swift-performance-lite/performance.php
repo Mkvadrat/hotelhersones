@@ -3,7 +3,7 @@
  * Plugin Name: Swift Performance Lite
  * Plugin URI: https://swiftperformance.io
  * Description: Boost your WordPress site
- * Version: 2.1.2
+ * Version: 2.1.3
  * Author: SWTE
  * Author URI: https://swteplugins.com
  * Text Domain: swift-performance
@@ -70,7 +70,7 @@ if (!class_exists('Swift_Performance_Lite')) {
 			}
 
 			if (!defined('SWIFT_PERFORMANCE_VER')){
-				define('SWIFT_PERFORMANCE_VER', '2.1.2');
+				define('SWIFT_PERFORMANCE_VER', '2.1.3');
 			}
 
 			if (!defined('SWIFT_PERFORMANCE_DB_VER')){
@@ -174,7 +174,7 @@ if (!class_exists('Swift_Performance_Lite')) {
 
 			// Create dashboard widget
 			add_action( 'wp_dashboard_setup', function() {
-				$slug = 'swift_dashboard_ad_widget';
+				$slug = 'swift_dashboard_upgrade_widget';
 				wp_add_dashboard_widget(
 				      $slug,
 			      	'Swift Performance',
@@ -315,7 +315,7 @@ if (!class_exists('Swift_Performance_Lite')) {
 				}
 			});
 
-			// Serve swift-performance.appcache
+			// Disable Appcache for the client as it was depricated and removed in 2.1.7
 			add_action('init', function(){
 				if (isset($_SERVER['REQUEST_URI']) && $_SERVER['REQUEST_URI'] == '/' . SWIFT_PERFORMANCE_SLUG .'.appcache'){
 					// Disable general cache
@@ -323,41 +323,7 @@ if (!class_exists('Swift_Performance_Lite')) {
 
 					header('Content-Type: text/cache-manifest');
 
-					// Stop here if cache is empty
-					if (!file_exists(SWIFT_PERFORMANCE_CACHE_DIR)){
-						header("HTTP/1.0 410 Gone");
-						die;
-					}
-
-					$device	= Swift_Performance_Lite::is_mobile() ? '-mobile' : '-desktop';
-					$manifest	= Swift_Performance_Lite::get_manifest($device);
-
-					// Check integrity
-					$hash = md5(serialize($manifest['urls']));
-					if (Swift_Performance_Lite::check_option('cookies-disabled', 1, '!=')){
-						setcookie('spappcache', $hash, strtotime("+1YEAR"), '/');
-					}
-
-					// Force browser to clear cache if integrity check fails
-					if (Swift_Performance_Lite::check_option('appcache' . $device, '1', '!=') || (isset($_COOKIE['spappcache']) && $_COOKIE['spappcache'] != $hash)){
-						header("HTTP/1.0 410 Gone");
-						die;
-					}
-
-					echo "CACHE MANIFEST\n#v {$manifest['version']}\n\nCACHE:\n";
-
-					foreach ($manifest['urls'] as $file) {
-						echo $file . "\n";
-					}
-
-					echo "\nNETWORK:\n*";
-					die;
-				}
-			});
-
-			// Disable remote cron
-			add_action('init', function(){
-				if (isset($_GET['doing_cron']) && $_GET['doing_cron'] == 'sprc' && Swift_Performance_Lite::check_option('remote-cron', '1', '!=')){
+					// Appcache was depricated and removed in 2.1.7
 					header("HTTP/1.0 410 Gone");
 					die;
 				}
@@ -813,6 +779,7 @@ if (!class_exists('Swift_Performance_Lite')) {
 		public static function stop_prebuild(){
 			Swift_Performance_Lite::set_transient('swift_performance_prebuild_cache_pid', 'stop', SWIFT_PERFORMANCE_PREBUILD_TIMEOUT);
 			Swift_Performance_Lite::clear_hook('swift_performance_prebuild_cache');
+			Swift_Performance_Lite::clear_hook('swift_performance_prebuild_page_cache');
 			delete_transient('swift_performance_prebuild_cache_hit');
 		}
 
@@ -1143,10 +1110,21 @@ if (!class_exists('Swift_Performance_Lite')) {
 			$multisite_padding = (is_multisite() ? ' - ' . hash('crc32',home_url()) : '');
 			$server_software = self::server_software();
 			if ($server_software == 'apache' && file_exists(ABSPATH . '.htaccess')){
+				$htaccess = file_get_contents(ABSPATH . '.htaccess');
+				$htaccess = preg_replace("~###BEGIN ".SWIFT_PERFORMANCE_PLUGIN_NAME."{$multisite_padding}###(.*)###END ".SWIFT_PERFORMANCE_PLUGIN_NAME."{$multisite_padding}###\n?~is", '', $htaccess);
+
+				// Avoid duplicated GZIP rules
+				if (preg_match('~(AddOutputFilterByType DEFLATE|mod_gzip_item)~', $htaccess)){
+					unset($rules['compression']);
+				}
+
+				// Avoid duplicated browser cache rules
+				if (preg_match('~ExpiresByType~', $htaccess)){
+					unset($rules['cache-control']);
+				}
+
 				if (is_writable(ABSPATH . '.htaccess')){
 					$rewrites = '';
-					$htaccess = file_get_contents(ABSPATH . '.htaccess');
-					$htaccess = preg_replace("~###BEGIN ".SWIFT_PERFORMANCE_PLUGIN_NAME."{$multisite_padding}###(.*)###END ".SWIFT_PERFORMANCE_PLUGIN_NAME."{$multisite_padding}###\n?~is", '', $htaccess);
 					if (!empty($rules)){
 						$rewrites = "###BEGIN ".SWIFT_PERFORMANCE_PLUGIN_NAME."{$multisite_padding}###\n" . implode("\n", $rules) . "\n###END ".SWIFT_PERFORMANCE_PLUGIN_NAME."{$multisite_padding}###\n";
 						if (Swift_Performance_Lite::detect_htaccess_redirects($htaccess)){
@@ -1621,6 +1599,10 @@ if (!class_exists('Swift_Performance_Lite')) {
 			else if (strtoupper($condition) == 'IN'){
 				return in_array(self::get_option($key), (array)$value);
 			}
+			else if (strtoupper($condition) == 'NOT_EMPTY'){
+				$check = self::get_option($key);
+				return !empty($check);
+			}
 
 		}
 
@@ -1963,115 +1945,6 @@ if (!class_exists('Swift_Performance_Lite')) {
 		}
 
 		/**
-		 * Get URLs for manifest
-		 * @param string $device
-		 * @return array
-		 */
-		public static function get_manifest($device){
-			$assets = $permalinks = $excluded_pages = $excluded_strings = $included_pages = $included_strings = $urls = array();
-			$version = $filetime = $size = 0;
-
-			$Directory = new RecursiveDirectoryIterator(SWIFT_PERFORMANCE_CACHE_DIR);
-			$Iterator = new RecursiveIteratorIterator($Directory);
-			$Regex = new RegexIterator($Iterator, '/\.(html)$/i', RecursiveRegexIterator::GET_MATCH);
-
-			// Prepare excluded pages
-			if (Swift_Performance_Lite::check_option('appcache'.$device.'-mode', 'full-site')){
-				foreach ((array)Swift_Performance_Lite::get_option('appcache'.$device.'-excluded-pages') as $page){
-					$excluded_pages[] = trim(get_permalink($page), '/');
-				}
-				$excluded_strings = Swift_Performance_Lite::get_option('appcache'.$device.'-excluded-strings');
-			}
-
-			// Prepare included pages
-			if (Swift_Performance_Lite::check_option('appcache'.$device.'-mode', 'specific-pages')){
-				foreach ((array)Swift_Performance_Lite::get_option('appcache'.$device.'-included-pages') as $page){
-					$included_pages[] = trim(get_permalink($page), '/');
-				}
-				$included_strings = Swift_Performance_Lite::get_option('appcache'.$device.'-included-strings');
-			}
-
-			$excluded_strings = array_filter($excluded_strings);
-			$included_strings = array_filter($included_strings);
-
-			// Build file list
-			foreach ($Regex as $filename=>$file){
-				$filetime = filectime($filename);
-				$version = ($filetime > $version ? $filetime : $version);
-				if (!preg_match('~404\.html$~', $filename) && !preg_match('~(desktop|mobile)/authenticated~', $filename)){
-					$url = trim(preg_replace('~(desktop|mobile)/unauthenticated(/[abcdef0-9]*)?/((index|404)\.html|index.xml)~','',str_replace(SWIFT_PERFORMANCE_CACHE_DIR, self::home_url(), $filename)),'/');
-
-					// Skip some resources
-					if ($filename == SWIFT_PERFORMANCE_CACHE_DIR . 'js/index.html'){
-						continue;
-					}
-
-					// Skip excluded pages
-					if (Swift_Performance_Lite::check_option('appcache'.$device.'-mode', 'full-site') && (in_array($url, (array)$excluded_pages) || (!empty($excluded_strings) && preg_match('~('.implode('|', (array)$excluded_strings).')~', $url)) )){
-						continue;
-					}
-
-					// Skip not included pages
-					if (Swift_Performance_Lite::check_option('appcache'.$device.'-mode', 'specific-pages') && (!in_array($url, (array)$included_pages) && (empty($included_strings) || !preg_match('~('.implode('|', (array)$included_strings).')~', $url) ))){
-						continue;
-					}
-
-					$permalinks[$url] = array(
-						'url'		=> trailingslashit($url),
-						'size'	=> filesize($filename)
-					);
-
-					// Get static files
-					$source = file_get_contents($filename);
-					// Strip conditional scripts/styles
-					$source = preg_replace('~<!--(.*?)-->~s', '', $source);
-					preg_match_all('~'.preg_replace('~https?:~','',self::home_url()).'([^"\']*)\.(css|js)~', $source, $_assets);
-					foreach ($_assets[0] as $_asset){
-						$_asset		= parse_url(self::home_url(), PHP_URL_SCHEME) . ':' . $_asset;
-						$maybe_file 	= str_replace(self::home_url(), ABSPATH, $_asset);
-						$asset_size 	= 0;
-						if (file_exists($maybe_file)){
-							$asset_size = filesize($maybe_file);
-						}
-						else {
-							$response = wp_remote_head($_asset);
-							if (!is_wp_error($response) && isset($response['headers']['content-length'])){
-								$asset_size = $response['headers']['content-length'];
-							}
-						}
-						$assets[$_asset] = array(
-							'url'		=> $_asset,
-							'size'	=> $asset_size
-						);;
-					}
-
-				}
-			}
-
-			$size_exceeded = false;
-			$max_size = Swift_Performance_Lite::get_option('appcache'.$device.'-max', 5242880);
-			foreach (array_merge((array)$assets, (array)$permalinks) as $url) {
-				if ($size + $url['size'] < $max_size){
-					$urls[] = $url['url'];
-					$size += $url['size'];
-				}
-				else {
-					$size_exceeded = true;
-				}
-			}
-
-			if ($size_exceeded){
-				Swift_Performance_Lite::log('Appcache exceeded the max size (' . $max_size . ' bytes)', 6);
-			}
-
-			return array(
-				'version'	=> $version,
-				'size'	=> $size,
-				'urls'	=> $urls,
-			);
-		}
-
-		/**
 		 * Check is specified function disabled
 		 * @param string $function_name
 		 * @return boolean
@@ -2168,6 +2041,8 @@ if (!class_exists('Swift_Performance_Lite')) {
 		 * Dashboard Widget
 		 */
 		public static function dashboard_widget() {
+			wp_enqueue_style( SWIFT_PERFORMANCE_SLUG, SWIFT_PERFORMANCE_URI . 'css/styles.css', array(), SWIFT_PERFORMANCE_VER );
+			wp_enqueue_style('font-awesome-5', LUV_FRAMEWORK_URL . 'assets/icons/fa5/css/all.min.css');
 			include SWIFT_PERFORMANCE_DIR . 'templates/ads/index.php';
 		}
 

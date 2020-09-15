@@ -5,7 +5,7 @@
  * Description: The next generation of Structured Data.
  * Author: Hesham
  * Author URI: http://zebida.com
- * Version: 1.7.8.1
+ * Version: 1.7.8.3
  * Text Domain: schema-wp
  * Domain Path: /languages
  * License:         GPLv2 or later
@@ -52,7 +52,7 @@ final class Schema_WP {
 	 *
 	 * @since 1.0
 	 */
-	private $version = '1.7.8.1';
+	private $version = '1.7.8.3';
 
 	/**
 	 * The settings instance variable

@@ -77,3 +77,20 @@
 	min-height: 150px;
 	background: url('../images/AjaxLoader.gif') no-repeat center center
 }
+
+.owl-theme .owl-controls .active span {
+	    border-radius: 20px;
+        background: #abbcb6;
+		opacity: 1;
+}
+.owl-theme .owl-controls .owl-page span {
+   
+   opacity: 1;
+}
+
+.owl-pagination .owl-page.active::after {
+	   border:2px solid;
+ 		border-radius: 20px;
+        background: #abbcb6;
+		opacity: 1;
+}

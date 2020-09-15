@@ -47,7 +47,7 @@
 		</ul>
 	</div>
 	<div class="swift-dashboard-item offers">
-		<h3><?php esc_html_e('Offers', 'swift-performance');?></h3>
+		<h3><?php esc_html_e('UPGRADE PRO', 'swift-performance');?></h3>
 		<?php Swift_Performance_Lite::dashboard_widget();?>
 	</div>
 </div>

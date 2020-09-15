@@ -2,7 +2,7 @@ jQuery(function($){
 	$('#commentform').submit(function(){
 			$.ajax({
 				type : 'POST',
-				url : 'http://' + location.host + '/wp-admin/admin-ajax.php',
+				url : 'https://' + location.host + '/wp-admin/admin-ajax.php',
 				data: $(this).serialize() + '&action=ajaxcomments',
 				beforeSend: function(xhr){
 					// действие при отправке формы, сразу после нажатия на кнопку #submit 

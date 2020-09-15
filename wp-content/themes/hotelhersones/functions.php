@@ -14,7 +14,7 @@ require($_SERVER['DOCUMENT_ROOT'] . '/wp-libraries/phpQuery/phpQuery.php');
 ****************************************************************************НАСТРОЙКИ ТЕМЫ*****************************************************************
 ***********************************************************************************************************************************************************
 ***********************************************************************************************************************************************************/
-function prefix_add_footer_styles() {
+/*function prefix_add_footer_styles() {
 	echo '<link rel=\'stylesheet\' id=\'bootstrap-css\'  href=\'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css\' type=\'text/css\' media=\'all\' />';
 	echo '<link rel=\'stylesheet\' id=\'bootstrap-theme-css\'  href=\'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css\' type=\'text/css\' media=\'all\' />';
 	echo '<link rel=\'stylesheet\' id=\'demo-css\'  href=' . get_template_directory_uri() . '/css/demo.css\' type=\'text/css\' media=\'all\' />';
@@ -29,10 +29,10 @@ function prefix_add_footer_styles() {
 	echo '<link rel=\'stylesheet\' id=\'mmenu-css\'  href=' . get_template_directory_uri() . '/css/mmenu.css\' type=\'text/css\' media=\'all\' />';
 	echo '<link rel=\'stylesheet\' id=\'jquery-ui-css\'  href=\'https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/smoothness/jquery-ui.css\' type=\'text/css\' media=\'all\' />';
 };
-add_action('wp_footer', 'prefix_add_footer_styles');
+add_action('wp_footer', 'prefix_add_footer_styles');*/
 
 function hers_scripts(){
-	/*wp_register_style( 'bootstrap-css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css',true,'1.1','all');
+	wp_register_style( 'bootstrap-css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css',true,'1.1','all');
 	wp_enqueue_style( 'bootstrap-css' );
 	
 	wp_register_style( 'bootstrap-theme-css', 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css',true,'1.1','all');
@@ -69,11 +69,9 @@ function hers_scripts(){
 	wp_enqueue_style( 'mmenu-css' );
 	
 	wp_register_style( 'jquery-ui-css', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/smoothness/jquery-ui.css',true,'1.1','all');
-	wp_enqueue_style( 'jquery-ui-css' );*/
+	wp_enqueue_style( 'jquery-ui-css' );
 	
 	if (!is_admin()) {
-		wp_enqueue_script( 'maps-min', 'https://api-maps.yandex.ru/2.1/?apikey=74a6de3b-56bf-4d43-9c69-9060da92721c&load=package.full&lang=ru-RU', '', '', true );
-		wp_enqueue_script( 'maps-attractions-min', get_template_directory_uri() . '/js/maps_attractions/maps_attractions.js', '', '', true );
 		wp_enqueue_script( 'jquery-min', 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js', '', '', false );
 		wp_enqueue_script( 'jquery-ui-min', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js', '', '', true );
 		wp_enqueue_script( 'i18n-min', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/i18n/jquery-ui-i18n.min.js', '', '', true );
@@ -82,13 +80,24 @@ function hers_scripts(){
 		wp_enqueue_script( 'fancybox-min', 'https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.1.20/jquery.fancybox.min.js', '', '', true );
 		wp_enqueue_script( 'mmenu-min', get_template_directory_uri() . '/js/mmenu.js', '', '', true );
 		wp_enqueue_script( 'owl-min', get_template_directory_uri() . '/js/owl.carousel.min.js', '', '', true );
-		wp_enqueue_script( 'common-min', get_template_directory_uri() . '/js/common.js', '', '', true );
 		wp_enqueue_script( 'reviews-min', get_template_directory_uri() . '/js/reviews.js', '', '', true );
 		wp_enqueue_script( 'mask-min', get_template_directory_uri() . '/js/mask.js', '', '', true );
+		wp_enqueue_script( 'maps-min', 'https://api-maps.yandex.ru/2.1/?apikey=8c40b3a7-54d4-4b0f-8fe9-7a24695174c5&load=package.full&lang=ru-RU', '', '', false );
+		wp_enqueue_script( 'maps-attractions-min', get_template_directory_uri() . '/js/maps_attractions/maps_attractions.js', '', '', true );
+		wp_enqueue_script( 'common-min', get_template_directory_uri() . '/js/common.js', '', '', true );
+		wp_enqueue_script( 'cloudpayments-min', 'https://widget.cloudpayments.ru/bundles/cloudpayments', '', '', false );
 		//wp_enqueue_script( 'cookie-min', 'https://cdn.jsdelivr.net/jquery.cookie/1.4.0/jquery.cookie.min.js', '', '', true );
 	}
 }
 add_action( 'wp_enqueue_scripts', 'hers_scripts' );
+
+function no_privates($where) {
+    if( is_admin() ) return $where;
+
+    global $wpdb;
+    return " $where AND {$wpdb->posts}.post_status != 'private' ";
+}
+add_filter('posts_where', 'no_privates');
 
 //Регистрируем название сайта
 function hotelhersones_wp_title( $title, $sep ) {

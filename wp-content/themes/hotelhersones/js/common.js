@@ -22,7 +22,7 @@ function SendForm() {
 		'message' : $('#message').val()
 	};
 	$.ajax({
-		url:'http://' + location.host + '/wp-admin/admin-ajax.php',
+		url:'https://' + location.host + '/wp-admin/admin-ajax.php',
 		data:data,
 		type:'POST',
 		success:function(data){
@@ -52,7 +52,7 @@ function lightBooking() {
 	  'departure' : $('#departure_light_booking').val(),
 	};
 	$.ajax({
-	  url:'http://' + location.host + '/wp-admin/admin-ajax.php',
+	  url:'https://' + location.host + '/wp-admin/admin-ajax.php',
 	  data:data, // данные
 	  type:'POST', // тип запроса
 	  success:function(data){
@@ -87,7 +87,7 @@ function SendMini() {
 		'phone' : $('#phone_callbackform').val()
 	};
 	$.ajax({
-	  url:'http://' + location.host + '/wp-admin/admin-ajax.php',
+	  url:'https://' + location.host + '/wp-admin/admin-ajax.php',
 	  data:data, // данные
 	  type:'POST', // тип запроса
 	  success:function(data){
@@ -285,6 +285,18 @@ $(document).ready(function () {
 	});
 	
     /*************************************************************************other form*****************************************************************/
+    $('.check__block *[name="confirm"]').prop( "checked", false );
+    $('.button__group *[type="submit"]').attr('disabled', 'disabled');
+    
+    //Форма оплаты
+    $('.check__block *[name="confirm"]').on('change', function () {
+        if ($(this).is(':checked')) {
+            $('.button__group *[type="submit"]').removeAttr('disabled');
+        } else {
+            $('.button__group *[type="submit"]').attr('disabled', 'disabled');
+        }
+    });
+    
     //run when the DOM is ready
 	$('.close').click(function() {  //use a class, since your ID gets mangled
 		$('.booking__banner').addClass('hidden');      //add the class to the clicked element
@@ -339,5 +351,39 @@ $(document).ready(function () {
 			$( ".agree-callbackform" ).replaceWith('<input type="submit" class="agree-callbackform no-active" value="Перезвоните мне">');
 		}
 	});
+    
     /*************************************************************************booking form*****************************************************************/
+});
+
+ $( "#send_paying" ).click(function() {
+    var widget = new cp.CloudPayments();
+
+    var data = { //данные дарителя
+        name: $('#name_customer').val(),
+        lastName: $('#surname_customer').val(),
+        phone: $('#phone_customer').val()
+    };
+
+    var amount = parseFloat($('#amount_customer').val());
+    var accountId = $('#email_customer').val();
+
+    widget.charge({ // options
+        publicId: 'pk_5634480a545e8801fc0acb7786b1f', //id из личного кабинета
+        description: 'Оплата номера', //назначение
+        amount: amount ? amount : 1, //сумма
+        currency: 'RUB', //валюта
+        accountId: accountId, //идентификатор плательщика (обязательно для создания подписки)
+        email: accountId,
+        data: data
+    },
+    function (options) { // success
+        //действие при успешной оплате
+        window.location.href = "https://hotelhersones.ru/success/";
+    },
+    function (reason, options) { // fail
+        //действие при неуспешной оплате
+        window.location.href = "https://hotelhersones.ru/error-payment/";
+    });
+    
+    $.fancybox.close(); 
 });

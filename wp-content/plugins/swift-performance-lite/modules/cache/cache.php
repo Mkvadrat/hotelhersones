@@ -123,10 +123,15 @@ class Swift_Performance_Cache {
                   }
             });
             add_action('upgrader_process_complete', function(){
-                  $action     = esc_html__('Updater process has been finished. Page cache probably should be cleared.', 'swift-performance');
-                  ob_start();
-                  include SWIFT_PERFORMANCE_DIR . 'templates/clear-cache-notice.php';
-                  Swift_Performance_Lite::add_notice(ob_get_clean(), 'warning', 'plugin/update-action');
+                  if (Swift_Performance_Lite::check_option('clear-cache-updater',1)){
+                        Swift_Performance_Cache::clear_all_cache();
+                  }
+                  else {
+                        $action     = esc_html__('Updater process has been finished. Page cache probably should be cleared.', 'swift-performance');
+                        ob_start();
+                        include SWIFT_PERFORMANCE_DIR . 'templates/clear-cache-notice.php';
+                        Swift_Performance_Lite::add_notice(ob_get_clean(), 'warning', 'plugin/update-action');
+                  }
             });
 
             // Clear cache after comment approved
@@ -154,7 +159,10 @@ class Swift_Performance_Cache {
             if (Swift_Performance_Lite::check_option('cache-empty-minicart', 1) && isset($_GET['wc-ajax']) && $_GET['wc-ajax'] == 'get_refreshed_fragments' && (!isset($_COOKIE['woocommerce_cart_hash']) || empty($_COOKIE['woocommerce_cart_hash'])) && (!isset($_COOKIE['woocommerce_items_in_cart']) || empty($_COOKIE['woocommerce_items_in_cart']))){
                   Swift_Performance_Lite::set_option('optimize-prebuild-only', 0);
                   Swift_Performance_Lite::set_option('merge-background-only', 0);
-                  add_filter('swift_performance_is_cacheable_dynamic', '__return_true');
+                  add_filter('swift_performance_is_cacheable_dynamic', function(){
+                        $_POST = array();
+                        return true;
+                  });
 
                   $timestamp = gmdate("D, d M Y H:i:s") . " GMT";
                   Swift_Performance_Lite::header("Expires: $timestamp");

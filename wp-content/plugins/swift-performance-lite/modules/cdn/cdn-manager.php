@@ -3,17 +3,17 @@ class Swift_Performance_CDN_Manager{
 
 	public $cdn = array();
 
-	public $site_url = '';
+	public $hostname = '';
 
 	public function __construct(){
 		do_action('swift_performance_cdn_before_init');
 
 		//Use CDN only on frontend
-		if (Swift_Performance_Lite::is_admin()){
+		if (Swift_Performance_Lite::is_admin() && !defined('DOING_AJAX')){
 			return false;
 		}
 
-		$this->site_url = trim(preg_replace('~https?://~', '', Swift_Performance_Lite::home_url()),'/');
+		$this->hostname = trim(preg_replace('~https?://~', '', Swift_Performance_Lite::home_url()),'/');
 
 		// Set CDN hostnames
 		$this->cdn['css']		= preg_replace('~https?://~','',Swift_Performance_Lite::get_option('cdn-hostname-master'));
@@ -21,10 +21,6 @@ class Swift_Performance_CDN_Manager{
 		$this->cdn['media']	= (Swift_Performance_Lite::check_option('cdn-hostname-slot-2','','!=') ? preg_replace('~https?://~','',Swift_Performance_Lite::get_option('cdn-hostname-slot-2')) : $this->cdn['css']);
 
 		if (is_ssl()){
-			if (Swift_Performance_Lite::check_option('enable-cdn-ssl','1','!=')){
-				return false;
-			}
-
 			$ssl_master = false;
 			if (Swift_Performance_Lite::check_option('cdn-hostname-master-ssl','','!=')){
 				$this->cdn['css'] = preg_replace('~https?://~','',Swift_Performance_Lite::get_option('cdn-hostname-master-ssl'));
@@ -74,28 +70,28 @@ class Swift_Performance_CDN_Manager{
 	 * Replace media files callback
 	 */
 	public function media_callback($buffer){
-		return preg_replace('~https?://' . $this->site_url.'([^"\'\s]*)\.(jpe?g|png|gif|swf|flv|mpeg|mpg|mpe|3gp|mov|avi|wav|flac|mp2|mp3|m4a|mp4|m4p|aac)~i', '//' . $this->cdn['media']."$1.$2", $buffer);
+		return preg_replace('~https?://' . $this->hostname.'([^"\'\s]*)\.(jpe?g|png|gif|swf|flv|mpeg|mpg|mpe|3gp|mov|avi|wav|flac|mp2|mp3|m4a|mp4|m4p|aac)~i', '//' . $this->cdn['media']."$1.$2", $buffer);
 	}
 
 	/**
 	 * Replace media files host
 	 */
 	public function media_host_filter($url){
-		return preg_replace('~https?://' . $this->site_url.'~i', '//' . $this->cdn['media'], $url);
+		return preg_replace('~https?://' . $this->hostname.'~i', '//' . $this->cdn['media'], $url);
 	}
 
 	/**
 	 * Change hostname for js files
 	 */
 	public function js($url, $handle = ''){
-		return preg_replace('~https?://' . $this->site_url . '~', "$1//{$this->cdn['js']}", $url);
+		return preg_replace('~https?://' . $this->hostname . '~', "$1//{$this->cdn['js']}", $url);
 	}
 
 	/**
 	 * Change hostname for css files
 	 */
 	public function css($url, $handle = ''){
-		return preg_replace('~https?://' . $this->site_url . '~', "$1//{$this->cdn['css']}", $url);
+		return preg_replace('~https?://' . $this->hostname . '~', "$1//{$this->cdn['css']}", $url);
 	}
 
 	/**

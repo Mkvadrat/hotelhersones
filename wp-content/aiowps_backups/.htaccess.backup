@@ -1,0 +1,118 @@
+
+
+RewriteOptions inherit
+
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{REQUEST_URI} ^/kontakty/pravila/$
+RewriteRule ^.*$ http://hotelhersones.ru/pravila-prozhivaniya-v-otele/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/kontakty/vakansii/$
+RewriteRule ^.*$ http://hotelhersones.ru/vakansii-otelya/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/nagrada/$
+RewriteRule ^.*$ http://hotelhersones.ru/nagrady/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/otdyhvsevastopole/$
+RewriteRule ^.*$ http://hotelhersones.ru/o-sevastopole-2/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/news/$
+RewriteRule ^.*$ http://hotelhersones.ru/news-category/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/otdyhvsevastopole/prazdniki-sevastopolya/$
+RewriteRule ^.*$ http://hotelhersones.ru/kalendar-sobytiy/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/category/uikend-v-sevastopole/$
+RewriteRule ^.*$ http://hotelhersones.ru/uikend-v-sevastopole/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/kontakty/partnery/$
+RewriteRule ^.*$ http://hotelhersones.ru/partnery/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/kontakty/partnery/$
+RewriteRule ^.*$ http://hotelhersones.ru/partnery/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/novyj-god-v-sevastopole/$
+RewriteRule ^.*$ http://hotelhersones.ru/novyy-god-2019-v-sevastopole/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/akcionnyj-otdyx/$
+RewriteRule ^.*$ http://hotelhersones.ru/rannee-bronirovanie/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/svadebnie-pakety/$
+RewriteRule ^.*$ http://hotelhersones.ru/svadebnye-pakety/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/certificates/$
+RewriteRule ^.*$ http://hotelhersones.ru/podarochnye-sertifikaty/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/vip-apartamenty/antichny/$
+RewriteRule ^.*$ http://hotelhersones.ru/poseidon/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/vip-apartamenty/viphersones/$
+RewriteRule ^.*$ http://hotelhersones.ru/hersones-number/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/2-x-komnatnye-nomera/sea/$
+RewriteRule ^.*$ http://hotelhersones.ru/sea/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/2-x-komnatnye-nomera/atlantida/$
+RewriteRule ^.*$ http://hotelhersones.ru/atlantida/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/vip-apartamenty/usadba/$
+RewriteRule ^.*$ http://hotelhersones.ru/usadba-skylptora/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/2-x-komnatnye-nomera/argo/$
+RewriteRule ^.*$ http://hotelhersones.ru/nomer-argo/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/2-x-komnatnye-nomera/floral/$
+RewriteRule ^.*$ http://hotelhersones.ru/cvetochnyy/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/2-x-komnatnye-nomera/dionis/$
+RewriteRule ^.*$ http://hotelhersones.ru/nomer-dionis/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/1-komnatnye-nomera/$
+RewriteRule ^.*$ http://hotelhersones.ru/1-komnatnye-nomera/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/1-komnatnye-nomera/imperial/$
+RewriteRule ^.*$ http://hotelhersones.ru/nomer-imperatorskiy/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/1-komnatnye-nomera/artemida/$
+RewriteRule ^.*$ http://hotelhersones.ru/nomer-artemida/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/1-komnatnye-nomera/sparta/$
+RewriteRule ^.*$ http://hotelhersones.ru/nomer-sparta/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/1-komnatnye-nomera/eas/$
+RewriteRule ^.*$ http://hotelhersones.ru/vostochnyy/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/1-komnatnye-nomera/eas/$
+RewriteRule ^.*$ http://hotelhersones.ru/vostochnyy/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/1-komnatnye-nomera/afrodita/$
+RewriteRule ^.*$ http://hotelhersones.ru/nomer-afrodita/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/1-komnatnye-nomera/theatre/$
+RewriteRule ^.*$ http://hotelhersones.ru/nomer-teatr/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/1-komnatnye-nomera/diogen/$
+RewriteRule ^.*$ http://hotelhersones.ru/nomer-diogen/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/residence/1-komnatnye-nomera/rimforum/$
+RewriteRule ^.*$ http://hotelhersones.ru/rimforum/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/nearby_attractions/$
+RewriteRule ^.*$ http://hotelhersones.ru/karta-dostoprimechatelnostey-ryado/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/7237-2/$
+RewriteRule ^.*$ http://hotelhersones.ru/plyazhi/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/otdyhvsevastopole/exkursii/$
+RewriteRule ^.*$ http://hotelhersones.ru/programma-meropriyatiy-muzeya-kherson/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/barxatnyj-sezon-v-sevastopole-chto-mozhet-byt-luchshe/$
+RewriteRule ^.*$ http://hotelhersones.ru/barkhatnyy-sezon-v-sevastopole/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/otdyhvsevastopole/$
+RewriteRule ^.*$ http://hotelhersones.ru/o-sevastopole/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/istoriya-xersonesa/$
+RewriteRule ^.*$ http://hotelhersones.ru/istoriya-khersonesa/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/otdyhvsevastopole/dostoprimechatelnosti-sevastopolya/$
+RewriteRule ^.*$ http://hotelhersones.ru/dostoprimechatelbnosti/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/otdyhvsevastopole/poleznaya-informaciya/pogoda-i-klimat-v-sevastopole/$
+RewriteRule ^.*$ http://hotelhersones.ru/pogoda-i-klimat/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/voskresenie/$
+RewriteRule ^.*$ http://hotelhersones.ru/vladimirskiy-sobor/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/kreshhenie/$
+RewriteRule ^.*$ http://hotelhersones.ru/kreshhenie-detey-vo-vladimirskom-sobor/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/pasxa/$
+RewriteRule ^.*$ http://hotelhersones.ru/svetlaya-paskha-v-gostinice-apartamen/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/uslugi/$
+RewriteRule ^.*$ http://hotelhersones.ru/service-category/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/otdyhvsevastopole/exkursii/$
+RewriteRule ^.*$ http://hotelhersones.ru/yekskursii-v-sevastopole/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/yaxtennyj-sport-v-sevastopole/$
+RewriteRule ^.*$ http://hotelhersones.ru/yachting-sevastopol/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/stilizovanye-svadby/$
+RewriteRule ^.*$ http://hotelhersones.ru/stilizovannye-svadby/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/svadebnie-pakety/$
+RewriteRule ^.*$ http://hotelhersones.ru/svadebnye-pakety/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/certificates/$
+RewriteRule ^.*$ http://hotelhersones.ru/podarochnye-sertifikaty/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/pochet/$
+RewriteRule ^.*$ http://hotelhersones.ru/reviews-star-guest/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/fotogalereya/$
+RewriteRule ^.*$ http://hotelhersones.ru/albums/? [R=301,L]
+RewriteCond %{REQUEST_URI} ^/kontakty/$
+RewriteRule ^.*$ http://hotelhersones.ru/contacts/? [R=301,L]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress
+

@@ -60,7 +60,7 @@ get_header();
 							'hierarchical' => 1,       // древовидное представление
 							'title_li'     => '',      // список без заголовка
 							'hide_empty' => 0,
-							'child_of'   => 18,
+							//'child_of'   => 18,
 						);
 					?>
 					

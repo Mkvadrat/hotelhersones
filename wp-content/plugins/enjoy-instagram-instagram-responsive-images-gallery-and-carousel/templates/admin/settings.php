@@ -40,10 +40,10 @@ if( ! defined( 'ABSPATH' ) ) {
                 <span class="coffee_title"><?php _e( 'Buy me a coffee!', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?></span>
                 <p><span><?php _e( 'If you liked our work please consider to make a kind donation through Paypal.', 'enjoy-instagram-instagram-responsive-images-gallery-and-carousel' ); ?></span></p>
                 <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-                    <input type="hidden" name="cmd" value="_s-xclick">
-                    <input type="hidden" name="hosted_button_id" value="8MXZ37DWHAX46">
-                    <input type="image" src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-                    <img alt="" border="0" src="https://www.paypalobjects.com/it_IT/i/scr/pixel.gif" width="1" height="1">
+                    <input type="hidden" name="cmd" value="_s-xclick" />
+                    <input type="hidden" name="hosted_button_id" value="PAZ58MQY9SVCJ" />
+                    <input type="image" src="https://www.paypalobjects.com/en_US/IT/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" />
+                    <img alt="" border="0" src="https://www.paypal.com/en_IT/i/scr/pixel.gif" width="1" height="1" />
                 </form>
             </div>
         </div>

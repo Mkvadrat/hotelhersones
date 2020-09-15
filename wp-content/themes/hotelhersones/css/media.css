@@ -1,5 +1,17 @@
+body {
+    overflow-x: hidden;
+}
 /*==========  Desktop First Method  ==========*/
-
+@media (max-width: 1366px) and (orientation: landscape) {
+	.panorama-block, .main-index .why-choose-list-block, .main-paradiz .why-choose-list-block, .main-index .arrival-date-block, .main-paradiz .arrival-date-block, .main-index .reviews-block, .main-paradiz .reviews-block {
+    background-attachment: scroll!important;
+}
+}
+@media only screen and (max-width : 1024px) {
+	.panorama-block, .main-index .why-choose-list-block, .main-paradiz .why-choose-list-block, .main-index .arrival-date-block, .main-paradiz .arrival-date-block, .main-index .reviews-block, .main-paradiz .reviews-block {
+    background-attachment: scroll!important;
+}
+}
 
 
 /* Large Devices, Wide Screens */
@@ -12,10 +24,20 @@
 		left: 50%;
 		margin-left: -83px;
 	}
+.main-index .news-block .col-md-4 {
+width: calc(100% / 3);
+    float: left;
+}
 
 }
 
 @media only screen and (max-width : 1200px) {
+	.half-block-number.bottom{
+		background-size:cover!important;
+	}
+	.big-block-number.bottom-text{
+		background-size:cover!important;
+	}
 	a.logo>span {
 		margin-right: 6%;
 	}
@@ -563,6 +585,7 @@
 /* Medium Devices, Desktops */
 
 @media only screen and (max-width : 992px) {
+
 	a.logo>span {
 		margin-right: 7%;
 	}
@@ -775,7 +798,7 @@
 
 	.header-banner-block .title-header-block .title {
 
-    	margin: auto auto 30px auto;
+    	margin: auto auto 0px auto;
 
     }
 
@@ -965,7 +988,7 @@ font-size: 2vw;
     line-height: normal;
 }
 .booking__banner .banner__inner {
-    padding: 20px 40px;
+    padding: 20px 0;
 }
 .header-slider-block .owl-nav {
     width: 100%;
@@ -988,6 +1011,10 @@ font-size: 2vw;
 /* Small Devices, Tablets */
 
 @media only screen and (max-width : 768px) {
+	.main-index .services-block .service-part.horizontal-small-services{
+		background-position: right;
+   	 	background-size: cover;
+	}
 
 	.main-index .map-block {
 		width: 100%;
@@ -1320,7 +1347,8 @@ font-size: 2vw;
     	bottom: 0;
 	}
 	.header-banner-block .title-header-block {
-	    margin-top: 230px;
+	    margin-top: 270px;
+	    margin-bottom: 30px;
 	}
 
 	.wrap-sale-banner {
@@ -1459,6 +1487,17 @@ font-size: 2vw;
 /* Extra Small Devices, Phones */
 
 @media only screen and (max-width : 480px) {
+	.half-block-number.bottom .title{
+		font-size: 14px!important;
+		padding: 0 20px;
+	}
+	.half-block-number.bottom .button-transparent{
+		margin-left: 0!important;
+	}
+	.big-block-number.bottom-text .title{
+		font-size: 24px!important;
+		padding: 0 20px;
+	}
 	.header-slider-block .description-block p:not(.title-slider) {
 display:none;
 }
@@ -1677,7 +1716,8 @@ display:none;
 
 	.header-banner-block .title-header-block .title {
 
-		font-size: 26px;
+		font-size: 18px;
+		margin-top: 80px;
 
 	}
 
@@ -1983,19 +2023,33 @@ display:none;
 
 /* Extra Small Devices, Phones */
 
-@media only screen and (min-width : 480px) {
-
-
-
+@media only screen and (min-width : 768px) and (max-width : 992px) {
+.main-index .services-block .service-part .title-service, .main-paradiz .services-block .service-part .title-service {
+    font-size: 18px;
+}
+.main-index .services-block .col-md-4 {
+    width: 33.33333333%!important;
+    float: left;
+}
+.main-index .services-block .col-md-8 {
+    width: 66.66666667%!important;
+    float: left;
+}
+.main-index .services-block .service-part.vertical-services, .main-paradiz .services-block .service-part.vertical-services {
+    height: 300px;
+}
 }
 
 
 
 /* Small Devices, Tablets */
 
-@media only screen and (min-width : 768px) {
+@media only screen and (max-width : 800px) {
 
-
+.main-index .news-block .col-md-4 {
+width: 100%;
+    float: none;
+}
 
 }
 
@@ -2016,5 +2070,13 @@ display:none;
 @media only screen and (min-width : 1200px) {
 
 
+
+}
+
+@media screen and (max-width: 980px){
+	.booking__banner .text {
+    padding-right: 10px;
+    padding-top: 20px;
+}
 
 }
